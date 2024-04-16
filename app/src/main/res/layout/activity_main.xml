@@ -11,7 +11,8 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="330dp"
-        android:text="Button" />
+        android:text="Button"
+        android:textColor="#B83333" />
 
     <TextView
         android:id="@+id/textView"
