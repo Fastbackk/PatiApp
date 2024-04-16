@@ -26,4 +26,10 @@
         android:layout_height="wrap_content"
         android:text="Tuna Beyden Volkan Beye selamlar" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="as" />
+
 </LinearLayout>
