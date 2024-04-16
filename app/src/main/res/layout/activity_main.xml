@@ -12,4 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="TextView" />
 </LinearLayout>
