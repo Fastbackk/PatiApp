@@ -5,37 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:text="Button"
-        android:textColor="#B83333" />
-
-    <TextView
-    android:id="@+id/textView"
-    android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tuna Beyden Volkan Beye selamlar" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="as" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
-
-</LinearLayout>
+    tools:context=".MainActivity" />
