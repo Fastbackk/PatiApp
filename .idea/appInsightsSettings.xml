@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.patiapp" />
+                  <option name="mobileSdkAppId" value="1:458720123263:android:550b03736582ea58dc624a" />
+                  <option name="projectId" value="patiapp-54700" />
+                  <option name="projectNumber" value="458720123263" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
