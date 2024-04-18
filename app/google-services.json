@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410738976301",
+    "project_id": "volkan-bey-deneme",
+    "storage_bucket": "volkan-bey-deneme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410738976301:android:5883f87f7e8c2516a27aa4",
+        "android_client_info": {
+          "package_name": "com.example.patiapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZbqg8_hyLl-q0wjcOP-94BGSX3x0gMak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
