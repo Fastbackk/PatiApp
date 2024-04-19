@@ -1,23 +1,13 @@
 {
   "project_info": {
-<<<<<<< HEAD
     "project_number": "458720123263",
     "project_id": "patiapp-54700",
     "storage_bucket": "patiapp-54700.appspot.com"
-=======
-    "project_number": "410738976301",
-    "project_id": "volkan-bey-deneme",
-    "storage_bucket": "volkan-bey-deneme.appspot.com"
->>>>>>> origin/master
   },
   "client": [
     {
       "client_info": {
-<<<<<<< HEAD
         "mobilesdk_app_id": "1:458720123263:android:550b03736582ea58dc624a",
-=======
-        "mobilesdk_app_id": "1:410738976301:android:5883f87f7e8c2516a27aa4",
->>>>>>> origin/master
         "android_client_info": {
           "package_name": "com.example.patiapp"
         }
@@ -25,11 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-<<<<<<< HEAD
           "current_key": "AIzaSyB4HZ8KCT3NHkRbghDToX_xfxQre7IUo8E"
-=======
-          "current_key": "AIzaSyDZbqg8_hyLl-q0wjcOP-94BGSX3x0gMak"
->>>>>>> origin/master
         }
       ],
       "services": {
