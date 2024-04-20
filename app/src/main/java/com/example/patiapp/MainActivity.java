@@ -26,36 +26,29 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setBackground(null);
 
         //Hata var
-       /* binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case (R.id.fav):
-                    replaceFragment(new FavFragment());
-                    break;
 
-                case (R.id.paw):
-                    replaceFragment(new Ilanlar());
-                    break;
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-                case (R.id.search):
-                    replaceFragment(new AramaFragment());
-                    break;
-
-                case (R.id.message):
-                    replaceFragment(new MessagesFragment());
-                    break;
+            if (itemId == R.id.fav) {
+                replaceFragment(new FavFragment());
+            } else if (itemId == R.id.paw) {
+                replaceFragment(new Ilanlar());
+            } else if (itemId == R.id.search) {
+                replaceFragment(new AramaFragment());
+            } else if (itemId == R.id.message) {
+                replaceFragment(new MessagesFragment());
             }
             return true;
-        });*/
-
-
-
+        });
 
 
     }
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
 
     }

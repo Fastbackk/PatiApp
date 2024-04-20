@@ -25,6 +25,14 @@ public class HesapGiris extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         auth=FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            Intent intent = new Intent(HesapGiris.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
 
 
 
