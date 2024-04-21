@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         replaceFragment(new AramaFragment());
         binding.bottomNavigationView.setBackground(null);
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, new Ilanlar())
+                .commit();
         //Hata var
-
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+
 
             if (itemId == R.id.fav) {
                 replaceFragment(new FavFragment());
@@ -37,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.search) {
                 replaceFragment(new AramaFragment());
             } else if (itemId == R.id.message) {
-                replaceFragment(new MessagesFragment());
+                Intent intent = new Intent(MainActivity.this, IlanYukleme.class);
+                startActivity(intent);
+                finish();
             }
+
             return true;
         });
 

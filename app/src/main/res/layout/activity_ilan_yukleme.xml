@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IlanYukleme">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="303dp"
+                android:onClick="selectImage"
+                android:src="@drawable/sa"
+                />
+
+            <EditText
+                android:id="@+id/editTextText7"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="İlan Başlığı"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText8"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="Şehir"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText9"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="İlçe"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText10"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="Açıklama"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText11"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="Ekipman/mama"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText12"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="Hayvan Kategorisi"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText13"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="Hayvanın Cinsi"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText14"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:ems="10"
+                android:hint="İlan Türü"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="uploadButton"
+                android:text="İlanı Yükle!"
+                android:textSize="34sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

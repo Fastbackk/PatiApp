@@ -21,10 +21,16 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HesapKayit extends AppCompatActivity {
     private ActivityHesapKayitBinding binding;
     private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,28 +47,52 @@ public class HesapKayit extends AppCompatActivity {
     public void kayit(View view){
         String ad=binding.editTextText2.getText().toString();
         String soyad=binding.editTextText3.getText().toString();
+        String kullaniciadi=binding.editTextText4.getText().toString();
         String eposta=binding.editTextTextEmailAddress.getText().toString();
         String sifre=binding.editTextTextPassword2.getText().toString();
 
 
-        if (ad.equals("") || eposta.equals("")|| soyad.equals("")|| sifre.equals("")) {
+        if (ad.equals("") || eposta.equals("")|| soyad.equals("")|| sifre.equals("")||kullaniciadi.equals("")) {
             Toast.makeText(this, "Boş Alan bırakmayınız", Toast.LENGTH_SHORT).show();
         }
         else{
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            auth.createUserWithEmailAndPassword(eposta, sifre)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            // Yeni bir kullanıcı profili oluştur
+                            Map<String, Object> userProfile = new HashMap<>();
+                            userProfile.put("ad", ad);
+                            userProfile.put("soyad", soyad);
+                            userProfile.put("kullaniciadi", kullaniciadi);
+                            userProfile.put("eposta", eposta);
 
-            auth.createUserWithEmailAndPassword(eposta, sifre).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    Intent intent = new Intent(HesapKayit.this, HesapGiris.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(HesapKayit.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                            // Firestore'da kullanıcı ID'si ile bu profili kaydet
+                            db.collection("users").document(authResult.getUser().getUid())
+                                    .set(userProfile)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Intent intent = new Intent(HesapKayit.this, HesapGiris.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(HesapKayit.this, "Veri kaydedilirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(HesapKayit.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
         }
 
