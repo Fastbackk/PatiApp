@@ -63,7 +63,7 @@ public class Ilanlar extends Fragment {
         binding.recyclerView.setAdapter(adapter);
     }
     public void getData(){
-        firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Ilanlar").whereEqualTo("email","tuna@gmail.com").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error!=null){

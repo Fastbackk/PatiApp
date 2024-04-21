@@ -85,6 +85,9 @@ public class IlanYukleme extends AppCompatActivity {
                             String hayvancinsi=binding.editTextText13.getText().toString();
                             String ilanturu=binding.editTextText14.getText().toString();
                             String date;
+                            FirebaseUser user=firebaseAuth.getCurrentUser();
+
+                            String email=user.getEmail();
 
                             HashMap<String,Object>ilanData=new HashMap<>();
                             ilanData.put("dowloandurl",dowloandurl);
@@ -97,6 +100,7 @@ public class IlanYukleme extends AppCompatActivity {
                             ilanData.put("hayvancinsi",hayvancinsi);
                             ilanData.put("ilanturu",ilanturu);
                             ilanData.put("date",FieldValue.serverTimestamp());
+                            ilanData.put("email",email);
 
 
 
