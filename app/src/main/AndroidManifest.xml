@@ -14,12 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".IlanFiltreleme"
+            android:exported="false" />
         <activity
             android:name=".HesapKayit"
             android:exported="false" />
-
         <activity
             android:name=".IlanYukleme"
             android:exported="false" />

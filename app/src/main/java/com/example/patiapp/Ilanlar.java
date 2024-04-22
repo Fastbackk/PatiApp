@@ -68,7 +68,8 @@ public class Ilanlar extends Fragment {
         //-----
         // tuna@gmail'in tüm ilanlarını getirir
         // whereEqualTo("email", "salla@gmail.com")
-        firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Ilanlar").whereEqualTo("ilanbaslik","Engelli Kedi")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error!=null){
