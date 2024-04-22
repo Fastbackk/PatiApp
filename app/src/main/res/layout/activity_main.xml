@@ -32,19 +32,6 @@
             app:menu="@menu/bottom_menu"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-
-        android:src="@drawable/add"
-        app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="center"
-        app:maxImageSize="40dp"
-        app:tint="@color/lavender"
-        android:contentDescription="Add new item" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
