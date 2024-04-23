@@ -15,9 +15,17 @@
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
         <activity
+            android:name=".BakiciOlsutur"
+            android:exported="false" />
+        <activity
+            android:name=".IlanBakiciOlustur"
+            android:exported="false" />
+        <activity
+            android:name=".MamaYukleme"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".IlanFiltreleme"
             android:exported="false" />

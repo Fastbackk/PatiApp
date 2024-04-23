@@ -104,6 +104,14 @@
                 android:hint="İlan Türü"
                 android:inputType="text" />
 
+            <EditText
+                android:id="@+id/editTextText17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Tel No"
+                android:inputType="numberPassword" />
+
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
