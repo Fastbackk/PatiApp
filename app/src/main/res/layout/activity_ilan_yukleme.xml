@@ -22,68 +22,84 @@
                 android:layout_height="303dp"
                 android:onClick="selectImage"
                 android:src="@drawable/sa"
-                />
+                tools:srcCompat="@drawable/bla" />
 
             <EditText
                 android:id="@+id/editTextText7"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="İlan Başlığı"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText8"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Şehir"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText9"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="İlçe"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText10"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Açıklama"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText11"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Ekipman/mama"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText12"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Hayvan Kategorisi"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText13"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Hayvanın Cinsi"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextText14"
-                android:layout_width="match_parent"
+                android:layout_width="210dp"
                 android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="İlan Türü"
                 android:inputType="text" />

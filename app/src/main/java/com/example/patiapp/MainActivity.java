@@ -15,6 +15,7 @@ import com.example.patiapp.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private String ilan;
 
 
     @Override
@@ -23,10 +24,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        replaceFragment(new AramaFragment());
+
+
+        Intent intent = getIntent();
+        ilan= intent.getStringExtra("ilan"); // Intent'ten ne ilanı oldupu değerini al
+
+        replaceFragment(new Ilanlar(ilan));
         binding.bottomNavigationView.setBackground(null);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, new Ilanlar())
+                .replace(R.id.frame_layout, new Ilanlar(ilan))
                 .commit();
         //Hata var
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -36,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.fav) {
                 replaceFragment(new FavFragment());
             } else if (itemId == R.id.paw) {
-                replaceFragment(new Ilanlar());
+                replaceFragment(new Ilanlar(ilan));
             } else if (itemId == R.id.search) {
                 replaceFragment(new AramaFragment());
-            } else if (itemId == R.id.message) {
-                Intent intent = new Intent(MainActivity.this, IlanYukleme.class);
-                startActivity(intent);
+            } else if (itemId == R.id.add) {
+                Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
+                startActivity(intentt);
                 finish();
             }
 
@@ -52,10 +58,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
+        if (fragment instanceof Ilanlar) {
+            ((Ilanlar) fragment).setNeilani(ilan); // Fragment içinde bu metodu tanımlayın
+        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-
     }
 }
