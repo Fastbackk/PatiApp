@@ -11,6 +11,13 @@
         android:title="İlanlar"
         android:icon="@drawable/paw"
         />
+
+    <item
+        android:id="@+id/add"
+        android:name="ekle"
+        android:title=""
+        android:icon="@drawable/icons8_add_50"
+        />
     <item
         android:id="@+id/search"
         android:name="search"
