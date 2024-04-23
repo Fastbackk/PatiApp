@@ -37,7 +37,7 @@ public class AramaFragment extends Fragment {
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(),IlanFiltreleme.class);
+                Intent intent=new Intent(getContext(),Ilanlar.class);
                 String ilanturu=binding.editTextText5.getText().toString();
                 String hayvankategori=binding.editTextText5.getText().toString();
                 String sehir=binding.editTextText5.getText().toString();

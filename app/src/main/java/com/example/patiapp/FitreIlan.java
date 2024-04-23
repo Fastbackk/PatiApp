@@ -1,16 +1,16 @@
 package com.example.patiapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.patiapp.databinding.FragmentIlanlarBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Ilanlar extends Fragment {
+public class FitreIlan extends Fragment {
     private FragmentIlanlarBinding binding;
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
@@ -72,22 +72,37 @@ public class Ilanlar extends Fragment {
                             Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                         if (value != null) {
-                            for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                Map<String, Object> data = snapshot.getData();
-                                assert data != null;
-                                String baslik = (String) data.get("ilanbaslik");
-                                String dowloandurl = (String) data.get("dowloandurl");
-                                String sehir = (String) data.get("sehir");
-                                String ilanturu = (String) data.get("ilanturu");
-                                String hayvancinsi = (String) data.get("hayvancinsi");
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, hayvancinsi);
-                                ilanArrayList.add(ilan);
+                            Intent intent = getActivity().getIntent();
+                            if (intent != null) {
+                                String ilanturu = ((Intent) intent).getStringExtra("ilanturu");
+                                String hayvankategori = intent.getStringExtra("hayvankategori");
+                                String sehir = intent.getStringExtra("sehir");
+                                String ilce = intent.getStringExtra("ilce");
+
+                                for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                    Map<String, Object> data = snapshot.getData();
+                                    assert data != null;
+                                    String baslik = (String) data.get("ilanbaslik");
+                                    String dowloandurl = (String) data.get("dowloandurl");
+                                    String ilanSehir = (String) data.get("sehir");
+                                    String ilanIlce = (String) data.get("ilce");
+                                    String ilanTuru = (String) data.get("ilanturu");
+                                    String hayvanKategori = (String) data.get("hayvankategori");
+
+                                    // Intent ile gelen verilerle filtreleme yap
+                                    if (ilanturu.equals(ilanTuru) && hayvankategori.equals(hayvanKategori)
+                                            && sehir.equals(ilanSehir) && ilce.equals(ilanIlce)) {
+                                        Post ilan = new Post(baslik, dowloandurl, ilanSehir, ilanTuru, hayvanKategori);
+                                        ilanArrayList.add(ilan);
+                                    }
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         }
                     }
                 });
     }
+
 
     @Override
     public void onDestroyView() {
