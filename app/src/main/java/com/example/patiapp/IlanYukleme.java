@@ -84,6 +84,7 @@ public class IlanYukleme extends AppCompatActivity {
                             String hayvankategori=binding.editTextText12.getText().toString();
                             String hayvancinsi=binding.editTextText13.getText().toString();
                             String ilanturu=binding.editTextText14.getText().toString();
+                            String telno=binding.editTextText17.getText().toString();
                             String date;
                             FirebaseUser user=firebaseAuth.getCurrentUser();
 
@@ -101,6 +102,7 @@ public class IlanYukleme extends AppCompatActivity {
                             ilanData.put("ilanturu",ilanturu);
                             ilanData.put("date",FieldValue.serverTimestamp());
                             ilanData.put("email",email);
+                            ilanData.put("telno",telno);
 
 
 
@@ -110,7 +112,9 @@ public class IlanYukleme extends AppCompatActivity {
                                 public void onSuccess(DocumentReference documentReference) {
                                     Intent intent=new Intent(IlanYukleme.this,MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.putExtra("ilan","ilanhayvan");
                                     startActivity(intent);
+                                    finish();
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

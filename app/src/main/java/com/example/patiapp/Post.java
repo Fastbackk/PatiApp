@@ -3,7 +3,9 @@ package com.example.patiapp;
 public class Post {
     public String ilanbaslik;
     public String dowloandurl;
+
     public String sehir;
+
     public String ilanturu;
     public String hayvancinsi;
 
