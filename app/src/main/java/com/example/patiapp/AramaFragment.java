@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,26 +38,22 @@ public class AramaFragment extends Fragment {
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(),IlanFiltreleme.class);
-                String ilanturu=binding.editTextText5.getText().toString();
-                String hayvankategori=binding.editTextText5.getText().toString();
-                String sehir=binding.editTextText5.getText().toString();
-                String ilce=binding.editTextText5.getText().toString();
+                IlanFiltreleme ilanFiltrelemeFragment = new IlanFiltreleme();
 
-                intent.putExtra("ilanturu", ilanturu);
-                intent.putExtra("hayvankategori", hayvankategori);
-                intent.putExtra("sehir", sehir);
-                intent.putExtra("ilce", ilce);
+                // Verileri Fragment'a aktarma
+                Bundle args = new Bundle();
+                args.putString("ilanturu", binding.editTextText5.getText().toString());
+                args.putString("hayvankategori", binding.editTextText5.getText().toString());
+                args.putString("sehir", binding.editTextText5.getText().toString());
+                args.putString("ilce", binding.editTextText5.getText().toString());
+                ilanFiltrelemeFragment.setArguments(args);
 
-
-                startActivity(intent);
-
-
-
-
-
-
-
+                // FragmentManager ile Fragment'ı yerleştirme
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_layout, ilanFiltrelemeFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

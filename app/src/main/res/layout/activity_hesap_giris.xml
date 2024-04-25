@@ -41,7 +41,7 @@
                 android:background="@drawable/edtdesign"
                 android:drawableStart="@drawable/email2"
                 android:drawablePadding="10dp"
-                android:hint="E-Posta"
+                android:hint="asdasdasd"
                 android:textSize="18sp" />
 
             <EditText

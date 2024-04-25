@@ -2,9 +2,8 @@
     <item
         android:id="@+id/fav"
         android:name="fav"
-        android:title="Kaydedilenler"
         android:icon="@drawable/save"
-        />
+        android:title="Mesajlar" />
     <item
         android:id="@+id/paw"
         android:name="paw"
