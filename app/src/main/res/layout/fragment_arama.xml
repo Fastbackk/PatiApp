@@ -1,61 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".AramaFragment">
 
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="@drawable/aramasyf"
+        android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/textView4"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="20dp"
+        android:elevation="10dp"
+
+        >
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="arama sayfası"
-            android:textSize="34sp" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/editTextText5"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="İlan Türü"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editTextText4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edtdesign"
+                android:drawableStart="@drawable/email2"
+                android:drawablePadding="10dp"
+                android:hint="E-Posta"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/editTextText6"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="Hayvan Kategorisi"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editTextTextEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edtdesign"
+                android:drawableStart="@drawable/kilit"
+                android:drawablePadding="10dp"
+                android:hint="Şifre"
+                android:inputType="textPassword"
+                android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/editTextText15"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="Şehir"
-            android:inputType="text" />
+            <Button
+                android:layout_width="228dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/renk"
+                android:onClick="giris"
+                android:text="İlanları Gör"
+                android:textAllCaps="false"
+                android:textSize="21sp" />
 
-        <EditText
-            android:id="@+id/editTextText16"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="İlçe"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="ilanAra"
-            android:text="İlan Ara" />
-    </LinearLayout>
-</FrameLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

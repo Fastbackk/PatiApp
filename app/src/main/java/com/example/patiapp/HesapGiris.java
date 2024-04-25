@@ -49,8 +49,8 @@ public class HesapGiris extends AppCompatActivity {
 
     //Giriş
    public void giris(View view){
-       String eposta = binding.editTextText.getText().toString();
-       String sifre = binding.editTextTextPassword.getText().toString();
+       String eposta = binding.editTextText4.getText().toString();
+       String sifre = binding.editTextTextEmailAddress.getText().toString();
 
 
         if (eposta.equals("") || sifre.equals("")) {
