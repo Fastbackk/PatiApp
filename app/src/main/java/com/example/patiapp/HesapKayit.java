@@ -37,11 +37,8 @@ public class HesapKayit extends AppCompatActivity {
         binding = ActivityHesapKayitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-
-
-
         auth=FirebaseAuth.getInstance();
+
     }
 
     public void kayit(View view){
