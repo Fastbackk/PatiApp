@@ -20,6 +20,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="303dp"
+                android:layout_marginTop="5dp"
                 android:onClick="selectImage"
                 android:src="@drawable/sa"
                 tools:srcCompat="@drawable/bla" />
@@ -29,26 +30,42 @@
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:ems="10"
                 android:hint="İlan Başlığı"
                 android:inputType="text" />
 
-            <EditText
-                android:id="@+id/editTextText8"
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Şehir" />
+
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:ems="10"
                 android:hint="Şehir"
                 android:inputType="text" />
+
 
             <EditText
                 android:id="@+id/editTextText9"
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="İlçe"
@@ -59,6 +76,8 @@
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Açıklama"
@@ -69,17 +88,27 @@
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Ekipman/mama"
                 android:inputType="text" />
-
-            <EditText
-                android:id="@+id/editTextText12"
+            <TextView
+                android:id="@+id/txt4"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Kategori" />
+            <Spinner
+                android:id="@+id/spinner3"
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:ems="10"
                 android:hint="Hayvan Kategorisi"
                 android:inputType="text" />
@@ -89,16 +118,26 @@
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Hayvanın Cinsi"
                 android:inputType="text" />
-
-            <EditText
-                android:id="@+id/editTextText14"
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="İlan Türü" />
+            <Spinner
+                android:id="@+id/spinner2"
                 android:layout_width="210dp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="İlan Türü"
@@ -106,16 +145,21 @@
 
             <EditText
                 android:id="@+id/editTextText17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="210dp"
+                android:layout_height="50sp"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
+                android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:hint="Tel No"
-                android:inputType="numberPassword" />
+                android:hint="Telefon Numarası"
+                android:inputType="phone" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/renk"
                 android:onClick="uploadButton"
                 android:text="İlanı Yükle!"
                 android:textSize="34sp" />

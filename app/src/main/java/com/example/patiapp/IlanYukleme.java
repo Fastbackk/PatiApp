@@ -19,6 +19,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.patiapp.databinding.ActivityIlanYuklemeBinding;
@@ -47,6 +50,13 @@ public class IlanYukleme extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
     private Bitmap selectedBitmap;
+    private String secilenİl;
+    private String secilenTur;
+    private String secilenKategori;
+
+    private ArrayAdapter<CharSequence>Adapterİl;
+    private ArrayAdapter<CharSequence>AdapterTur;
+    private ArrayAdapter<CharSequence>AdapterKategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +70,53 @@ public class IlanYukleme extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = firebaseStorage.getReference();
 
+         Adapterİl = ArrayAdapter.createFromResource(this,R.array.ilListeleme, android.R.layout.simple_spinner_item);
+         Adapterİl.setDropDownViewResource(android.R.layout.simple_spinner_item);
+         binding.spinner1.setAdapter(Adapterİl);
+
+        AdapterKategori = ArrayAdapter.createFromResource(this,R.array.kategoriListele, android.R.layout.simple_spinner_item);
+        AdapterKategori.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        binding.spinner3.setAdapter(AdapterKategori);
+
+         AdapterTur = ArrayAdapter.createFromResource(this,R.array.ilanTurListele, android.R.layout.simple_spinner_item);
+         AdapterTur.setDropDownViewResource(android.R.layout.simple_spinner_item);
+         binding.spinner2.setAdapter(AdapterTur);
+
+
+        binding.spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 secilenİl= parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                 secilenİl= parent.getItemAtPosition(0).toString();
+            }
+        });
+
+        binding.spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                secilenTur= parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                secilenTur= parent.getItemAtPosition(0).toString();
+            }
+        });
+        binding.spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                secilenKategori= parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                secilenKategori= parent.getItemAtPosition(0).toString();
+            }
+        });
     }
 
     public void uploadButton(View view) {
@@ -77,13 +134,13 @@ public class IlanYukleme extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String dowloandurl=uri.toString();
                             String ilanbaslik=binding.editTextText7.getText().toString();
-                            String sehir=binding.editTextText8.getText().toString();
+                            //String sehir=binding.editTextText8.getText().toString();
                             String ilce=binding.editTextText9.getText().toString();
                             String aciklama=binding.editTextText10.getText().toString();
                             String ekipman=binding.editTextText11.getText().toString();
-                            String hayvankategori=binding.editTextText12.getText().toString();
+                            //String hayvankategori=binding.editTextText12.getText().toString();
                             String hayvancinsi=binding.editTextText13.getText().toString();
-                            String ilanturu=binding.editTextText14.getText().toString();
+                            //String ilanturu=binding.editTextText14.getText().toString();
                             String telno=binding.editTextText17.getText().toString();
                             String date;
                             FirebaseUser user=firebaseAuth.getCurrentUser();
@@ -93,13 +150,16 @@ public class IlanYukleme extends AppCompatActivity {
                             HashMap<String,Object>ilanData=new HashMap<>();
                             ilanData.put("dowloandurl",dowloandurl);
                             ilanData.put("ilanbaslik",ilanbaslik);
-                            ilanData.put("sehir",sehir);
+                            //ilanData.put("sehir",sehir);
+                            ilanData.put("sehir",secilenİl);
                             ilanData.put("ilce",ilce);
                             ilanData.put("aciklama",aciklama);
                             ilanData.put("ekipman",ekipman);
-                            ilanData.put("hayvankategori",hayvankategori);
+                           // ilanData.put("hayvankategori",hayvankategori);
+                            ilanData.put("hayvankategori",secilenKategori);
                             ilanData.put("hayvancinsi",hayvancinsi);
-                            ilanData.put("ilanturu",ilanturu);
+                            //ilanData.put("ilanturu",ilanturu);
+                            ilanData.put("ilanturu",secilenTur);
                             ilanData.put("date",FieldValue.serverTimestamp());
                             ilanData.put("email",email);
                             ilanData.put("telno",telno);

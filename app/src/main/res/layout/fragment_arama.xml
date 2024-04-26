@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="30dp"
         app:cardCornerRadius="20dp"
         android:elevation="10dp"
@@ -32,29 +32,82 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <EditText
-                android:id="@+id/editTextText4"
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="İlan Türü" />
+
+            <Spinner
+                android:id="@+id/spinner1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/edtdesign"
-                android:drawableStart="@drawable/email2"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:drawablePadding="10dp"
-                android:hint="E-Posta"
-                android:textSize="18sp" />
+                android:textSize="18sp" />/>
 
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Kategori" />
+
+            <Spinner
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/edtdesign"
-                android:drawableStart="@drawable/kilit"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
                 android:drawablePadding="10dp"
-                android:hint="Şifre"
-                android:inputType="textPassword"
-                android:textSize="18sp" />
+                android:textSize="18sp" />/>
+
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Şehir" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
+                android:drawablePadding="10dp"
+                android:textSize="18sp" />/>
+
+            <TextView
+                android:id="@+id/txt4"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="İlçe" />
+
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#D1CECE"
+                android:drawablePadding="10dp"
+                android:textSize="18sp" />/>
+
 
             <Button
                 android:layout_width="228dp"
