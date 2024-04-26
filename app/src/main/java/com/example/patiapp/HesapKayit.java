@@ -41,7 +41,7 @@ public class HesapKayit extends AppCompatActivity {
 
     }
 
-    public void kayit(View view){
+    public void giris(View view){
         String ad=binding.editTextText2.getText().toString();
         String soyad=binding.editTextText3.getText().toString();
         String kullaniciadi=binding.editTextText4.getText().toString();

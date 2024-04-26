@@ -35,7 +35,7 @@ public class AramaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        binding.button3.setOnClickListener(new View.OnClickListener() {
+    /*    binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IlanFiltreleme ilanFiltrelemeFragment = new IlanFiltreleme();
@@ -55,7 +55,7 @@ public class AramaFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        });*/
     }
 
     @Override
