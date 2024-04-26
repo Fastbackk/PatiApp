@@ -119,8 +119,8 @@ public class AramaFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
-        });*/
-    }
+        });
+    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,5 +129,5 @@ public class AramaFragment extends Fragment {
     }
 
 
- */
+
 }

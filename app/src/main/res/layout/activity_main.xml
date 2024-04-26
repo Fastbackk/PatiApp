@@ -21,6 +21,7 @@
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="50dp" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MamaYukleme extends AppCompatActivity {
+public class IlanDetay extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mama_yukleme);
+        setContentView(R.layout.activity_ilan_detay);
     }
 }
