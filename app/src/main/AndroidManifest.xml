@@ -14,16 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
 
         <activity
-            android:name=".MamaYukleme"
+            android:name=".HesapKayit"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".IlanFiltreleme"
-            android:exported="false" />
+
         <activity
             android:name=".HesapGiris"
             android:exported="false" />
@@ -31,10 +29,10 @@
             android:name=".IlanYukleme"
             android:exported="false" />
         <activity
-            android:name="MainActivity2"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".HesapKayit"
+            android:name=".IlanDetay"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

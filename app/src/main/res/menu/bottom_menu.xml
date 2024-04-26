@@ -2,7 +2,7 @@
     <item
         android:id="@+id/fav"
         android:name="fav"
-        android:icon="@drawable/save"
+        android:icon="@drawable/message"
         android:title="Mesajlar" />
     <item
         android:id="@+id/paw"
@@ -14,8 +14,8 @@
     <item
         android:id="@+id/add"
         android:name="ekle"
-        android:title=""
-        android:icon="@drawable/icons8_add_50"
+        android:title="İlan Yükle"
+        android:icon="@drawable/addad"
         />
     <item
         android:id="@+id/search"

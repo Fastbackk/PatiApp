@@ -5,7 +5,6 @@
     android:id="@+id/ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1499CD"
     android:orientation="vertical"
     tools:context=".MainActivity2">
 
@@ -18,10 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="40dp"
-            android:backgroundTint="#787676"
             android:onClick="secenek1"
-            android:background="@color/black"
-            app:cardCornerRadius="30dp">
+            android:background="@drawable/card_border"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true"
+
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,56 +42,17 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"
 
-                        android:src="@drawable/catdog" />
+                        android:src="@drawable/indir" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="122dp"
+                    android:background="@color/renk"
+                    android:backgroundTint="@color/renk"
                     android:gravity="center"
                     android:text="Sahiplendirme ve Çiftleştirme İlanları"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="#787676"
-            android:onClick="secenek2"
-            app:cardCornerRadius="30dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="274dp"
-                    android:backgroundTint="#2EB820"
-                    app:cardCornerRadius="30dp">
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/hyvnbkcs" />
-
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="122dp"
-                    android:gravity="center"
-                    android:text="Part Time Hayvan Bakıcısı İlanları"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
 
@@ -101,9 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="40dp"
-            android:backgroundTint="#787676"
+            android:background="@color/renk"
+            android:backgroundTint="@color/renk"
             android:onClick="secenek3"
-            app:cardCornerRadius="30dp">
+            app:cardCornerRadius="30dp"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +80,6 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="274dp"
-                    android:backgroundTint="#2EB820"
                     app:cardCornerRadius="30dp">
 
                     <ImageView
@@ -132,7 +98,7 @@
                     android:gravity="center"
                     android:text="Mama Bağış İlanları"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
+                    android:textSize="28sp" />
 
             </LinearLayout>
 
