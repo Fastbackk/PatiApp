@@ -37,15 +37,10 @@ public class Ilanlar extends Fragment {
     private FragmentIlanlarBinding binding;
     ArrayList<Post>ilanArrayList;
     Adapter adapter;
-    String neilani;
 
-    public Ilanlar(String neilani) {
-        this.neilani = neilani;
-    }
 
-    public void setNeilani(String neilani) {
-        this.neilani = neilani;
-    }
+
+
 
     private FirebaseFirestore firebaseFirestore;
     @Override
@@ -64,12 +59,6 @@ public class Ilanlar extends Fragment {
         // View oluşturuluyor ve binding ile bağlanıyor.
         binding = FragmentIlanlarBinding.inflate(inflater, container, false);
 
-        // Activity'den Intent alınıyor ve kullanıcı adı çekiliyor.
-        if (getActivity() != null) {
-            Intent intent = getActivity().getIntent();
-            neilani = intent.getStringExtra("ilan");
-
-        }
 
 
         return binding.getRoot();
@@ -83,7 +72,7 @@ public class Ilanlar extends Fragment {
         binding.recyclerView.setAdapter(adapter);
     }
     public void getData(){
-      if(neilani.equals("ilanhayvan")){
+
           //Query
           //-----
           // tuna@gmail'in tüm ilanlarını getirir
@@ -106,9 +95,8 @@ public class Ilanlar extends Fragment {
                                   String dowloandurl=(String) data.get("dowloandurl");
                                   String sehir=(String) data.get("sehir");
                                   String ilanturu=(String) data.get("ilanturu");
-                                  String hayvancinsi=(String) data.get("hayvancinsi");
 
-                                  Post ilan=new Post(baslik,dowloandurl,sehir,ilanturu,hayvancinsi);
+                                  Post ilan=new Post(baslik,dowloandurl,sehir,ilanturu);
                                   ilanArrayList.add(ilan);
                               }
                               adapter.notifyDataSetChanged();
@@ -117,24 +105,7 @@ public class Ilanlar extends Fragment {
 
                       }
                   });
-
-
-      }
-       else if(neilani.equals("ilanbakici")){
-           //Bakıcı İlanları
-
-      }
-       else if(neilani.equals("ilanmama")){
-
-           //Mama bağışları
-
-      }
-
-
-
     }
-
-
 
     @Override
     public void onDestroyView() {

@@ -49,7 +49,7 @@ public class IlanYukleme extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
-    private Bitmap selectedBitmap;
+
     private String secilenİl;
     private String secilenTur;
     private String secilenKategori;

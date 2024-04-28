@@ -32,7 +32,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostHolder> {
     public void onBindViewHolder(@NonNull PostHolder holder, int position) {
         holder.binding.ilanbaslik.setText(arrayList.get(position).ilanbaslik);
         holder.binding.ilanturu.setText(arrayList.get(position).ilanturu);
-        holder.binding.hayvancinsi.setText(arrayList.get(position).hayvancinsi);
         holder.binding.sehir.setText(arrayList.get(position).sehir);
         Picasso.get().load(arrayList.get(position).dowloandurl).into(holder.binding.imageView);
 

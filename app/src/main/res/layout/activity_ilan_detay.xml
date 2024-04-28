@@ -50,7 +50,7 @@
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
             android:layout_height="287dp"
-            app:srcCompat="@drawable/tuna" />
+            app:srcCompat="@drawable/biritsh" />
 
         <TextView
             android:id="@+id/textView8"
@@ -336,6 +336,15 @@
                         android:layout_marginTop="10dp"
                         android:backgroundTint="@color/renk"
                         android:text="Mesaj Gönder"
+                        android:textAllCaps="false"
+                        android:textSize="21sp" />
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/renk"
+                        android:text="İlanı Kaydet"
                         android:textAllCaps="false"
                         android:textSize="21sp" />
 

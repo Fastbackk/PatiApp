@@ -11,11 +11,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.patiapp.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private String ilan;
+
 
 
     @Override
@@ -25,16 +26,17 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Intent intent = getIntent();
-        ilan= intent.getStringExtra("ilan"); // Intent'ten ne ilanı oldupu değerini al
 
-        replaceFragment(new Ilanlar(ilan));
+
+
+        replaceFragment(new Ilanlar());
         binding.bottomNavigationView.setBackground(null);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, new Ilanlar(ilan))
+                .replace(R.id.frame_layout, new Ilanlar())
                 .commit();
-        //Hata var
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
@@ -42,15 +44,20 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.fav) {
                 replaceFragment(new FavFragment());
             } else if (itemId == R.id.paw) {
-                replaceFragment(new Ilanlar(ilan));
+                replaceFragment(new Ilanlar());
             } else if (itemId == R.id.search) {
                 replaceFragment(new AramaFragment());
-            } else if (itemId == R.id.add) {
+
+            }
+            else if (itemId == R.id.message) {
+                replaceFragment(new MessagesFragment());
+
+            }
+            else if (itemId == R.id.add) {
                 Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intentt);
                 finish();
             }
-
             return true;
         });
 
@@ -58,12 +65,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-        if (fragment instanceof Ilanlar) {
-            ((Ilanlar) fragment).setNeilani(ilan); // Fragment içinde bu metodu tanımlayın
-        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 }
