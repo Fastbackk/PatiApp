@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.patiapp.databinding.FragmentIlanlarBinding;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,8 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -37,31 +40,20 @@ public class Ilanlar extends Fragment {
     private FragmentIlanlarBinding binding;
     ArrayList<Post>ilanArrayList;
     Adapter adapter;
-
-
-
-
-
     private FirebaseFirestore firebaseFirestore;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ilanArrayList=new ArrayList<>();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
         firebaseFirestore= FirebaseFirestore.getInstance();
-
         getData();
-
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // View oluşturuluyor ve binding ile bağlanıyor.
         binding = FragmentIlanlarBinding.inflate(inflater, container, false);
-
-
-
         return binding.getRoot();
+
     }
 
     @Override
@@ -70,41 +62,47 @@ public class Ilanlar extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter=new Adapter(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
+
     }
     public void getData(){
+        firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(error!=null){
+                            Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            return; // Hata olduğunda işlemi durdur.
+                        }
+                        if(value!=null){
+                            ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
+                            for (DocumentSnapshot snapshot : value.getDocuments()){
+                                Map<String, Object> data = snapshot.getData();
 
-          //Query
-          //-----
-          // tuna@gmail'in tüm ilanlarını getirir
-          // whereEqualTo("email", tuna@gmail.com")
+                                assert data != null;
+                                String baslik = (String) data.get("ilanbaslik");
+                                String dowloandurl = (String) data.get("dowloandurl");
+                                String sehir = (String) data.get("sehir");
+                                String ilanturu = (String) data.get("ilanturu");
+                                String date = null;
 
-          firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
-                  .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                      @Override
-                      public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                          if(error!=null){
-                              Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                          }
-                          if(value!=null){
+                                Object dateObj = data.get("date");
+                                if (dateObj instanceof Timestamp) {
+                                    // Timestamp olarak kaydedilmişse, bu blok çalışacak
+                                    Timestamp timestamp = (Timestamp) dateObj;
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                    date = sdf.format(timestamp.toDate());
+                                } else if (dateObj instanceof String) {
+                                    // String olarak kaydedilmişse, bu blok çalışacak
+                                    date = (String) dateObj;
+                                }
 
-                              for (DocumentSnapshot snapshot:value.getDocuments()){
-                                  Map<String,Object> data=snapshot.getData();
-
-                                  assert data != null;
-                                  String baslik=(String) data.get("ilanbaslik");
-                                  String dowloandurl=(String) data.get("dowloandurl");
-                                  String sehir=(String) data.get("sehir");
-                                  String ilanturu=(String) data.get("ilanturu");
-
-                                  Post ilan=new Post(baslik,dowloandurl,sehir,ilanturu);
-                                  ilanArrayList.add(ilan);
-                              }
-                              adapter.notifyDataSetChanged();
-
-                          }
-
-                      }
-                  });
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
+                                ilanArrayList.add(ilan);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override

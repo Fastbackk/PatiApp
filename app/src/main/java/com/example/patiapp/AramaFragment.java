@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ public class AramaFragment extends Fragment {
     private String filtreİl;
     private String filtreKategori;
     private String filtreTur;
-
     private ArrayAdapter<CharSequence>Adapterİl;
     private ArrayAdapter<CharSequence>AdapterTur;
     private ArrayAdapter<CharSequence>AdapterKategori;
@@ -83,14 +83,11 @@ public class AramaFragment extends Fragment {
             }
         });
 
+        binding = FragmentAramaBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
 
     }
-
-
-
-
 
 
 /*/
@@ -122,6 +119,26 @@ public class AramaFragment extends Fragment {
         });
     }*/
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Spinner ve EditText'ten değerleri al
+                String secilenTur = binding.spinner1.getSelectedItem().toString();
+                String secilenKategori = binding.spinner2.getSelectedItem().toString();
+                String secilenSehir = binding.spinner3.getSelectedItem().toString();
+                String girilenIlce = binding.edittext.getText().toString();
+
+                System.out.println(secilenSehir);
+                System.out.println(secilenTur);
+                System.out.println(secilenKategori);
+                System.out.println(girilenIlce);
+            }
+        });
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
