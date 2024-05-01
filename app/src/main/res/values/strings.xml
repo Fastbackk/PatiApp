@@ -92,7 +92,26 @@
     </string-array>
     <string-array name="kategoriListele">
         <item></item>
-        <item>Köpek</item>
         <item>Kedi</item>
+        <item>Köpek</item>
+
+
+    </string-array>
+    <string-array name="KedicinsListele">
+        <item>Herhangi</item>
+        <item>Abyssinian</item>
+        <item>American Shorthair</item>
+        <item>Bengal</item>
+        <item>British Shorthair</item>
+        <item>Burmese</item>
+        <item>Calico</item>
+        <item>Maine Coon</item>
+        <item>Siamese</item>
+        <item>Sphynx</item>
+        <item>Persian</item>
+        <item>Ragdoll</item>
+        <item>Russian Blue</item>
+        <item>Scottish Fold</item>
+        <item>Van Kedisi</item>
     </string-array>
 </resources>
