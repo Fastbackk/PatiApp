@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class MessagesFragment extends Fragment {
     String ad;
     String soyad;
     String kullaniciadi;
+    MenuItem item;
 
 
     @Override
@@ -109,14 +111,17 @@ public class MessagesFragment extends Fragment {
 
             }
         });
-
         binding.button55.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), IlanlarKendi.class);
-                startActivity(intent);
+                IlanlarKendi ilanlarKendiFragment = new IlanlarKendi();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, ilanlarKendiFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
+
 
 
     }
