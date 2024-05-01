@@ -3,20 +3,26 @@ package com.example.patiapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.patiapp.databinding.ActivityIlanlarKendiBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class IlanlarKendi extends AppCompatActivity {
-    private FirebaseAuth auth;
+    private ActivityIlanlarKendiBinding binding;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ilanlar_kendi);
+        binding = ActivityIlanlarKendiBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
 
 
-       String UserEmail=auth.getCurrentUser().getEmail();
+        mAuth = FirebaseAuth.getInstance();
+       String UserEmail=mAuth.getCurrentUser().getEmail();
 
 
 

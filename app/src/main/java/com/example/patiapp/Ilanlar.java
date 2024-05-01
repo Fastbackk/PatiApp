@@ -87,7 +87,6 @@ public class Ilanlar extends Fragment {
 
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
-                                    // Timestamp olarak kaydedilmişse, bu blok çalışacak
                                     Timestamp timestamp = (Timestamp) dateObj;
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                                     date = sdf.format(timestamp.toDate());
