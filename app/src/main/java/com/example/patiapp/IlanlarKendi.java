@@ -16,6 +16,10 @@ public class IlanlarKendi extends AppCompatActivity {
 
 
 
+       String UserEmail=auth.getCurrentUser().getEmail();
+
+
+
 
     }
 }
