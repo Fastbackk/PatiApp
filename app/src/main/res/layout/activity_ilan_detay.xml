@@ -58,7 +58,7 @@
             android:layout_height="43dp"
             android:background="@color/renk"
             android:gravity="center"
-            android:text="Ücretsiz Sahiplendirme"
+            android:text="İlan Turu"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
@@ -128,7 +128,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/underline"
                             android:gravity="center"
-                            android:text="İstanbul / Pendik"
+                            android:text="example / example"
                             android:textSize="16sp" />
 
                         <TextView
@@ -138,7 +138,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/underline"
                             android:gravity="center"
-                            android:text="26/05/2024"
+                            android:text="example"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -163,7 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Kedi"
+                            android:text="example"
                             android:textSize="18sp" />
                     </LinearLayout>
 
@@ -189,7 +189,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="British Shorthair"
+                            android:text="example"
                             android:textSize="18sp" />
                     </LinearLayout>
 
@@ -215,7 +215,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Sağlıklı, Kısıralştırıldı."
+                            android:text="example"
                             android:textSize="18sp" />
                     </LinearLayout>
 
