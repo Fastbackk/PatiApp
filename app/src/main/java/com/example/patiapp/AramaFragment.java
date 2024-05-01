@@ -25,6 +25,9 @@ public class AramaFragment extends Fragment {
 
     private FragmentAramaBinding binding;
     String secilenHayvan;
+    String secilenTur;
+    String secilenCins;
+    String secilenSehir;
 
 
 
@@ -47,7 +50,7 @@ public class AramaFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                System.out.println(item);
+
             }
         });
 
@@ -60,25 +63,52 @@ public class AramaFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
                 secilenHayvan=item;
+                //kategori ile beraber çalışan hayvan cinsi kodları
+                updateAnimalSpecificInfo();
             }
         });
-        //cinsler
-        if (secilenHayvan.equals("Köpek")){
-            System.out.println(secilenHayvan);
-        }
-        else if(secilenHayvan.equals("Kedi")){
-            System.out.println(secilenHayvan);
 
-        }
 
-        String[] hayvancinsi= getResources().getStringArray(R.array.KedicinsListele);
-        ArrayAdapter<String> adapterItems3 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,hayvancinsi);
-        binding.autoCompleteTextView3.setAdapter(adapterItems3);
-        binding.autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //Şehir
+        String[] sehir = getResources().getStringArray(R.array.ilListeleme);
+        ArrayAdapter<String> adapterItems4 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,sehir);
+        binding.autoCompleteTextView4.setAdapter(adapterItems4);
+        binding.autoCompleteTextView4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
-                System.out.println(item);
+                secilenSehir=item;
+
+            }
+        });
+
+
+        binding.ilangor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (secilenTur==null){
+                    secilenTur="bos";
+
+                }
+                if (secilenHayvan==null){
+                    secilenHayvan="bos";
+                }
+                if (secilenCins==null){
+                    secilenCins="bos";
+                }
+                if (secilenSehir==null){
+                    secilenSehir="bos";
+                }
+
+                Intent intent = new Intent(getContext(),MainActivity.class);
+                intent.putExtra("secilenTur",secilenTur);
+                intent.putExtra("secilenSehir",secilenSehir);
+                intent.putExtra("secilenCins",secilenCins);
+                intent.putExtra("secilenHayvan",secilenHayvan);
+                startActivity(intent);
+
+
             }
         });
 
@@ -86,6 +116,50 @@ public class AramaFragment extends Fragment {
 
 
 
+
+    }
+    private void updateAnimalSpecificInfo() {
+
+        if (secilenHayvan != null) {
+
+            if (secilenHayvan.equals("Herhangi")) {
+
+                binding.myTextInputLayout.setEnabled(false); // TextInputLayout'u devre dışı bırak
+            }
+            //KEDİ TÜRLERİ
+            if (secilenHayvan.equals("Köpek")) {
+                System.out.println("Seçilen hayvan: " + secilenHayvan);
+                // Köpekler için özel işlemler
+                String[] hayvancinsi = getResources().getStringArray(R.array.KopekcinsListele);
+                ArrayAdapter<String> adapterItems3 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item, hayvancinsi);
+                binding.autoCompleteTextView3.setAdapter(adapterItems3);
+                binding.autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String item = adapterView.getItemAtPosition(position).toString();
+                        System.out.println("Seçilen cins: " + item);
+                    }
+                });
+                //KÖPEK TÜRLERİ
+            } else if (secilenHayvan.equals("Kedi")) {
+                System.out.println("Seçilen hayvan: " + secilenHayvan);
+                // Kediler için özel işlemler
+
+                String[] hayvancinsi = getResources().getStringArray(R.array.KedicinsListele);
+                ArrayAdapter<String> adapterItems3 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item, hayvancinsi);
+                binding.autoCompleteTextView3.setAdapter(adapterItems3);
+                binding.autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                        String item = adapterView.getItemAtPosition(position).toString();
+                        System.out.println("Seçilen cins: " + item);
+                    }
+                });
+            }
+        }
+        else{
+            binding.myTextInputLayout.setEnabled(false); // TextInputLayout'u devre dışı bırak
+        }
 
 
 
@@ -96,6 +170,7 @@ public class AramaFragment extends Fragment {
 
 
     }
+
 
 
 

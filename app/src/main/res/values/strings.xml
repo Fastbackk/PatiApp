@@ -6,8 +6,10 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
     <string-array name="ilListeleme">
-        <item></item>
+        <item>Herhangi</item>
         <item>İstanbul</item>
         <item>Adana</item>
         <item>Adıyaman</item>
@@ -84,19 +86,23 @@
 
 
     </string-array>
+
+
     <string-array name="ilanTurListele">
         <item></item>
         <item>Ücretsiz Sahiplendirme</item>
         <item>Çiftleştirme İlanı</item>
         <item>Mama Bağışları</item>
     </string-array>
+
+
     <string-array name="kategoriListele">
-        <item></item>
+        <item>Herhangi</item>
         <item>Kedi</item>
         <item>Köpek</item>
-
-
     </string-array>
+
+
     <string-array name="KedicinsListele">
         <item>Herhangi</item>
         <item>Abyssinian</item>
@@ -113,5 +119,53 @@
         <item>Russian Blue</item>
         <item>Scottish Fold</item>
         <item>Van Kedisi</item>
+    </string-array>
+
+
+    <string-array name="KopekcinsListele">
+        <item>Herhangi</item>
+        <item>Labrador Retriever</item>
+        <item>Golden Retriever</item>
+        <item>Alman Çoban Köpeği (German Shepherd)</item>
+        <item>Fransız Bulldog</item>
+        <item>Kangal</item>
+        <item>Bulldog</item>
+        <item>Poodle</item>
+        <item>Beagle</item>
+        <item>Rottweiler</item>
+        <item>Yorkshire Terrier</item>
+        <item>Boxer</item>
+        <item>Dachshund</item>
+        <item>Pembroke Welsh Corgi</item>
+        <item>Siberian Husky</item>
+        <item>Avustralya Çoban Köpeği (Australian Shepherd)</item>
+        <item>Büyük Dane (Great Dane)</item>
+        <item>Doberman Pinscher</item>
+        <item>Cavalier King Charles Spaniel</item>
+        <item>Shih Tzu</item>
+        <item>Boston Terrier</item>
+        <item>Havanese</item>
+        <item>Shetland Sheepdog</item>
+        <item>Bernese Mountain Dog</item>
+        <item>Pug</item>
+        <item>Maltese</item>
+        <item>Cocker Spaniel</item>
+        <item>Chihuahua</item>
+        <item>Border Collie</item>
+        <item>Mastiff</item>
+        <item>Vizsla</item>
+        <item>Bichon Frise</item>
+        <item>Akita</item>
+        <item>St. Bernard</item>
+        <item>American Staffordshire Terrier</item>
+        <item>Scottish Terrier</item>
+        <item>Whippet</item>
+        <item>Weimaraner</item>
+        <item>Rhodesian Ridgeback</item>
+        <item>Newfoundland</item>
+        <item>West Highland White Terrier</item>
+        <item>Chesapeake Bay Retriever</item>
+
+
     </string-array>
 </resources>

@@ -110,6 +110,14 @@ public class MessagesFragment extends Fragment {
             }
         });
 
+        binding.button55.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), IlanlarKendi.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
