@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Ad Soyad"
-                android:textSize="24sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Kullanıcı Adı"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
