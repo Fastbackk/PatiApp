@@ -240,6 +240,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
+                            android:textStyle="bold"
                             android:text="Kullanıcı adı"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -259,6 +260,7 @@
 
                     <TextView
                         android:id="@+id/textView7"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"

@@ -87,8 +87,8 @@
     <string-array name="ilanTurListele">
         <item></item>
         <item>Ücretsiz Sahiplendirme</item>
-        <item>Kayıp İlanı</item>
-        <item>Mama Bağış İlanı</item>
+        <item>Çiftleştirme İlanı</item>
+        <item>Mama Bağışları</item>
     </string-array>
     <string-array name="kategoriListele">
         <item></item>
