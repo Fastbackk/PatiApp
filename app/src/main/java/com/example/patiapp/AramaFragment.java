@@ -24,11 +24,9 @@ import com.example.patiapp.databinding.FragmentIlanlarBinding;
 public class AramaFragment extends Fragment {
 
     private FragmentAramaBinding binding;
-    String[] ilanturu;
+    String secilenHayvan;
 
 
-
-   ArrayAdapter<String> adapterItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,11 +39,42 @@ public class AramaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //ilan türleri
         String[] ilanturu = getResources().getStringArray(R.array.ilanTurListele);
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,ilanturu);
         binding.autoCompleteTextView2.setAdapter(adapterItems);
         binding.autoCompleteTextView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                System.out.println(item);
+            }
+        });
+
+        //kategori
+        String[] hayvankategori = getResources().getStringArray(R.array.kategoriListele);
+        ArrayAdapter<String> adapterItems2 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,hayvankategori);
+        binding.autoCompleteTextView.setAdapter(adapterItems2);
+        binding.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                secilenHayvan=item;
+            }
+        });
+        //cinsler
+        if (secilenHayvan.equals("Köpek")){
+            System.out.println(secilenHayvan);
+        }
+        else if(secilenHayvan.equals("Kedi")){
+            System.out.println(secilenHayvan);
+
+        }
+
+        String[] hayvancinsi= getResources().getStringArray(R.array.KedicinsListele);
+        ArrayAdapter<String> adapterItems3 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,hayvancinsi);
+        binding.autoCompleteTextView3.setAdapter(adapterItems3);
+        binding.autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();

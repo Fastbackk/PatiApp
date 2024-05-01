@@ -135,7 +135,7 @@
                     android:drawableStart="@drawable/kilit"
                     android:drawablePadding="10dp"
                     android:hint="Şifre"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:textSize="18sp" />
 
                 <Button
