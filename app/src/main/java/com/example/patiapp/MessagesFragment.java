@@ -132,4 +132,11 @@ public class MessagesFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+    public void sifreDegis(View v){
+        IlanlarKendi ilanlarKendiFragment = new IlanlarKendi();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, ilanlarKendiFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }
