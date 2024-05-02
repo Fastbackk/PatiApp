@@ -22,7 +22,7 @@ public class IlanlarKendi extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-       String UserEmail=mAuth.getCurrentUser().getEmail();
+        String UserEmail=mAuth.getCurrentUser().getEmail();
 
 
 

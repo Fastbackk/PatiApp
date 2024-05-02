@@ -97,7 +97,7 @@ public class HesapDetay extends AppCompatActivity {
                         });
 
 
-//Authcehtkoew değiştirme
+                //Authcehtkoew değiştirme
                 String newEmail = binding.editTextTextEmailAddress.getText().toString();
                 String newPassword = binding.editTextTextPassword2.getText().toString();
 
