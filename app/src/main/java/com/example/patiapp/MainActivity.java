@@ -1,14 +1,13 @@
 package com.example.patiapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 import com.example.patiapp.databinding.ActivityMainBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.paw) {
                 replaceFragment(new Ilanlar());
             } else if (itemId == R.id.search) {
+<<<<<<< HEAD
+                //replaceFragment(new AramaFragment());
+
+            } else if (itemId == R.id.message) {
+                Intent intent = new Intent(MainActivity.this, IlanYukleme.class);
+                startActivity(intent);
+=======
                 replaceFragment(new AramaFragment());
 
             }
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             else if (itemId == R.id.add) {
                 Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intentt);
+>>>>>>> master
                 finish();
             }
             return true;

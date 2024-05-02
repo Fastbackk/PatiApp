@@ -87,8 +87,21 @@ public class AramaFragment extends Fragment {
         binding.ilangor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
+                Intent intent=new Intent(getContext(),Ilanlar.class);
+                String ilanturu=binding.editTextText5.getText().toString();
+                String hayvankategori=binding.editTextText5.getText().toString();
+                String sehir=binding.editTextText5.getText().toString();
+                String ilce=binding.editTextText5.getText().toString();
+
+                intent.putExtra("ilanturu", ilanturu);
+                intent.putExtra("hayvankategori", hayvankategori);
+                intent.putExtra("sehir", sehir);
+                intent.putExtra("ilce", ilce);
+=======
                 if (secilenTur==null){
                     secilenTur="bos";
+>>>>>>> master
 
                 }
                 if (secilenHayvan==null){

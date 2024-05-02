@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
 
             <androidx.cardview.widget.CardView
@@ -55,6 +55,9 @@
                 android:layout_height="202dp"
                 android:layout_marginTop="15dp"
                 android:onClick="selectImage"
+<<<<<<< HEAD
+                android:src="@drawable/sa" />
+=======
                 android:src="@drawable/select" />
 
             <TextView
@@ -78,6 +81,7 @@
                 android:ems="10"
                 android:hint="İlan Türü"
                 android:inputType="text" />
+>>>>>>> master
 
             <EditText
                 android:id="@+id/editTextText7"
