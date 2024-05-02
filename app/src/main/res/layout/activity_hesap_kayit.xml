@@ -1,72 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HesapKayit" >
+    android:background="#FFFFFF"
+    tools:context=".HesapKayit">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:gravity="center"
-        android:text="Kayıt Sayfası"
-        android:textSize="34sp" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Adınız"
-            android:inputType="text" />
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="match_parent"
+            android:layout_height="357dp"
+            android:src="@drawable/patiapplogo" />
 
-        <EditText
-            android:id="@+id/editTextText3"
-            android:layout_width="wrap_content"
-            android:layout_height="50sp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Soyadınız"
-            android:inputType="text" />
-    </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/cardviewborder"
+            android:elevation="10dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="20dp">
 
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:ems="10"
-        android:hint="Bir kullanıcı adı belirleyin"
-        android:inputType="text" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:ems="10"
-        android:hint="E-Posta"
-        android:inputType="textEmailAddress" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:ems="10"
-        android:hint="Şifre"
-        android:inputType="textPassword" />
+                    <EditText
+                        android:id="@+id/editTextText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edtdesign"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Ad"
+                        android:inputType="text"
+                        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="93dp"
-        android:onClick="kayit"
-        android:text="Kayıt ol" />
-</LinearLayout>
+                    <EditText
+                        android:id="@+id/editTextText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edtdesign"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Soyad"
+                        android:inputType="text"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editTextText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edtdesign"
+                    android:drawableStart="@drawable/hesabulhesab2"
+                    android:drawablePadding="10dp"
+                    android:hint="Bir kullanıcı adı belirleyin"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextTextEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edtdesign"
+                    android:drawableStart="@drawable/email2"
+                    android:drawablePadding="10dp"
+                    android:hint="E-Posta"
+                    android:inputType="textEmailAddress"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextTextPassword2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edtdesign"
+                    android:drawableStart="@drawable/kilit"
+                    android:drawablePadding="10dp"
+                    android:hint="Şifre"
+                    android:inputType="textPassword"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/kayitol"
+                    android:layout_width="228dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/renk"
+                    android:onClick="giris"
+                    android:text="Kayıt Ol"
+                    android:textAllCaps="false"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</ScrollView>

@@ -39,15 +39,18 @@ public class HesapGiris extends AppCompatActivity {
 
 
     }
+    //kayıt yönlendirme
     public void kayitol(View view){
         Intent intent=new Intent(HesapGiris.this,HesapKayit.class);
         startActivity(intent);
         finish();
 
     }
-    public void giris(View view){
-        String eposta = binding.editTextText.getText().toString();
-        String sifre = binding.editTextTextPassword.getText().toString();
+
+    //Giriş
+   public void giris(View view){
+       String eposta = binding.editTextText4.getText().toString();
+       String sifre = binding.editTextTextEmailAddress.getText().toString();
 
 
         if (eposta.equals("") || sifre.equals("")) {

@@ -9,24 +9,25 @@
     >
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/recCard"
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="548dp"
+        android:layout_height="448dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:weightSum="5.5">
+
+            android:weightSum="4.5">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="4"
+                android:layout_weight="3"
                 android:scaleType="centerCrop"
                 android:src="@drawable/tuna" />
 
@@ -65,15 +66,16 @@
                                 android:id="@+id/imageViewExample"
                                 android:layout_width="match_parent"
                                 android:layout_height="23dp"
-                                android:src="@drawable/an" />
+                                android:layout_marginBottom="5dp"
+                                android:src="@drawable/date_range_svgrepo_com" />
 
 
                             <ImageView
                                 android:id="@+id/imageView4"
-                                android:layout_width="35dp"
-                                android:layout_height="13dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="23dp"
                                 android:layout_weight="1"
-                                android:src="@drawable/s" />
+                                android:src="@drawable/location_pin_svgrepo_com" />
 
 
                         </LinearLayout>
@@ -84,37 +86,41 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/hayvancinsi"
+                                android:id="@+id/tarih"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Hayvan Cinsi"
+                                android:layout_marginBottom="5dp"
+                                android:text="Tarih"
                                 android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/sehir"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Şehir"
+                                android:text="Şehir / İlçe"
                                 android:textSize="18sp" />
+
+
+
                         </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="7dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                    </LinearLayout>
+                        <TextView android:id="@+id/ilanturu"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:background="#4C9BEF"
+                            android:gravity="center"
 
-                    <TextView
-                        android:id="@+id/ilanturu"
-                        android:layout_width="match_parent"
-                        android:layout_height="54dp"
-                        android:background="#4C9BEF"
-                        android:gravity="center"
-                        android:text="Ücretsiz Sahiplendirme"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp" />
+                            android:text="Ücretsiz Sahiplendirme"
+                            android:textColor="#FFFFFF"
+                            android:textSize="23sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>

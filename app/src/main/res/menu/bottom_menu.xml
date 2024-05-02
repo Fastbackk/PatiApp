@@ -2,14 +2,20 @@
     <item
         android:id="@+id/fav"
         android:name="fav"
-        android:title="Kaydedilenler"
-        android:icon="@drawable/save"
-        />
+        android:icon="@drawable/message"
+        android:title="Mesajlar" />
     <item
         android:id="@+id/paw"
         android:name="paw"
         android:title="İlanlar"
         android:icon="@drawable/paw"
+        />
+
+    <item
+        android:id="@+id/add"
+        android:name="ekle"
+        android:title="İlan Yükle"
+        android:icon="@drawable/addad"
         />
     <item
         android:id="@+id/search"

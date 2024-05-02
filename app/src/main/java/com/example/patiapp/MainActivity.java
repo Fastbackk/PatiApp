@@ -10,10 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.patiapp.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
 
 
     @Override
@@ -22,12 +24,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        replaceFragment(new AramaFragment());
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+
+        replaceFragment(new Ilanlar());
         binding.bottomNavigationView.setBackground(null);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout, new Ilanlar())
                 .commit();
-        //Hata var
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
@@ -37,14 +45,26 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.paw) {
                 replaceFragment(new Ilanlar());
             } else if (itemId == R.id.search) {
+<<<<<<< HEAD
                 //replaceFragment(new AramaFragment());
 
             } else if (itemId == R.id.message) {
                 Intent intent = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intent);
+=======
+                replaceFragment(new AramaFragment());
+
+            }
+            else if (itemId == R.id.message) {
+                replaceFragment(new MessagesFragment());
+
+            }
+            else if (itemId == R.id.add) {
+                Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
+                startActivity(intentt);
+>>>>>>> master
                 finish();
             }
-
             return true;
         });
 
@@ -56,6 +76,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-
     }
+
 }

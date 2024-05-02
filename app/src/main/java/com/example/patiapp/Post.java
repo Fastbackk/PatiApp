@@ -5,13 +5,17 @@ public class Post {
     public String dowloandurl;
     public String sehir;
     public String ilanturu;
-    public String hayvancinsi;
+    public String date;
 
-    public Post(String ilanbaslik, String dowloandurl, String sehir, String ilanturu, String hayvancinsi) {
+
+
+    public Post(String ilanbaslik, String dowloandurl, String sehir, String ilanturu, String date) {
         this.ilanbaslik = ilanbaslik;
         this.dowloandurl = dowloandurl;
         this.sehir = sehir;
         this.ilanturu = ilanturu;
-        this.hayvancinsi = hayvancinsi;
+        this.date = date;
+
+
     }
 }

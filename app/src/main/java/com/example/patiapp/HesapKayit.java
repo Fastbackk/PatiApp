@@ -37,14 +37,11 @@ public class HesapKayit extends AppCompatActivity {
         binding = ActivityHesapKayitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-
-
-
         auth=FirebaseAuth.getInstance();
+
     }
 
-    public void kayit(View view){
+    public void giris(View view){
         String ad=binding.editTextText2.getText().toString();
         String soyad=binding.editTextText3.getText().toString();
         String kullaniciadi=binding.editTextText4.getText().toString();
@@ -67,6 +64,7 @@ public class HesapKayit extends AppCompatActivity {
                             userProfile.put("soyad", soyad);
                             userProfile.put("kullaniciadi", kullaniciadi);
                             userProfile.put("eposta", eposta);
+                            userProfile.put("sifre",sifre);
 
                             // Firestore'da kullanıcı ID'si ile bu profili kaydet
                             db.collection("users").document(authResult.getUser().getUid())
