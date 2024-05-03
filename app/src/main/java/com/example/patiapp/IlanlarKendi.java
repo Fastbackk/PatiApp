@@ -47,7 +47,11 @@ public class IlanlarKendi extends Fragment {
 
 
         mAuth = FirebaseAuth.getInstance();
+<<<<<<< HEAD
+        String UserEmail=mAuth.getCurrentUser().getEmail();
+=======
         String UserEmail = mAuth.getCurrentUser().getEmail();
+>>>>>>> master
 
 
     }

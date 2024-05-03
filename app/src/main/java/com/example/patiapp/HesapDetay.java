@@ -99,7 +99,11 @@ public class HesapDetay extends AppCompatActivity {
                         });
 
 
+
+                //Authcehtkoew değiştirme
+
 //Authcention değiştirme
+
                 String newEmail = binding.editTextTextEmailAddress.getText().toString();
                 //String newPassword = binding.editTextTextPassword2.getText().toString();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
