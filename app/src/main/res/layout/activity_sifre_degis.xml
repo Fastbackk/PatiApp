@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HesapDetay">
+    tools:context=".SifreDegis">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,70 +70,20 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"/>
 
-                    <EditText
-                        android:id="@+id/editTextText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Ad"
-                        android:inputType="text"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/editTextText3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
-                        android:hint="Soyad"
-                        android:inputType="text"
-                        android:textSize="18sp" />
-                </LinearLayout>
 
                 <EditText
-                    android:id="@+id/editTextText4"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/edtdesign"
-                    android:drawableStart="@drawable/hesabulhesab2"
-                    android:drawablePadding="10dp"
-                    android:hint="Örnek_kullaniciadi"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/editTextTextEmailAddress"
+                    android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edtdesign"
-                    android:drawableStart="@drawable/email2"
+                    android:drawableStart="@drawable/kilit"
                     android:drawablePadding="10dp"
-                    android:hint="E-Posta"
-                    android:inputType="textEmailAddress"
+                    android:hint="Şifre"
+                    android:inputType="text"
                     android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:onClick="sifreDegis"
-                    android:text="Şifre Değiştir" />
-
                 <Button
                     android:id="@+id/kayitol"
                     android:layout_width="258dp"
@@ -141,7 +91,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="#37B53A"
-                    android:text="Bilgilerimi Güncelle"
+                    android:text="Sifremi Güncelle"
                     android:textAllCaps="false"
                     android:textSize="23sp" />
 
