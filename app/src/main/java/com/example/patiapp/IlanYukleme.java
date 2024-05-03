@@ -213,10 +213,6 @@ public class IlanYukleme extends AppCompatActivity {
                             ilanData.put("email",email);
                             ilanData.put("kullaniciadi",NickName);
                             ilanData.put("telno",telno);
-
-
-
-
                             firebaseFirestore.collection("Ilanlar").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
@@ -225,14 +221,11 @@ public class IlanYukleme extends AppCompatActivity {
                                     intent.putExtra("ilan","ilanhayvan");
                                     startActivity(intent);
                                     finish();
-
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(IlanYukleme.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-
                                 }
                             });
 
@@ -241,25 +234,16 @@ public class IlanYukleme extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(IlanYukleme.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
                         }
                     });
-
-
-
-
-
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(IlanYukleme.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
                 }
             });
         }
-
     }
 
     public void selectImage(View view) {

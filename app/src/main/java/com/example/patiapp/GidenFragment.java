@@ -1,8 +1,11 @@
 package com.example.patiapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,12 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.example.patiapp.databinding.FragmentFavBinding;
+import com.example.patiapp.databinding.FragmentGidenBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,15 +22,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 
-public class FavFragment extends Fragment {
-    private FragmentFavBinding binding;
+public class GidenFragment extends Fragment {
+    private FragmentGidenBinding binding;
     ArrayList<Post2> messageArrayList;
     Adapter2 adapter;
     private FirebaseFirestore firebaseFirestore;
@@ -56,7 +54,6 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-                                Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 System.out.println(username);
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
@@ -79,7 +76,7 @@ public class FavFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentFavBinding.inflate(inflater, container, false);
+        binding = FragmentGidenBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -132,7 +129,7 @@ public class FavFragment extends Fragment {
     }
 
     public void getData() {
-        firebaseFirestore.collection("Messages").whereEqualTo("alici", username)
+        firebaseFirestore.collection("Messages").whereEqualTo("gonderenemail", kullaniciEposta)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
