@@ -31,6 +31,7 @@ public class IlanDetay extends AppCompatActivity {
     ActivityIlanDetayBinding binding;
     ArrayList<Post> ilanArrayList;
     private FirebaseFirestore firebaseFirestore;
+    String ID;
 
 
 
@@ -74,7 +75,7 @@ public class IlanDetay extends AppCompatActivity {
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
-
+                                ID= snapshot.getId();
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
@@ -127,8 +128,17 @@ public class IlanDetay extends AppCompatActivity {
         binding.textView4.setText(sehir+" / "+ilce);
         System.out.println("işte burada "+kullaniciemail);
 
+        binding.kaydet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(ID);
+
+            }
+        });
+
 
 
     }
+
 
 }

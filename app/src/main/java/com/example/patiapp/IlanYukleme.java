@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -31,13 +32,21 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class IlanYukleme extends AppCompatActivity {
@@ -57,6 +66,10 @@ public class IlanYukleme extends AppCompatActivity {
     private ArrayAdapter<CharSequence>Adapterİl;
     private ArrayAdapter<CharSequence>AdapterTur;
     private ArrayAdapter<CharSequence>AdapterKategori;
+    public String kullaniciEposta;
+    public String NickName;
+    public String ID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,41 @@ public class IlanYukleme extends AppCompatActivity {
         binding = ActivityIlanYuklemeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        firebaseAuth=FirebaseAuth.getInstance();
+
+        //Kullanıcı adını aldım
+        kullaniciEposta=firebaseAuth.getCurrentUser().getEmail();
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                              //  ID= snapshot.getId();
+                                String kullaniciadi = (String) data.get("kullaniciadi");
+                                NickName=kullaniciadi;
+                                System.out.println(NickName);
+                            }
+                            else {
+                                Toast.makeText(IlanYukleme.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(IlanYukleme.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+        //ID'Yİ ALACAĞIM İNŞ
+
+
         registerLauncher();
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -133,6 +181,7 @@ public class IlanYukleme extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String dowloandurl=uri.toString();
+                            String kullaniciAdi;
                             String ilanbaslik=binding.editTextText7.getText().toString();
                             //String sehir=binding.editTextText8.getText().toString();
                             String ilce=binding.editTextText9.getText().toString();
@@ -162,6 +211,7 @@ public class IlanYukleme extends AppCompatActivity {
                             ilanData.put("ilanturu",secilenTur);
                             ilanData.put("date",FieldValue.serverTimestamp());
                             ilanData.put("email",email);
+                            ilanData.put("kullaniciadi",NickName);
                             ilanData.put("telno",telno);
 
 
