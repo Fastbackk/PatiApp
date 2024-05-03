@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
             <androidx.cardview.widget.CardView
@@ -55,10 +55,8 @@
                 android:layout_height="202dp"
                 android:layout_marginTop="15dp"
                 android:onClick="selectImage"
-<<<<<<< HEAD
-                android:src="@drawable/sa" />
-=======
                 android:src="@drawable/select" />
+
 
             <TextView
                 android:id="@+id/txt2"
@@ -81,7 +79,7 @@
                 android:ems="10"
                 android:hint="İlan Türü"
                 android:inputType="text" />
->>>>>>> master
+
 
             <EditText
                 android:id="@+id/editTextText7"
@@ -154,6 +152,7 @@
                 android:ems="10"
                 android:hint="Sağlık Durumu"
                 android:inputType="text" />
+
             <TextView
                 android:id="@+id/txt4"
                 android:layout_width="300dp"
@@ -197,8 +196,7 @@
                 android:backgroundTint="#D1CECE"
                 android:ems="10"
                 android:hint="Telefon Numarası"
-                android:inputType="phone"
-                />
+                android:inputType="phone" />
 
             <Button
                 android:id="@+id/button2"
