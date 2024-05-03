@@ -25,44 +25,37 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
 
         replaceFragment(new Ilanlar());
         binding.bottomNavigationView.setBackground(null);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout, new Ilanlar())
                 .commit();
-
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-
+            //mesaj
             if (itemId == R.id.fav) {
                 replaceFragment(new FavFragment());
-            } else if (itemId == R.id.paw) {
+            }
+            //ilanlar
+            else if (itemId == R.id.paw) {
                 replaceFragment(new Ilanlar());
-            } else if (itemId == R.id.search) {
-<<<<<<< HEAD
-                //replaceFragment(new AramaFragment());
-
-            } else if (itemId == R.id.message) {
-                Intent intent = new Intent(MainActivity.this, IlanYukleme.class);
-                startActivity(intent);
-=======
+            }
+            //arama
+            else if (itemId == R.id.search) {
                 replaceFragment(new AramaFragment());
 
             }
+            //hesabım
             else if (itemId == R.id.message) {
                 replaceFragment(new MessagesFragment());
 
             }
+            //ilan yükle
             else if (itemId == R.id.add) {
                 Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intentt);
->>>>>>> master
                 finish();
             }
             return true;

@@ -50,6 +50,7 @@ public class AramaFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
+                secilenTur=item;
 
             }
         });
@@ -87,22 +88,10 @@ public class AramaFragment extends Fragment {
         binding.ilangor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                Intent intent=new Intent(getContext(),Ilanlar.class);
-                String ilanturu=binding.editTextText5.getText().toString();
-                String hayvankategori=binding.editTextText5.getText().toString();
-                String sehir=binding.editTextText5.getText().toString();
-                String ilce=binding.editTextText5.getText().toString();
 
-                intent.putExtra("ilanturu", ilanturu);
-                intent.putExtra("hayvankategori", hayvankategori);
-                intent.putExtra("sehir", sehir);
-                intent.putExtra("ilce", ilce);
-=======
+
                 if (secilenTur==null){
                     secilenTur="bos";
->>>>>>> master
-
                 }
                 if (secilenHayvan==null){
                     secilenHayvan="bos";
@@ -113,13 +102,20 @@ public class AramaFragment extends Fragment {
                 if (secilenSehir==null){
                     secilenSehir="bos";
                 }
+                if (secilenCins.equals("bos")&&secilenTur.equals("bos")&&secilenHayvan.equals("bos")&&secilenSehir.equals("bos")){
+                    Toast.makeText(getContext(), "En az bir uygulanacak filtre seçiniz", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(getContext(),FiltrelenmisSonuclar.class);
+                    intent.putExtra("secilenTur",secilenTur);
+                    intent.putExtra("secilenSehir",secilenSehir);
+                    intent.putExtra("secilenCins",secilenCins);
+                    intent.putExtra("secilenHayvan",secilenHayvan);
+                    startActivity(intent);
+                }
 
-                Intent intent = new Intent(getContext(),MainActivity.class);
-                intent.putExtra("secilenTur",secilenTur);
-                intent.putExtra("secilenSehir",secilenSehir);
-                intent.putExtra("secilenCins",secilenCins);
-                intent.putExtra("secilenHayvan",secilenHayvan);
-                startActivity(intent);
+
+
 
 
             }
@@ -151,6 +147,7 @@ public class AramaFragment extends Fragment {
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                         String item = adapterView.getItemAtPosition(position).toString();
                         System.out.println("Seçilen cins: " + item);
+                        secilenCins=item;
                     }
                 });
                 //KÖPEK TÜRLERİ
@@ -166,6 +163,7 @@ public class AramaFragment extends Fragment {
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                         String item = adapterView.getItemAtPosition(position).toString();
                         System.out.println("Seçilen cins: " + item);
+                        secilenCins=item;
                     }
                 });
             }

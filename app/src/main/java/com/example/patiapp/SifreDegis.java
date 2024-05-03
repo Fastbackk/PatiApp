@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.patiapp.databinding.ActivityHesapDetayBinding;
+import com.example.patiapp.databinding.ActivitySifreDegisBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SifreDegis extends AppCompatActivity {
-    private ActivityHesapDetayBinding binding;
+    private ActivitySifreDegisBinding binding;
     private String ad, soyad, email, kullaniciadi, sifre;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -34,7 +35,7 @@ public class SifreDegis extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHesapDetayBinding.inflate(getLayoutInflater());
+        binding = ActivitySifreDegisBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -51,10 +52,10 @@ public class SifreDegis extends AppCompatActivity {
         sifre = intent.getStringExtra("sifre");
 
         // EditText alanlarına başlangıç değerlerini ayarlayın
-        binding.editTextText2.setText(ad);
-        binding.editTextText4.setText(kullaniciadi);
-        binding.editTextText3.setText(soyad);
-        binding.editTextTextEmailAddress.setText(email);
+      //  binding.editTextText2.setText(ad);
+      //  binding.editTextText4.setText(kullaniciadi);
+     //   binding.editTextText3.setText(soyad);
+     //   binding.editTextTextEmailAddress.setText(email);
         //binding.editTextTextPassword2.setText(sifre);
 
 
@@ -102,7 +103,7 @@ public class SifreDegis extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String newPassword = "SOME-SECURE-PASSWORD";
+                String newPassword = binding.editTextPassword.getText().toString();
 
                 user.updatePassword(newPassword)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
