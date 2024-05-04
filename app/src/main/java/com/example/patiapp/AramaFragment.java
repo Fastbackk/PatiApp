@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.patiapp.databinding.FragmentAramaBinding;
 import com.example.patiapp.databinding.FragmentIlanlarBinding;
+import com.example.patiapp.databinding.FragmentKullaniciAramaBinding;
 
 public class AramaFragment extends Fragment {
 
@@ -35,6 +36,7 @@ public class AramaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAramaBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
 
@@ -55,6 +57,16 @@ public class AramaFragment extends Fragment {
             }
         });
 
+        binding.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KullaniciArama FragmentKullaniciAramaBinding = new KullaniciArama();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, FragmentKullaniciAramaBinding)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         //kategori
         String[] hayvankategori = getResources().getStringArray(R.array.kategoriListele);
         ArrayAdapter<String> adapterItems2 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,hayvankategori);

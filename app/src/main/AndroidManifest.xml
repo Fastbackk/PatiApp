@@ -17,6 +17,12 @@
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
         <activity
+            android:name=".KullaniciArama"
+            android:exported="false" />
+        <activity
+            android:name=".KullaniciDetay"
+            android:exported="false" />
+        <activity
             android:name=".BarinakHesapOlustur"
             android:exported="false" />
         <activity
@@ -27,9 +33,6 @@
             android:exported="false" />
         <activity
             android:name=".Mesajdetay"
-            android:exported="false" />
-        <activity
-            android:name=".MesajDetay"
             android:exported="false" />
         <activity
             android:name=".FiltrelenmisSonuclar"

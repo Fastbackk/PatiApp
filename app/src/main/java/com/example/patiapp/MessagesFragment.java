@@ -84,7 +84,7 @@ public class MessagesFragment extends Fragment {
                                 kullaniciadi = (String) data.get("kullaniciadi");
 
                                 binding.textView2.setText(ad + " " + soyad);
-                                binding.textView6.setText("@"+kullaniciadi);
+                                binding.textView6.setText(kullaniciadi);
 
                             }
 
