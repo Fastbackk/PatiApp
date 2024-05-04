@@ -29,6 +29,7 @@ import com.example.patiapp.databinding.ActivityIlanYuklemeBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -44,16 +45,22 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 public class IlanYukleme extends AppCompatActivity {
     Uri ImageData;
+    String referansdeger;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<String> izin;
     private FirebaseStorage firebaseStorage;
+    Timestamp timestamp;
+
     private ActivityIlanYuklemeBinding binding;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -69,6 +76,8 @@ public class IlanYukleme extends AppCompatActivity {
     public String kullaniciEposta;
     public String NickName;
     public String ID;
+    ArrayList<Post> ilanArrayList;
+    Adapter adapter;
 
 
     @Override
@@ -109,7 +118,6 @@ public class IlanYukleme extends AppCompatActivity {
                 });
 
 
-        //ID'Yİ ALACAĞIM İNŞ
 
 
         registerLauncher();
@@ -166,6 +174,75 @@ public class IlanYukleme extends AppCompatActivity {
             }
         });
     }
+    public void getDataID(){
+        firebaseFirestore.collection("Ilanlar").whereEqualTo("date", timestamp)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                //ID'yi aldık şimdi ise ID'yi ilanın içerisinde gömeceğiz
+
+                                ID=snapshot.getId();
+                                System.out.println(ID);
+
+
+
+                                // Belirli bir dokümanı güncelleme
+                                DocumentReference docRef = firebaseFirestore.collection("Ilanlar").document(ID);
+                                docRef.update("ID", ID)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Güncelleme başarılı
+                                                System.out.println("Doküman başarıyla güncellendi: " + ID);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Güncelleme sırasında hata
+                                                System.err.println("Hata! Doküman güncellenemedi: " + e.getLocalizedMessage());
+                                            }
+                                        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            } else {
+                                Toast.makeText(IlanYukleme.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(IlanYukleme.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     public void uploadButton(View view) {
         //universal uniq id
@@ -191,7 +268,7 @@ public class IlanYukleme extends AppCompatActivity {
                             String hayvancinsi=binding.editTextText13.getText().toString();
                             //String ilanturu=binding.editTextText14.getText().toString();
                             String telno=binding.editTextText17.getText().toString();
-                            String date;
+
                             FirebaseUser user=firebaseAuth.getCurrentUser();
 
                             String email=user.getEmail();
@@ -209,13 +286,45 @@ public class IlanYukleme extends AppCompatActivity {
                             ilanData.put("hayvancinsi",hayvancinsi);
                             //ilanData.put("ilanturu",ilanturu);
                             ilanData.put("ilanturu",secilenTur);
-                            ilanData.put("date",FieldValue.serverTimestamp());
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            /////////////////////////////////////////////////////////////////
+
+
+
+
+
+                            timestamp = new Timestamp(new Date());
+                            ilanData.put("date", timestamp);
+
+                           /* Timestamp Date=FieldValue.serverTimestamp();
+                            ilanData.put("date",Date);*/
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                             ilanData.put("email",email);
                             ilanData.put("kullaniciadi",NickName);
                             ilanData.put("telno",telno);
                             firebaseFirestore.collection("Ilanlar").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
+                                     //ID'yi içeri yükleme
+                                    getDataID();
+
+
+
+
                                     Intent intent=new Intent(IlanYukleme.this,MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("ilan","ilanhayvan");

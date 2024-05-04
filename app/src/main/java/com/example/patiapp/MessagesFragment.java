@@ -121,6 +121,15 @@ public class MessagesFragment extends Fragment {
                         .commit();
             }
         });
+        binding.buttonas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), KaydedilenIlanlar.class);
+                intent.putExtra("kullaniciAdi",kullaniciadi);
+                startActivity(intent);
+
+            }
+        });
 
 
 
