@@ -21,9 +21,11 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -77,6 +79,7 @@ public String username;
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 ID= snapshot.getId();
+                                System.out.println(ID);
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
@@ -143,7 +146,31 @@ public String username;
 
 
 
+
+
+
+
     }
+    public void kaydet(View view){
+        Map<String, Object> Kaydedilenler = new HashMap<>();
+        Kaydedilenler.put("kaydedenkisi",username );
+        Kaydedilenler.put("kaydedilenilanID", ID);
+
+        firebaseFirestore.collection("Kaydedilenler").add(Kaydedilenler)
+                .addOnSuccessListener(documentReference -> {
+                    System.out.println("eklendi");
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("eklenemedi");
+                });
+
+
+
+
+
+
+    }
+
 
 
 }
