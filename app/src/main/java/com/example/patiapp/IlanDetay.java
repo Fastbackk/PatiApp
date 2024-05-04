@@ -34,13 +34,14 @@ public class IlanDetay extends AppCompatActivity {
     String ID;
 
 
-
+public String username;
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
     String kullaniciemail;
     String aciklamatext;
     String telno;
     String ilce;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,7 @@ public class IlanDetay extends AppCompatActivity {
                                 String ilce = (String) data.get("ilce");
                                 String hayvankategori=(String) data.get("hayvankategori");
                                 String hayvancinsi=(String) data.get("hayvancinsi");
+                                username=(String) data.get("kullaniciadi");
 
                                 // Verileri kullanarak UI güncelleyin
                                 Picasso.get().load(dowloandurl).into(binding.imageView6);
@@ -128,10 +130,13 @@ public class IlanDetay extends AppCompatActivity {
         binding.textView4.setText(sehir+" / "+ilce);
         System.out.println("işte burada "+kullaniciemail);
 
-        binding.kaydet.setOnClickListener(new View.OnClickListener() {
+        binding.mesajgonder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(ID);
+                Intent intent = new Intent(IlanDetay.this, MesajEkle.class);
+                // Verileri intent ile MesajEkle aktivitesine gönder
+                intent.putExtra("gidenveri", username);
+                startActivity(intent);
 
             }
         });

@@ -100,35 +100,22 @@ public class FavFragment extends Fragment {
         binding.giden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 GidenFragment GidenFragment = new GidenFragment();
-
-                // FragmentTransaction başlatın
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-                // GidenFragment'i ekleyin
                 transaction.replace(R.id.frame_layout, GidenFragment);
-
-                // FragmentTransaction'ı gerçekleştirin
                 transaction.commit();
             }
         });
         binding.gelen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                GidenFragment FavFragment = new GidenFragment();
-
-                // FragmentTransaction başlatın
+                FavFragment FavFragment = new FavFragment();
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-                // GidenFragment'i ekleyin
                 transaction.replace(R.id.frame_layout, FavFragment);
-
-                // FragmentTransaction'ı gerçekleştirin
                 transaction.commit();
             }
         });
+
     }
 
     public void getData() {
@@ -165,6 +152,7 @@ public class FavFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
 
 }

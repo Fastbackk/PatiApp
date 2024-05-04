@@ -114,7 +114,7 @@ public class GidenFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                GidenFragment FavFragment = new GidenFragment();
+                FavFragment FavFragment = new FavFragment();
 
                 // FragmentTransaction başlatın
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();

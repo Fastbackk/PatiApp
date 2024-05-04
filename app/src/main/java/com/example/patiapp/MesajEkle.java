@@ -109,33 +109,32 @@ public class MesajEkle extends AppCompatActivity {
         String alici = binding.editTextText5.getText().toString();
         String mesajbaslik = binding.editTextText6.getText().toString();
         String mesaj = binding.editTextText.getText().toString();
-        Toast.makeText(MesajEkle.this, alici + mesajbaslik+ mesaj+username, Toast.LENGTH_SHORT).show();
 
-        HashMap<String, Object> ilanData = new HashMap<>();
+                HashMap<String, Object> ilanData = new HashMap<>();
 
-        ilanData.put("mesajbaslik", mesajbaslik);
-        ilanData.put("mesaj", mesaj);
-        ilanData.put("username", username);
-        ilanData.put("gonderenemail", kullaniciEposta);
-        ilanData.put("alici", alici);
-        firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(MesajEkle.this, "succes", Toast.LENGTH_SHORT).show();
+                ilanData.put("mesajbaslik", mesajbaslik);
+                ilanData.put("mesaj", mesaj);
+                ilanData.put("username", username);
+                ilanData.put("gonderenemail", kullaniciEposta);
+                ilanData.put("alici", alici);
+                firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(MesajEkle.this, "succes", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(MesajEkle.this, FavFragment.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                        Intent intent = new Intent(MesajEkle.this, MainActivity.class);
+                        // Verileri intent ile MesajEkle aktivitesine gönder
+                        startActivity(intent);
+                        finish();
 
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MesajEkle.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MesajEkle.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
 

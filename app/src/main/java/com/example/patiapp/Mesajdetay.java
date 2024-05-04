@@ -3,6 +3,7 @@ package com.example.patiapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,19 +131,13 @@ public class Mesajdetay extends AppCompatActivity {
         });
         binding.kaydet.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View v) {
-                /*/Intent intent = getIntent(Mesajdetay.this, FavFragment.class);
+                // Intent'i oluştur ve MesajEkle aktivitesine git
+                Intent intent = new Intent(Mesajdetay.this, MesajEkle.class);
+                // Verileri intent ile MesajEkle aktivitesine gönder
                 intent.putExtra("gidenveri", username);
                 startActivity(intent);
-                /*/
-             
             }
         });
-
-
-
     }
-
-
 }
