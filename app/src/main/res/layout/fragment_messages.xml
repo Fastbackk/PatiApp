@@ -54,15 +54,28 @@
                 android:text="Ad Soyad"
                 android:textSize="28sp" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/underline"
-                android:gravity="center"
-                android:text="Kullanıcı Adı"
-                android:textSize="18sp" />
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" @"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/underline"
+
+                    android:text="Kullanıcı Adı"
+                    android:textSize="18sp" />
+        </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

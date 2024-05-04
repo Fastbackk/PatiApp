@@ -62,7 +62,7 @@ public class Mesajdetay extends AppCompatActivity {
         Date parsedDate = dateFormat.parse(date);
         Timestamp timestamp = new Timestamp(parsedDate.getTime());*/
 
-        firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslikk", mesajbaslik)
+        firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslik", mesajbaslik)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
