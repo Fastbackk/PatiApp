@@ -17,6 +17,12 @@
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
         <activity
+            android:name=".BarinakHesapOlustur"
+            android:exported="false" />
+        <activity
+            android:name=".HesapKayitSorgu"
+            android:exported="false" />
+        <activity
             android:name=".MesajEkle"
             android:exported="false" />
         <activity
