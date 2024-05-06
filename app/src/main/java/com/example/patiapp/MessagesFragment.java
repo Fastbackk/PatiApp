@@ -55,10 +55,10 @@ public class MessagesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
 
         kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
-
         firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
