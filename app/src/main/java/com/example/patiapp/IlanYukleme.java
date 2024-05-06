@@ -54,6 +54,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class IlanYukleme extends AppCompatActivity {
+    private static final int PERMISSION_REQUEST_CODE = 100;
     Uri ImageData;
     String referansdeger;
     ActivityResultLauncher<Intent> activityResultLauncher;
@@ -356,26 +357,51 @@ public class IlanYukleme extends AppCompatActivity {
     }
 
     public void selectImage(View view) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                Snackbar.make(view, "Galeriye erişmek için izin gerekiyor!", Snackbar.LENGTH_INDEFINITE).setAction("İzin ver", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        izin.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-
-                    }
-                }).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                // İzin verilmemişse izin iste
+                requestPermissions(new String[]{
+                        Manifest.permission.READ_MEDIA_IMAGES,
+                        Manifest.permission.READ_MEDIA_VIDEO,
+                        Manifest.permission.READ_MEDIA_AUDIO
+                }, PERMISSION_REQUEST_CODE);
             } else {
-                // İzin isteği başlatılıyor
-                izin.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                // İzin verilmişse galeriye git
+                openGallery();
             }
-
         } else {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            activityResultLauncher.launch(intent);
+            // Android 13 öncesi sürümler için mevcut izin isteme yöntemini kullan
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                // İzin verilmemişse izin iste
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            } else {
+                // İzin verilmişse galeriye git
+                openGallery();
+            }
         }
-
     }
+
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activityResultLauncher.launch(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // İzin verildiyse galeriye git
+                openGallery();
+            } else {
+                Toast.makeText(this, "Galeriye erişim izni reddedildi.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     private void registerLauncher() {
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
