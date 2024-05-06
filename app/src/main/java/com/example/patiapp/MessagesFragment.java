@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,12 +17,19 @@ import com.example.patiapp.databinding.FragmentMessagesBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Firebase;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -33,12 +41,48 @@ public class MessagesFragment extends Fragment {
     String soyad;
     String kullaniciadi;
     MenuItem item;
+    ArrayList<Post> ilanArrayList2;
+    Adapter adapter;
+    String ID;
+
+    public String kullaniciEposta, username;
+    private FirebaseAuth firebaseAuth;
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
+        firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+
+
+        kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
+
+        firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                username = (String) data.get("kullaniciadi");
+                                Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
+                                System.out.println(username);
+                                getData(); // Kullanıcı adı alındıktan sonra verileri getir
+                            } else {
+                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -111,6 +155,7 @@ public class MessagesFragment extends Fragment {
 
             }
         });
+        /*/
         binding.button55.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +166,8 @@ public class MessagesFragment extends Fragment {
                         .commit();
             }
         });
+
+         */
         binding.buttonas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,5 +194,40 @@ public class MessagesFragment extends Fragment {
                 .replace(R.id.frame_layout, ilanlarKendiFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+    public void getData() {
+        firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("kullaniciadi", username)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (value != null) {
+                            ilanArrayList2.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                Map<String, Object> data = snapshot.getData();
+
+                                assert data != null;
+                                String baslik = (String) data.get("ilanbaslik");
+                                String dowloandurl = (String) data.get("dowloandurl");
+                                String sehir = (String) data.get("sehir");
+                                String ilanturu = (String) data.get("ilanturu");
+                                String date = null;
+
+                                Object dateObj = data.get("date");
+                                if (dateObj instanceof Timestamp) {
+                                    Timestamp timestamp = (Timestamp) dateObj;
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                    date = sdf.format(timestamp.toDate());
+                                } else if (dateObj instanceof String) {
+                                    // String olarak kaydedilmişse, bu blok çalışacak
+                                    date = (String) dateObj;
+                                }
+
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
+                                ilanArrayList2.add(ilan);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 }
