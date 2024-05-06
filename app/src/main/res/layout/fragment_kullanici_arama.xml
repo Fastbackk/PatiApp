@@ -13,20 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextArama"
+
+        <SearchView
+            android:id="@+id/SearchViewArama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="user"
             android:inputType="text" />
 
-
-        <Button
-            android:id="@+id/buttonAra"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Button" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
