@@ -13,6 +13,8 @@ import com.example.patiapp.databinding.ActivityIlanDetayBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +36,7 @@ public class IlanDetay extends AppCompatActivity {
     ArrayList<Post> ilanArrayList;
     private FirebaseFirestore firebaseFirestore;
     String ID;
+    String kullaniciadii;
 
 
 public String username;
@@ -43,6 +46,7 @@ public String username;
     String aciklamatext;
     String telno;
     String ilce;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public String username;
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
         //verileri alma
         Intent intent=getIntent();
         String ilanbaslik= intent.getStringExtra("ilanbaslik");
@@ -143,6 +150,35 @@ public String username;
 
             }
         });
+        FirebaseUser user = mAuth.getCurrentUser();
+        String useremail = user.getEmail();
+        firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (documentSnapshot.exists()) {
+                                Map<String, Object> data = documentSnapshot.getData();
+
+
+                                assert data != null;
+                                kullaniciadii = (String) data.get("kullaniciadi");
+                                System.out.println(kullaniciadii);
+
+
+                            }
+
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Veriler yüklenemedi!");
+
+                    }
+                });
+
 
 
 
@@ -153,7 +189,7 @@ public String username;
     }
     public void kaydet(View view){
         Map<String, Object> Kaydedilenler = new HashMap<>();
-        Kaydedilenler.put("kaydedenkisi",username );
+        Kaydedilenler.put("kaydedenkisi",kullaniciadii);
         Kaydedilenler.put("kaydedilenilanID", ID);
 
         firebaseFirestore.collection("Kaydedilenler").add(Kaydedilenler)
