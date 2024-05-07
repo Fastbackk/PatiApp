@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.patiapp.databinding.FragmentAramaBinding;
+import com.example.patiapp.databinding.FragmentBarinakAramaBinding;
 import com.example.patiapp.databinding.FragmentIlanlarBinding;
 import com.example.patiapp.databinding.FragmentKullaniciAramaBinding;
 
@@ -63,6 +64,16 @@ public class AramaFragment extends Fragment {
                 KullaniciArama FragmentKullaniciAramaBinding = new KullaniciArama();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout, FragmentKullaniciAramaBinding)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        binding.button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentArama FragmentBarinakAramaBinding = new FragmentArama();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layout, FragmentBarinakAramaBinding)
                         .addToBackStack(null)
                         .commit();
             }
