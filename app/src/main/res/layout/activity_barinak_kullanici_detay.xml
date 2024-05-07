@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KullaniciDetay">
+    tools:context=".BarinakKullaniciDetay">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,56 +43,38 @@
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="match_parent"
-                android:layout_height="127dp"
+                android:layout_height="279dp"
 
                 android:src="@drawable/account_svgrepo_com" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:background="@color/renk"
                 android:gravity="center"
-                android:text="Ad Soyad"
-                android:textSize="28sp" />
+                android:text="Barınak"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text=" @"
-                    android:textSize="18sp" />
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/underline"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Kurum İsmi"
+                android:textSize="27sp" />
 
-                    android:text="Kullanıcı Adı"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView20"
                 android:layout_width="match_parent"
-                android:layout_height="549dp"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="40dp" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Biyografi/Amaç ve İlkeler"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

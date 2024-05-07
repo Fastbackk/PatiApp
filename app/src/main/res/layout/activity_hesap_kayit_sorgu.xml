@@ -48,7 +48,7 @@
                         android:layout_weight="9"
                         android:gravity="center"
                         android:paddingRight="20dp"
-                        android:text="İlan Yükle"
+                        android:text=""
                         android:textSize="18sp" />
                 </LinearLayout>
 

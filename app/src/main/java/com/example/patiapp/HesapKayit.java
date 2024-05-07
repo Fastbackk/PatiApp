@@ -75,6 +75,9 @@ public class HesapKayit extends AppCompatActivity {
                                             Intent intent = new Intent(HesapKayit.this, HesapGiris.class);
                                             startActivity(intent);
                                             finish();
+
+
+
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

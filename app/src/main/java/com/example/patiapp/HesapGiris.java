@@ -33,7 +33,14 @@ public class HesapGiris extends AppCompatActivity {
         }
 
 
-
+        binding.button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HesapGiris.this, BarinakHesapOlustur.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
 

@@ -348,6 +348,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:backgroundTint="@color/renk"
+                        android:onClick="mesajgonder"
                         android:text="Mesaj Gönder"
                         android:textAllCaps="false"
                         android:textSize="21sp" />

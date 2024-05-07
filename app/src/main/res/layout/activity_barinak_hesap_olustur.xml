@@ -49,11 +49,100 @@
                         android:layout_weight="9"
                         android:gravity="center"
                         android:paddingRight="20dp"
-                        android:text="İlan Yükle"
                         android:textSize="18sp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="199dp"
+                android:src="@drawable/select">
+
+            </ImageView>
+
+            <EditText
+                android:id="@+id/editTextText8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Kurumun İsmi"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Kuruluş Yılı"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/editTextText15"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="Kurumun amaç ve ilkeleri/Biyografi"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextTextEmailAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="şifre oluşturun"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/editTextText16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Şehir"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="İlçe"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextText20"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="Açık Adres"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Telefon Numarası"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="kayit"
+                android:text="Kayıt ol" />
+
 
         </LinearLayout>
     </ScrollView>
