@@ -45,6 +45,7 @@ public class FavFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
 
+
         kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
 
         firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)

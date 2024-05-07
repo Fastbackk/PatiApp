@@ -23,7 +23,15 @@
         android:theme="@style/Theme.PatiApp"
         tools:targetApi="31">
         <activity
+
             android:name=".BarinakKullaniciDetay"
+
+            android:name=".IlanUpdate"
+            android:exported="false" />
+      
+        <activity
+            android:name=".IlanDuzenle"
+
             android:exported="false" />
         <activity
             android:name=".KullaniciArama"

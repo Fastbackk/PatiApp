@@ -146,7 +146,7 @@ public class IlanlarKendi extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     //public String UserEmail;
     ArrayList<Post> ilanArrayList;
-    Adapter adapter;
+    Adapter4 adapter4;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,8 +168,8 @@ public class IlanlarKendi extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter=new Adapter(ilanArrayList);
-        binding.recyclerView.setAdapter(adapter);
+        adapter4=new Adapter4(ilanArrayList);
+        binding.recyclerView.setAdapter(adapter4);
     }
     public void getData(){
         mAuth = FirebaseAuth.getInstance();
@@ -206,7 +206,7 @@ public class IlanlarKendi extends Fragment {
                                 Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
                                 ilanArrayList.add(ilan);
                             }
-                            adapter.notifyDataSetChanged();
+                            adapter4.notifyDataSetChanged();
                         }
                     }
                 });
