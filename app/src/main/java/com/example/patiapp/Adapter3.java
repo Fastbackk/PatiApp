@@ -35,6 +35,7 @@ public class Adapter3 extends RecyclerView.Adapter<Adapter3.PostHolder> {
         holder.binding.textView10.setText(arrayList.get(position).username);
 
 
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
