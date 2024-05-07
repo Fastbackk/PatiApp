@@ -161,31 +161,19 @@ public String username;
                             if (documentSnapshot.exists()) {
                                 Map<String, Object> data = documentSnapshot.getData();
 
-
                                 assert data != null;
                                 kullaniciadii = (String) data.get("kullaniciadi");
                                 System.out.println(kullaniciadii);
 
-
                             }
-
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         System.out.println("Veriler yüklenemedi!");
-
                     }
                 });
-
-
-
-
-
-
-
-
     }
     public void kaydet(View view){
         Map<String, Object> Kaydedilenler = new HashMap<>();
@@ -199,14 +187,5 @@ public String username;
                 .addOnFailureListener(e -> {
                     System.out.println("eklenemedi");
                 });
-
-
-
-
-
-
     }
-
-
-
 }

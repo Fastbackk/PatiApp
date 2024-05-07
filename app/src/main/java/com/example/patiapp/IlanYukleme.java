@@ -288,45 +288,23 @@ public class IlanYukleme extends AppCompatActivity {
                             //ilanData.put("ilanturu",ilanturu);
                             ilanData.put("ilanturu",secilenTur);
 
-
-
-
-
-
-
-
-
-
-
-
+                            ilanData.put("email",email);
+                            ilanData.put("kullaniciadi",NickName);
+                            ilanData.put("telno",telno);
 
                             /////////////////////////////////////////////////////////////////
-
-
-
 
 
                             timestamp = new Timestamp(new Date());
                             ilanData.put("date", timestamp);
 
-                           /* Timestamp Date=FieldValue.serverTimestamp();
-                            ilanData.put("date",Date);*/
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                            ilanData.put("email",email);
-                            ilanData.put("kullaniciadi",NickName);
-                            ilanData.put("telno",telno);
                             firebaseFirestore.collection("Ilanlar").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                      //ID'yi içeri yükleme
                                     getDataID();
-
-
-
-
-                                    Intent intent=new Intent(IlanYukleme.this,MainActivity.class);
+                           Intent intent=new Intent(IlanYukleme.this,MainActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     intent.putExtra("ilan","ilanhayvan");
                                     startActivity(intent);

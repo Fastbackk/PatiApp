@@ -41,7 +41,7 @@
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="match_parent"
-                android:layout_height="126dp"
+                android:layout_height="73dp"
 
                 android:src="@drawable/account_svgrepo_com" />
 
@@ -143,6 +143,33 @@
                             android:textSize="20sp" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageViewa1"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingStart="5dp"
+                            android:src="@drawable/hesabulhesab2" />
+
+                        <Button
+                            android:id="@+id/ilanlar"
+                            android:layout_width="match_parent"
+                            android:layout_height="67dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/white"
+                            android:drawableStart="@drawable/icons8_add_50"
+                            android:onClick="signout"
+                            android:text="İlanlarım"
+                            android:textColor="#424242"
+                            android:textSize="20sp" />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
