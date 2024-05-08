@@ -148,7 +148,7 @@ public class Mesajdetay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (degisken==true){
+                if (anlik_eposta==gonderenemail){
                     firebaseFirestore = FirebaseFirestore.getInstance();
 
 
