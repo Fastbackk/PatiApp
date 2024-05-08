@@ -126,6 +126,50 @@ public class GidenFragment extends Fragment {
                 transaction.commit();
             }
         });
+        binding.gidenKutusuTemizle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+
+                // İlgili belgeyi sorgula ve sil
+                firebaseFirestore.collection("Messages").whereEqualTo("username", username)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    // Belgeyi silme
+                                    snapshot.getReference().delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Silme başarılı olduğunda yapılacak işlemler
+                                                    Toast.makeText(getContext(), "Gelen Mesajlar başarıyla silindi", Toast.LENGTH_SHORT).show();
+                                                    getData();
+                                                    // Silme işleminden sonra belki bir işlem yapmak istersiniz
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Hata durumunda kullanıcıya bilgi verme
+                                                    Toast.makeText(getContext(), "Silme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Veri yüklenemediği durumda kullanıcıya bilgi verme
+                                Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
     }
 
     public void getData() {
@@ -143,7 +187,7 @@ public class GidenFragment extends Fragment {
                                 Map<String, Object> data = snapshot.getData();
                                 assert data != null;
                                 String mesajbaslik = (String) data.get("mesajbaslik");
-                                String username = (String) data.get("username");
+                                 username = (String) data.get("username");
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 String alici = (String) data.get("alici");

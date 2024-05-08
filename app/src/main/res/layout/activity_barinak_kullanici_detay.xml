@@ -43,14 +43,13 @@
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="match_parent"
-                android:layout_height="279dp"
-
+                android:layout_height="209dp"
                 android:src="@drawable/account_svgrepo_com" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:background="@color/renk"
                 android:gravity="center"
                 android:text="Barınak"
@@ -58,7 +57,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/kurumisim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -72,6 +71,37 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Biyografi/Amaç ve İlkeler"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/sehirilce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Sehir/İlçe"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/telefon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Tel/No"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/adres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Adres"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/yil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="end"
+                android:text="2000'den beri"
                 android:textSize="20sp" />
 
         </LinearLayout>

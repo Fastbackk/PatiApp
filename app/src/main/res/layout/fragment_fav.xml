@@ -20,18 +20,26 @@
         android:layout_height="wrap_content"
         android:text="Giden Kutusu" />
 
+    <Button
+        android:id="@+id/gelen_kutusu_temizle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#616161"
+        android:text="Giden Kutusu Temizle" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView6"
         android:layout_width="match_parent"
-        android:layout_height="467dp"
+        android:layout_height="447dp"
         android:layout_margin="2dp"
         android:paddingTop="20dp"
         android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/button10"
-        android:layout_width="293dp"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:text="ekle"/>
+        android:layout_gravity="center"
+        android:text="ekle" />
 
 </LinearLayout>

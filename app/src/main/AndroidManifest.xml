@@ -26,12 +26,11 @@
 
             android:name=".BarinakKullaniciDetay"
             android:exported="false" />
-
         <activity
-            android:name=".IlanUpdate"
+            android:name=".BarinakArama"
             android:exported="false" />
         <activity
-            android:name=".FragmentArama"
+            android:name=".IlanUpdate"
             android:exported="false" />
         <activity
             android:name=".IlanDuzenle"

@@ -37,6 +37,7 @@ public class FavFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     public String kullaniciEposta, username;
+    public String alici;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,6 +117,50 @@ public class FavFragment extends Fragment {
                 transaction.commit();
             }
         });
+        binding.gelenKutusuTemizle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+
+                // İlgili belgeyi sorgula ve sil
+                firebaseFirestore.collection("Messages").whereEqualTo("alici", alici)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    // Belgeyi silme
+                                    snapshot.getReference().delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Silme başarılı olduğunda yapılacak işlemler
+                                                    Toast.makeText(getContext(), "Gelen Mesajlar başarıyla silindi", Toast.LENGTH_SHORT).show();
+                                                    getData();
+                                                    // Silme işleminden sonra belki bir işlem yapmak istersiniz
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Hata durumunda kullanıcıya bilgi verme
+                                                    Toast.makeText(getContext(), "Silme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Veri yüklenemediği durumda kullanıcıya bilgi verme
+                                Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
 
     }
 
@@ -137,7 +182,7 @@ public class FavFragment extends Fragment {
                                 String username = (String) data.get("username");
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
-                                String alici = (String) data.get("alici");
+                                alici = (String) data.get("alici");
                                 Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici);
                                 messageArrayList.add(ilan);
                             }

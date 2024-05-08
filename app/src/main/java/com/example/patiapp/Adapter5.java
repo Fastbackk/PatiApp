@@ -38,7 +38,9 @@ public class Adapter5 extends RecyclerView.Adapter<Adapter5.PostHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(holder.itemView.getContext(), FragmentArama.class);
+
+                Intent intent=new Intent(holder.itemView.getContext(), BarinakKullaniciDetay.class);
+
                 intent.putExtra("acikadres",arrayList.get(position).acikadres);
                 intent.putExtra("biyografi",arrayList.get(position).biyografi);
                 intent.putExtra("ilce",arrayList.get(position).ilce);
@@ -48,6 +50,7 @@ public class Adapter5 extends RecyclerView.Adapter<Adapter5.PostHolder> {
                 intent.putExtra("profil_foto",arrayList.get(position).profil_foto);
                 intent.putExtra("sehir",arrayList.get(position).sehir);
                 intent.putExtra("telno",arrayList.get(position).telno);
+
                 holder.itemView.getContext().startActivity(intent);
             }
         });
