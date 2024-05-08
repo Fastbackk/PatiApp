@@ -22,6 +22,7 @@ import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.HashMap;
@@ -54,48 +55,89 @@ public class HesapKayit extends AppCompatActivity {
         }
         else{
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            auth.createUserWithEmailAndPassword(eposta, sifre)
-                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+// Kullanıcı adının zaten kullanılıp kullanılmadığını kontrol et
+            db.collection("users")
+                    .whereEqualTo("kullaniciadi", kullaniciadi)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(AuthResult authResult) {
-                            // Yeni bir kullanıcı profili oluştur
-                            Map<String, Object> userProfile = new HashMap<>();
-                            userProfile.put("ad", ad);
-                            userProfile.put("soyad", soyad);
-                            userProfile.put("kullaniciadi", kullaniciadi);
-                            userProfile.put("eposta", eposta);
-                            userProfile.put("sifre",sifre);
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (queryDocumentSnapshots.isEmpty()) {
+                                // Kullanıcı adı mevcut değil, yeni kullanıcı oluştur
+                                auth.createUserWithEmailAndPassword(eposta, sifre)
+                                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                            @Override
+                                            public void onSuccess(AuthResult authResult) {
+                                                // Kullanıcıya doğrulama e-postası gönder
+                                                authResult.getUser().sendEmailVerification()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Toast.makeText(HesapKayit.this, "Doğrulama e-postası gönderildi.", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(HesapKayit.this, "Doğrulama e-postası gönderilirken hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
 
-                            // Firestore'da kullanıcı ID'si ile bu profili kaydet
-                            db.collection("users").document(authResult.getUser().getUid())
-                                    .set(userProfile)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Intent intent = new Intent(HesapKayit.this, HesapGiris.class);
-                                            startActivity(intent);
-                                            finish();
+                                                // Yeni bir kullanıcı profili oluştur
+                                                Map<String, Object> userProfile = new HashMap<>();
+                                                userProfile.put("ad", ad);
+                                                userProfile.put("soyad", soyad);
+                                                userProfile.put("kullaniciadi", kullaniciadi);
+                                                userProfile.put("eposta", eposta);
+                                                userProfile.put("sifre", sifre);
 
-
-
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(HesapKayit.this, "Veri kaydedilirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                                // Firestore'da kullanıcı ID'si ile bu profili kaydet
+                                                db.collection("users").document(authResult.getUser().getUid())
+                                                        .set(userProfile)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Intent intent = new Intent(HesapKayit.this, HesapGiris.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(HesapKayit.this, "Veri kaydedilirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(HesapKayit.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            } else {
+                                // Kullanıcı adı zaten kullanımda
+                                Toast.makeText(HesapKayit.this, "Bu kullanıcı adı zaten kullanımda.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(HesapKayit.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HesapKayit.this, "Kullanıcı adı kontrolü sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
+
         }
+
+    }
+    public void back(View view){
+        Intent intent=new Intent(HesapKayit.this,HesapKayitSorgu.class);
+        startActivity(intent);
+        finish();
 
     }
 

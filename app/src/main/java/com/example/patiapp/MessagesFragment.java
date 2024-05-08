@@ -97,6 +97,7 @@ public class MessagesFragment extends Fragment {
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent intentt = new Intent(getContext(), HesapGiris.class);
+                intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Bu flaglar ile geri yığınını temizle
                 startActivity(intentt);
             }
         });
