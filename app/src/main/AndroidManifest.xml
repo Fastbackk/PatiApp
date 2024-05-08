@@ -25,10 +25,16 @@
         <activity
             android:name=".BarinakKullaniciDetay"
             android:exported="false" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> b7539f3be931f7f273e26a93d2f5a544caf8373c
         <activity
             android:name=".IlanUpdate"
             android:exported="false" />
-      
+        <activity
+            android:name=".FragmentArama"
+            android:exported="false" />
         <activity
             android:name=".IlanDuzenle"
 

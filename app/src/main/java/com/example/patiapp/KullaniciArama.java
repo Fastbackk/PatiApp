@@ -72,12 +72,38 @@ public class KullaniciArama extends Fragment implements SearchView.OnQueryTextLi
 
         // SearchView'deki metni değiştirdiğinde kullanıcı adını güncelle
         binding.SearchViewArama.setOnQueryTextListener(this);
+        getData2();
     }
 
     // Verileri getir
     public void getData() {
         // Kullanıcı adına göre sorgu yap
         firebaseFirestore.collection("users").whereEqualTo("kullaniciadi", kullaniciadi)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (value != null) {
+                            ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
+                            for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                Map<String, Object> data = snapshot.getData();
+
+                                assert data != null;
+                                String username = (String) data.get("kullaniciadi");
+                                String ad = (String) data.get("ad");
+                                String soyad = (String) data.get("soyad");
+
+                                Post3 ilan = new Post3(username, ad, soyad);
+                                ilanArrayList.add(ilan);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+    public void getData2() {
+        // Kullanıcı adına göre sorgu yap
+        firebaseFirestore.collection("users")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -128,7 +154,12 @@ public class KullaniciArama extends Fragment implements SearchView.OnQueryTextLi
     public boolean onQueryTextChange(String newText) {
         // SearchView'deki metni kullanıcı adına ata
         kullaniciadi = newText;
-        getData();
+        if (newText.isEmpty()) {
+            getData2();
+        } else {
+            getData();
+        }
         return false;
     }
+
 }

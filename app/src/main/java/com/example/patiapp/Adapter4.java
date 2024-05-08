@@ -47,11 +47,6 @@ public class Adapter4 extends RecyclerView.Adapter<Adapter4.PostHolder> {
                 intent.putExtra("sehir",arrayList.get(position).sehir);
                 intent.putExtra("date",arrayList.get(position).date);
                 intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
-
-
-
-
-
                 holder.itemView.getContext().startActivity(intent);
             }
         });
