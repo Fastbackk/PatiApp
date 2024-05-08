@@ -14,6 +14,7 @@ import com.example.patiapp.databinding.ActivityMesajdetayBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +34,8 @@ public class Mesajdetay extends AppCompatActivity {
     ArrayList<Post> ilanArrayList;
     private FirebaseFirestore firebaseFirestore;
     String ID;
+    private FirebaseAuth firebaseAuth;
+    private boolean degisken=false;
 
 
 
@@ -47,6 +50,10 @@ public class Mesajdetay extends AppCompatActivity {
         setContentView(view);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        String anlik_eposta = firebaseAuth.getCurrentUser().getEmail();
+
+
 
         //verileri alma
         Intent intent=getIntent();
@@ -56,13 +63,21 @@ public class Mesajdetay extends AppCompatActivity {
         alici= intent.getStringExtra("alici");
         gonderenemail = intent.getStringExtra("gonderenemail");
 
+        if (anlik_eposta+" " == gonderenemail){
+            Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
+            binding.kaydet.setText("Mesajı Sil");
+            degisken=true;
+        }
+        else {
+            Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
+        }
 
 /*
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date parsedDate = dateFormat.parse(date);
         Timestamp timestamp = new Timestamp(parsedDate.getTime());*/
 
-        firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslik", mesajbaslik)
+        firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslik", mesajbaslik).whereEqualTo("username",username).whereEqualTo("mesaj",mesaj)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -132,11 +147,61 @@ public class Mesajdetay extends AppCompatActivity {
         binding.kaydet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent'i oluştur ve MesajEkle aktivitesine git
-                Intent intent = new Intent(Mesajdetay.this, MesajEkle.class);
-                // Verileri intent ile MesajEkle aktivitesine gönder
-                intent.putExtra("gidenveri", username);
-                startActivity(intent);
+
+                if (degisken==true){
+                    firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+
+                    // İlgili belgeyi sorgula ve sil
+                    firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslik", mesajbaslik).whereEqualTo("username",username).whereEqualTo("mesaj",mesaj)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                        // Belgeyi silme
+                                        snapshot.getReference().delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        // Silme başarılı olduğunda yapılacak işlemler
+                                                        Toast.makeText(Mesajdetay.this, "Gelen Mesajlar başarıyla silindi", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(Mesajdetay.this,Ilanlar.class);
+                                                        startActivity(intent);
+
+
+                                                        // Silme işleminden sonra belki bir işlem yapmak istersiniz
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Hata durumunda kullanıcıya bilgi verme
+                                                        Toast.makeText(Mesajdetay.this, "Silme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Veri yüklenemediği durumda kullanıcıya bilgi verme
+                                    Toast.makeText(Mesajdetay.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    degisken=false;
+                }
+                else {
+                    Intent intent=getIntent();
+                    intent = new Intent(Mesajdetay.this, MesajEkle.class);
+                    // Verileri intent ile MesajEkle aktivitesine gönder
+                    intent.putExtra("gidenveri", username);
+                    startActivity(intent);
+                }
+
+
             }
         });
     }
