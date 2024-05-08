@@ -33,14 +33,6 @@ public class HesapGiris extends AppCompatActivity {
         }
 
 
-        binding.button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HesapGiris.this, BarinakHesapOlustur.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
 
 
@@ -48,17 +40,15 @@ public class HesapGiris extends AppCompatActivity {
     }
     //kayıt yönlendirme
     public void kayitol(View view){
-        Intent intent=new Intent(HesapGiris.this,HesapKayit.class);
+        Intent intent=new Intent(HesapGiris.this, HesapKayitSorgu.class);
         startActivity(intent);
         finish();
-
     }
 
     //Giriş
    public void giris(View view){
        String eposta = binding.editTextText4.getText().toString();
        String sifre = binding.editTextTextEmailAddress.getText().toString();
-
 
         if (eposta.equals("") || sifre.equals("")) {
             Toast.makeText(this, "Boş alan bırakmayınız!", Toast.LENGTH_SHORT).show();

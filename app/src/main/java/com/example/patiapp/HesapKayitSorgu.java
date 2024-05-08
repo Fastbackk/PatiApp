@@ -18,8 +18,13 @@ public class HesapKayitSorgu extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    public void back(View view){
+    public void kisisel(View view){
         Intent intent=new Intent(HesapKayitSorgu.this,HesapKayit.class);
+        startActivity(intent);
+        finish();
+    }
+    public void back(View view){
+        Intent intent=new Intent(HesapKayitSorgu.this,HesapGiris.class);
         startActivity(intent);
         finish();
 

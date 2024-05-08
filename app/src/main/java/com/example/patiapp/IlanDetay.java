@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Toast;
 
@@ -162,8 +163,22 @@ public class IlanDetay extends AppCompatActivity {
         binding.textView13.setText(aciklamatext);
         binding.textView12ss.setText(telno);
         binding.textView4.setText(sehir+" / "+ilce);
-        binding.textView12.setText(username);
-        System.out.println(kullaniciadii);
+
+        new CountDownTimer(2000,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                binding.textView12.setText(username);
+            }
+        }.start();
+
+
+
 
     }
     public void mesajgonder(View view){

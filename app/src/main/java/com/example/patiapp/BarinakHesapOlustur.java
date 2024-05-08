@@ -61,6 +61,9 @@ public class BarinakHesapOlustur extends AppCompatActivity {
             Toast.makeText(this, "Tüm alanları doldurduğunuzdan ve bir profil fotoğrafı seçtiğinizden emin olun", Toast.LENGTH_SHORT).show();
         } else {
             uploadImageToFirebaseStorage(selectedImageUri);
+
+            Intent intent=new Intent(BarinakHesapOlustur.this,HesapGiris.class);
+            startActivity(intent);
         }
     }
 
@@ -119,6 +122,11 @@ public class BarinakHesapOlustur extends AppCompatActivity {
                         .addOnFailureListener(e -> Toast.makeText(BarinakHesapOlustur.this, "Veri kaydedilirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show())
                 )
                 .addOnFailureListener(e -> Toast.makeText(BarinakHesapOlustur.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show());
+    }
+    public void back(View view){
+        Intent intent=new Intent(BarinakHesapOlustur.this,HesapKayitSorgu.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -25,43 +25,31 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-
         replaceFragment(new Ilanlar());
         binding.bottomNavigationView.setBackground(null);
+        binding.bottomNavigationView.setSelectedItemId(R.id.paw); // Ilanlar tab'ını seçili hale getirin
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout, new Ilanlar())
                 .commit();
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            //mesaj
-            if (itemId == R.id.fav) {
-                replaceFragment(new FavFragment());
-            }
-            //ilanlar
-            else if (itemId == R.id.paw) {
+            if (itemId == R.id.paw) {
                 replaceFragment(new Ilanlar());
-            }
-            //arama
-            else if (itemId == R.id.search) {
+            } else if (itemId == R.id.fav) {
+                replaceFragment(new FavFragment());
+            } else if (itemId == R.id.search) {
                 replaceFragment(new AramaFragment());
-
-            }
-            //hesabım
-            else if (itemId == R.id.message) {
+            } else if (itemId == R.id.message) {
                 replaceFragment(new MessagesFragment());
-
-            }
-            //ilan yükle
-            else if (itemId == R.id.add) {
+            } else if (itemId == R.id.add) {
                 Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intentt);
                 finish();
             }
             return true;
         });
-
-
     }
 
     private void replaceFragment(Fragment fragment) {
