@@ -24,4 +24,6 @@ public class Post4 {
         this.sehir = sehir;
         this.telno = telno;
     }
+
+    //selamlar
 }
