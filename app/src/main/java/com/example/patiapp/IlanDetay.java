@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -157,7 +158,18 @@ public class IlanDetay extends AppCompatActivity {
         //verileri kullanma
         Picasso.get().load(dowloandurl).into(binding.imageView6);
         binding.textView7.setText(ilanbaslik);
-        binding.textView8.setText(ilanturu);
+        if (ilanturu.equals("Çiftleştirme İlanı")){
+          binding.textView8.setText(ilanturu);
+          binding.textView8.setBackgroundColor(Color.parseColor("#f59e42"));
+
+        }else if(ilanturu.equals("Mama Bağışı")){
+            binding.textView8.setText(ilanturu);
+            binding.textView8.setBackgroundColor(Color.parseColor("#38b832"));
+        }
+        else{
+            binding.textView8.setText(ilanturu);
+            binding.textView8.setBackgroundColor(Color.parseColor("#00699f"));
+        }
         binding.textView5.setText(date);
         binding.textView12ass.setText(kullaniciemail);
         binding.textView13.setText(aciklamatext);

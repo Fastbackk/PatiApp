@@ -192,8 +192,8 @@ public class IlanUpdate extends AppCompatActivity {
          binding.editTextText9.setText(ilce);
          binding.editTextText10.setText(aciklamatext);
          binding.editTextText17.setText(telno);
-         Picasso.get().load(dowloandURL).into(binding.imageView2);
-         binding.imageView2.setEnabled(false);
+         Picasso.get().load(dowloandURL).into(binding.imageView11);
+         binding.imageView11.setEnabled(false);
          binding.spinner2.setEnabled(false);
          binding.spinner1.setEnabled(false);
          binding.spinner3.setEnabled(false);
@@ -395,7 +395,7 @@ public class IlanUpdate extends AppCompatActivity {
                     Intent intentFromResult = result.getData();
                     if (intentFromResult != null) {
                         ImageData = intentFromResult.getData();
-                        binding.imageView2.setImageURI(ImageData);
+                        binding.imageView11.setImageURI(ImageData);
 
 
                     }

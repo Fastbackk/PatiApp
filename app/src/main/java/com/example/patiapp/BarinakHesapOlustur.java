@@ -37,7 +37,7 @@ public class BarinakHesapOlustur extends AppCompatActivity {
         setContentView(view);
         auth = FirebaseAuth.getInstance();
 
-        binding.textView1.setOnClickListener(new View.OnClickListener() {
+        binding.imageView15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -72,7 +72,7 @@ public class BarinakHesapOlustur extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
-            binding.textView1.setImageURI(selectedImageUri);  // Seçilen resmi ImageView'da göster
+            binding.imageView15.setImageURI(selectedImageUri);  // Seçilen resmi ImageView'da göster
         }
     }
 
