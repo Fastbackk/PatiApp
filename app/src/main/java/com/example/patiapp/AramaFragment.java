@@ -83,11 +83,13 @@ public class AramaFragment extends Fragment {
 
             }
         });
+
+
         //kategori
         String[] hayvankategori = getResources().getStringArray(R.array.kategoriListele);
         ArrayAdapter<String> adapterItems2 = new ArrayAdapter<>(getContext(), R.layout.dropdown_item,hayvankategori);
-        binding.autoCompleteTextView.setAdapter(adapterItems2);
-        binding.autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.kategoritext.setAdapter(adapterItems2);
+        binding.kategoritext.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String item = adapterView.getItemAtPosition(position).toString();
