@@ -94,6 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_weight="0.5"
                         android:background="@drawable/underline"
                         android:text="Evcil Hayvan Sahiplendirme İlanı"
