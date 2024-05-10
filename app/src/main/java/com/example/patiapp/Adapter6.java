@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.PostHolder> {
+public class Adapter6 extends RecyclerView.Adapter<Adapter6.PostHolder> {
 
 
-    private ArrayList<Post> arrayList;
+    private ArrayList<Post5> arrayList;
 
-    public Adapter(ArrayList<Post> arrayList) {
+    public Adapter6(ArrayList<Post5> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -33,9 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PostHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
-        Picasso.get().load(arrayList.get(position).username).into(holder.binding.userpp);
         holder.binding.ilanbaslik.setText(arrayList.get(position).ilanbaslik);
-        holder.binding.textView28.setText(arrayList.get(position).foto);
         holder.binding.ilanturu.setText(arrayList.get(position).ilanturu);
         if (arrayList.get(position).ilanturu.equals("Çiftleştirme İlanı")) {
             holder.binding.ilanturu.setBackgroundColor(Color.parseColor("#f59e42"));

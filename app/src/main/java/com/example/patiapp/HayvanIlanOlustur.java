@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Time;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ import java.util.UUID;
 
 public class HayvanIlanOlustur extends AppCompatActivity {
     private com.example.patiapp.databinding.ActivityHayvanIlanOlusturBinding binding;
-    String kullaniciadi;
+    String kullaniciadi,userpp;
     String ID;
     Timestamp timestamp;
     String kullaniciEposta;
@@ -45,7 +46,9 @@ public class HayvanIlanOlustur extends AppCompatActivity {
     String secilenSehir;
     String secilenCinsiyet;
     private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+    public String foto2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class HayvanIlanOlustur extends AppCompatActivity {
                                 Map<String, Object> data = snapshot.getData();
 
                                 kullaniciadi= (String) data.get("kullaniciadi");
-
+                                userpp= (String) data.get("profil_foto");
 
                             }
                             else {
@@ -210,6 +213,9 @@ public class HayvanIlanOlustur extends AppCompatActivity {
         });
     }
     private void ilaniyukle(String imageUrl) {
+
+
+
         Map<String, Object> ilan = new HashMap<>();
         ilan.put("ilanbaslik", binding.editTextText12.getText().toString().trim());
         ilan.put("yas", binding.editTextNumber.getText().toString().trim());
@@ -225,7 +231,10 @@ public class HayvanIlanOlustur extends AppCompatActivity {
         ilan.put("telno", binding.editTextNumber2.getText().toString().trim());
         ilan.put("kullaniciadi", kullaniciadi);
         ilan.put("dowloandurl", imageUrl);
+        ilan.put("saglik",binding.editTextText14.getText().toString().trim());
+        ilan.put("userpp", userpp);
         ilan.put("date", FieldValue.serverTimestamp());
+
 
         DocumentReference newIlanRef = firebaseFirestore.collection("Ilanlar").document();
 

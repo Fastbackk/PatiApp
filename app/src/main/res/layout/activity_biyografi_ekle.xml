@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BiyografiEkle">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Biyografi Ekle"
+        android:gravity="center">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/ediText"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:hint="Biyografi"
+        >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/atla2"
+        android:text="Atla"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+    <Button
+        android:id="@+id/onayla2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Onayla" />
+
+
+</LinearLayout>

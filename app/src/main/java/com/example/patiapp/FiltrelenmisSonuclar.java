@@ -25,8 +25,8 @@ import java.util.Map;
 
 public class FiltrelenmisSonuclar extends AppCompatActivity {
     private ActivityFiltrelenmisSonuclarBinding binding;
-    ArrayList<Post> ilanArrayList;
-    Adapter adapter;
+    ArrayList<Post5> ilanArrayList;
+    Adapter6 adapter;
     private FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -38,7 +38,7 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         ilanArrayList=new ArrayList<>();
         firebaseFirestore= FirebaseFirestore.getInstance();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(FiltrelenmisSonuclar.this));
-        adapter=new Adapter(ilanArrayList);
+        adapter=new Adapter6(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
 
 
@@ -48,6 +48,7 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         String hayvan = intent.getStringExtra("secilenHayvan");
         String cins = intent.getStringExtra("secilenCins");
         String ilanTuru = intent.getStringExtra("secilenTur");
+
         System.out.println(sehir+" "+hayvan+" "+cins+" "+ilanTuru);
 
         // Verileri filtreleme fonksiyonuna gönder
@@ -87,10 +88,12 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
                         Map<String, Object> data = snapshot.getData();
                         // Print data to log for debugging
                         System.out.println("Data received: " + data);
-                        Post ilan = new Post(data.get("ilanbaslik").toString(),
+                        Post5 ilan = new Post5(data.get("ilanbaslik").toString(),
                                 data.get("dowloandurl").toString(),
                                 data.get("sehir").toString(),
                                 data.get("ilanturu").toString(),
+                                //data.get("kullaniciadi").toString(),
+                                //data.get("userpp").toString(),
                                 parseDate(data.get("date")));
                         ilanArrayList.add(ilan);
                     }

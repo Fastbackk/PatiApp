@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.patiapp.databinding.FragmentIlanlarBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,7 +42,11 @@ public class Ilanlar extends Fragment {
     private FragmentIlanlarBinding binding;
     ArrayList<Post>ilanArrayList;
     Adapter adapter;
+    public String foto;
+public String date;
     private FirebaseFirestore firebaseFirestore;
+
+    private FirebaseAuth firebaseAuth;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +69,20 @@ public class Ilanlar extends Fragment {
         adapter=new Adapter(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+
+
+
+
+
+
+
+
     }
     public void getData(){
+
+
         firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -83,20 +101,24 @@ public class Ilanlar extends Fragment {
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
-                                String date = null;
+                                String foto= (String) data.get("userpp");
+                                String username= (String) data.get("kullaniciadi");
+                                 date = null;
 
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy HH:mm", Locale.getDefault());
                                     date = sdf.format(timestamp.toDate());
                                 } else if (dateObj instanceof String) {
                                     // String olarak kaydedilmişse, bu blok çalışacak
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto);
                                 ilanArrayList.add(ilan);
+
+
                             }
                             adapter.notifyDataSetChanged();
                         }

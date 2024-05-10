@@ -108,8 +108,9 @@ public class KullaniciArama extends Fragment implements SearchView.OnQueryTextLi
                                     String username = (String) data.get("kullaniciadi");
                                     String ad = (String) data.get("ad");
                                     String soyad = (String) data.get("soyad");
+                                    String profil_foto = (String) data.get("profil_foto");
 
-                                    Post3 ilan = new Post3(username, ad, soyad);
+                                    Post3 ilan = new Post3(username, ad, soyad,profil_foto);
                                     ilanArrayList.add(ilan);
                                 }
                                 adapter.notifyDataSetChanged();
@@ -134,8 +135,9 @@ public class KullaniciArama extends Fragment implements SearchView.OnQueryTextLi
                                 String username = (String) data.get("kullaniciadi");
                                 String ad = (String) data.get("ad");
                                 String soyad = (String) data.get("soyad");
+                                String profil_foto = (String) data.get("profil_foto");
 
-                                Post3 ilan = new Post3(username, ad, soyad);
+                                Post3 ilan = new Post3(username, ad, soyad,profil_foto);
                                 ilanArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

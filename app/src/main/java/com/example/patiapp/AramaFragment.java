@@ -118,8 +118,6 @@ public class AramaFragment extends Fragment {
         binding.ilangor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (secilenTur==null){
                     secilenTur="bos";
                 }
@@ -143,19 +141,8 @@ public class AramaFragment extends Fragment {
                     intent.putExtra("secilenHayvan",secilenHayvan);
                     startActivity(intent);
                 }
-
-
-
-
-
             }
         });
-
-
-
-
-
-
     }
     private void updateAnimalSpecificInfo() {
 

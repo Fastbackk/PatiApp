@@ -14,10 +14,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
 
 public class HesapGiris extends AppCompatActivity {
     private ActivityHesapGirisBinding binding;
     private FirebaseAuth auth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +33,15 @@ public class HesapGiris extends AppCompatActivity {
         setContentView(view);
         auth=FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+
+
         if (user != null) {
-            Intent intent = new Intent(HesapGiris.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+
+                Intent intent = new Intent(HesapGiris.this, MainActivity.class);
+                startActivity(intent);
+                finish();
         }
 
 
