@@ -41,9 +41,18 @@
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
+                android:layout_height="107dp"
 
                 android:src="@drawable/account_svgrepo_com" />
+            <TextView
+                android:text=""
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
 
             <TextView
                 android:id="@+id/textView2"
@@ -52,7 +61,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Ad Soyad"
-                android:textSize="28sp" />
+                android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text=" @"
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
@@ -74,7 +83,7 @@
                     android:background="@drawable/underline"
 
                     android:text="Kullanıcı Adı"
-                    android:textSize="18sp" />
+                    android:textSize="15sp" />
         </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -142,6 +151,7 @@
                             android:textColor="#424242"
                             android:textSize="20sp" />
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -91,6 +91,7 @@ public class HesapKayit extends AppCompatActivity {
                                                 userProfile.put("kullaniciadi", kullaniciadi);
                                                 userProfile.put("eposta", eposta);
                                                 userProfile.put("sifre", sifre);
+                                                userProfile.put("sorgu", "false");
 
                                                 // Firestore'da kullanıcı ID'si ile bu profili kaydet
                                                 db.collection("users").document(authResult.getUser().getUid())

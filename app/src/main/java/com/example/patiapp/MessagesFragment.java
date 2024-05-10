@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,9 +37,7 @@ public class MessagesFragment extends Fragment {
     private FragmentMessagesBinding binding;
     private FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
-    String ad;
-    String soyad;
-    String kullaniciadi;
+    String ad,soyad,kullaniciadi,foto,biyografi;
     MenuItem item;
     ArrayList<Post> ilanArrayList2;
     Adapter adapter;
@@ -116,6 +115,13 @@ public class MessagesFragment extends Fragment {
                                 ad = (String) data.get("ad");
                                 soyad = (String) data.get("soyad");
                                 kullaniciadi = (String) data.get("kullaniciadi");
+                                foto= (String) data.get("profil_foto");
+                                biyografi= (String) data.get("biyografi");
+                                if (foto!=null){
+                                    Picasso.get().load(foto).into(binding.imageView13);
+                                }
+
+                                binding.bio.setText(biyografi);
                                 binding.textView2.setText(ad + " " + soyad);
                                 binding.textView6.setText(kullaniciadi);
                             }
@@ -131,11 +137,7 @@ public class MessagesFragment extends Fragment {
         binding.button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), HesapDetay.class);
-                intent.putExtra("email", useremail);
-                intent.putExtra("ad", ad);
-                intent.putExtra("soyad", soyad);
-                intent.putExtra("kullaniciadi", kullaniciadi);
+                Intent intent = new Intent(getContext(), ProfilFotoIsteme.class);
                 startActivity(intent);
             }
         });
@@ -213,6 +215,8 @@ public class MessagesFragment extends Fragment {
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
+                                String foto= (String) data.get("userpp");
+                                String username= (String) data.get("kullaniciadi");
                                 String date = null;
 
                                 Object dateObj = data.get("date");
@@ -225,7 +229,7 @@ public class MessagesFragment extends Fragment {
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto);
                                 ilanArrayList2.add(ilan);
                             }
                             adapter4.notifyDataSetChanged(); // Adapter'ı güncelle

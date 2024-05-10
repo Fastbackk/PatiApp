@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.patiapp.databinding.RecyclerKullaniciBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class Adapter3 extends RecyclerView.Adapter<Adapter3.PostHolder> {
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.binding.textView10.setText(arrayList.get(position).username);
+        Picasso.get().load(arrayList.get(position).profil_foto).into(holder.binding.imageView14);
 
 
 

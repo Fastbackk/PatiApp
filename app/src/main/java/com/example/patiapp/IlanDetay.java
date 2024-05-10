@@ -40,7 +40,7 @@ public class IlanDetay extends AppCompatActivity {
     String ID;
     String kullaniciadii;
 
-    public String username;
+    public String username,foto,foto2;
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
     String kullaniciemail;
@@ -93,25 +93,56 @@ public class IlanDetay extends AppCompatActivity {
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
-                                String kullaniciemail = (String) data.get("email");
+                                kullaniciemail = (String) data.get("eposta");
                                 String aciklamatext = (String) data.get("aciklama");
                                 String telno = (String) data.get("telno");
                                 String ilce = (String) data.get("ilce");
                                 String hayvankategori=(String) data.get("hayvankategori");
                                 String hayvancinsi=(String) data.get("hayvancinsi");
+                                String saglik=(String) data.get("saglik");
                                 username=(String) data.get("kullaniciadi");
+
+                                foto=(String) data.get("profil_foto");
 
                                 // Verileri kullanarak UI güncelleyin
                                 Picasso.get().load(dowloandurl).into(binding.imageView6);
+                                binding.textView12.setText(username);
                                 binding.textView7.setText(baslik);
                                 binding.textView8.setText(ilanturu);
                                 binding.textView5.setText(date);  // Bu 'date' değerini de ayrıca yukarıdan almanız gerekecek
                                 binding.textView12ass.setText(kullaniciemail);
                                 binding.textView13.setText(aciklamatext);
                                 binding.textView12ss.setText(telno);
-                                binding.textView10.setText(hayvankategori);
+                                binding.textView121.setText(saglik); binding.textView10.setText(hayvankategori);
                                 binding.textView11.setText(hayvancinsi);
                                 binding.textView4.setText(sehir + " / " + ilce);
+
+                                Toast.makeText(IlanDetay.this, kullaniciemail, Toast.LENGTH_SHORT).show();
+                                firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciemail)
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                                                    if (documentSnapshot.exists()) {
+                                                        Map<String, Object> data = documentSnapshot.getData();
+                                                        foto2 = (String) data.get("profil_foto");
+                                                        Picasso.get().load(foto2).into(binding.imageView12);
+                                                        //kullaniciadii = (String) data.get("kullaniciadi");
+
+
+                                                    }
+
+                                                }
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                System.out.println("Veriler yüklenemedi!");
+
+                                            }
+                                        });
+
 
                                 // Diğer işlemler
                                 System.out.println("Veriler başarıyla yüklendi: " + kullaniciemail);
@@ -131,6 +162,7 @@ public class IlanDetay extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String useremail = user.getEmail();
         System.out.println(useremail);
+
         firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -139,7 +171,8 @@ public class IlanDetay extends AppCompatActivity {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
                             if (documentSnapshot.exists()) {
                                 Map<String, Object> data = documentSnapshot.getData();
-
+                                //foto2 = (String) data.get("profil_foto");
+                                //Picasso.get().load(foto2).into(binding.imageView12);
                                 kullaniciadii = (String) data.get("kullaniciadi");
 
 
@@ -157,6 +190,7 @@ public class IlanDetay extends AppCompatActivity {
 
         //verileri kullanma
         Picasso.get().load(dowloandurl).into(binding.imageView6);
+
         binding.textView7.setText(ilanbaslik);
         if (ilanturu.equals("Çiftleştirme İlanı")){
           binding.textView8.setText(ilanturu);
@@ -170,6 +204,7 @@ public class IlanDetay extends AppCompatActivity {
             binding.textView8.setText(ilanturu);
             binding.textView8.setBackgroundColor(Color.parseColor("#00699f"));
         }
+        binding.textView12.setText(username);
         binding.textView5.setText(date);
         binding.textView12ass.setText(kullaniciemail);
         binding.textView13.setText(aciklamatext);
@@ -192,6 +227,11 @@ public class IlanDetay extends AppCompatActivity {
 
 
 
+    }
+    public void profilegit(View view){
+        Intent intent=new Intent(this, KullaniciDetay.class);
+        intent.putExtra("username",username);
+        startActivity(intent);
     }
     public void mesajgonder(View view){
         Intent intent = new Intent(IlanDetay.this, MesajEkle.class);

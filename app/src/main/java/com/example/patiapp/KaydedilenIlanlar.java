@@ -81,6 +81,8 @@ public class KaydedilenIlanlar extends AppCompatActivity {
                                                         String dowloandurl = (String) data.get("dowloandurl");
                                                         String sehir = (String) data.get("sehir");
                                                         String ilanturu = (String) data.get("ilanturu");
+                                                        String foto= (String) data.get("dowloandurl");
+                                                        String username= (String) data.get("kullaniciadi");
                                                         String date = null;
 
                                                         Object dateObj = data.get("date");
@@ -93,7 +95,7 @@ public class KaydedilenIlanlar extends AppCompatActivity {
                                                             date = (String) dateObj;
                                                         }
 
-                                                        Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date);
+                                                        Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto);
                                                         ilanArrayList.add(ilan);
                                                     }
                                                     adapter.notifyDataSetChanged();
