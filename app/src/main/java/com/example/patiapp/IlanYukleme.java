@@ -83,7 +83,6 @@ public class IlanYukleme extends AppCompatActivity {
     }
     public void mamabagis(View view){
         Intent intent=new Intent(IlanYukleme.this, MamaBagisiOlustur.class);
-
         startActivity(intent);
         finish();
 

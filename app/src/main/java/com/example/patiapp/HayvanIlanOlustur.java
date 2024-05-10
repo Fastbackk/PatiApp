@@ -113,26 +113,7 @@ public class HayvanIlanOlustur extends AppCompatActivity {
 
 
 
-        //ilan türleri
-        String[] ilanturu = getResources().getStringArray(R.array.ilanTurListele2);
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(HayvanIlanOlustur.this, R.layout.dropdown_item,ilanturu);
-        binding.ilanturutext.setAdapter(adapterItems);
-        binding.ilanturutext.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String item = adapterView.getItemAtPosition(position).toString();
-                secilenTur=item;
-                if (secilenTur.equals("Ücretsiz Sahiplendirme")){
-                    binding.textView27.setText("Ücretsiz Sahiplendirme");
-                    binding.textView27.setBackgroundColor(Color.parseColor("#00699f"));
-                }
-                else{
-                    binding.textView27.setText("Çiftleştirme İlanı");
-                    binding.textView27.setBackgroundColor(Color.parseColor("#f59e42"));
-                }
-
-            }
-        });
+      secilenTur="Ücretsiz Sahiplendirme";
 
         //kategori
         String[] hayvankategori = getResources().getStringArray(R.array.kategoriListele2);

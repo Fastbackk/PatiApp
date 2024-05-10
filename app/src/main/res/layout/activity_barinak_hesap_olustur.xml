@@ -65,8 +65,12 @@
                 android:id="@+id/editTextText8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
                 android:hint="Kurumun İsmi"
+                android:drawableStart="@drawable/company_svgrepo_com"
+                android:layout_margin="14dp"
                 android:inputType="text" />
 
             <EditText
@@ -80,27 +84,46 @@
             <EditText
                 android:id="@+id/editTextText15"
                 android:layout_width="match_parent"
-                android:layout_height="214dp"
-                android:ems="10"
+                android:layout_height="250dp"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
                 android:gravity="top"
-                android:hint="Kurumun amaç ve ilkeleri/Biyografi"
+                android:padding="10dp"
+
+                android:hint="Kurumun Amaç ve İlkeleri"
+                android:layout_margin="14dp"
                 android:inputType="text" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="email"
-                android:inputType="textEmailAddress" />
+                android:hint="E-Posta"
+                android:inputType="textEmailAddress"
+                android:layout_margin="14dp"
+                android:drawableStart="@drawable/email_14_svgrepo_com"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
+
+                />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="şifre oluşturun"
-                android:inputType="textPassword" />
+                android:hint="Şifre oluşturun"
+                android:inputType="textPassword"
+                android:textAlignment="textStart"
+
+
+                android:layout_margin="14dp"
+                android:drawableStart="@drawable/lock_alt_svgrepo_com__1_"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
+
+                />
 
             <EditText
                 android:id="@+id/editTextText16"

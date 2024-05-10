@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="1dp"
-                app:cardBackgroundColor="@color/white">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,26 +66,11 @@
                 android:id="@+id/textView27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/renk"
                 android:gravity="center"
+                android:text="Ücretsiz Sahiplendirme"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="250dp"
-                android:layout_height="65dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/ilanturutext"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:inputType="none"
-                    android:text="İlanın Türü" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:textSize="21sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

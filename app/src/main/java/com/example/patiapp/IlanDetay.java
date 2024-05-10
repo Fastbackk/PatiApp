@@ -35,7 +35,6 @@ import java.util.Map;
 
 public class IlanDetay extends AppCompatActivity {
     ActivityIlanDetayBinding binding;
-    ArrayList<Post> ilanArrayList;
     private FirebaseFirestore firebaseFirestore;
     String ID;
     String kullaniciadii;
@@ -58,7 +57,6 @@ public class IlanDetay extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
 

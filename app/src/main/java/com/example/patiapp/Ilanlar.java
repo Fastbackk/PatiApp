@@ -43,7 +43,7 @@ public class Ilanlar extends Fragment {
     ArrayList<Post>ilanArrayList;
     Adapter adapter;
     public String foto;
-public String date;
+    public String date;
     private FirebaseFirestore firebaseFirestore;
 
     private FirebaseAuth firebaseAuth;
@@ -108,7 +108,7 @@ public String date;
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
-                                    SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy HH:mm", Locale.getDefault());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
                                     date = sdf.format(timestamp.toDate());
                                 } else if (dateObj instanceof String) {
                                     // String olarak kaydedilmişse, bu blok çalışacak
