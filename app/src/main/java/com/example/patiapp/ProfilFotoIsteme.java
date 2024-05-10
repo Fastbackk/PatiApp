@@ -108,7 +108,17 @@ public class ProfilFotoIsteme extends AppCompatActivity {
     private void updateUserProfile(String imageUrl) {
         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (currentUserUid != null) {
+
+
+
+
             FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+
+
+
             DocumentReference userRef = db.collection("users").document(currentUserUid);
             userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
