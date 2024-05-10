@@ -176,7 +176,7 @@ public class IlanlarKendi extends Fragment {
         String UserEmail = mAuth.getCurrentUser().getEmail();
         Toast.makeText(getContext(), UserEmail, Toast.LENGTH_SHORT).show();
         firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
-                .whereEqualTo("email",UserEmail)
+                .whereEqualTo("eposta",UserEmail)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

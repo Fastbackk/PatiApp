@@ -58,8 +58,8 @@
             <ImageView
                 android:id="@+id/imageView15"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/select" />
+                android:layout_height="278dp"
+                android:src="@drawable/selectson" />
 
             <EditText
                 android:id="@+id/editTextText8"
@@ -73,13 +73,17 @@
                 android:layout_margin="14dp"
                 android:inputType="text" />
 
-            <EditText
+            <Button
                 android:id="@+id/editTextDate"
+                style="@style/Widget.AppCompat.Spinner"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Kuruluş Yılı"
-                android:inputType="date" />
+                android:layout_margin="14dp"
+                android:hint="MAY 10 2024"
+                android:inputType="date"
+                android:onClick="openDatePicker"
+                android:paddingStart="4dp" />
 
             <EditText
                 android:id="@+id/editTextText15"
@@ -124,47 +128,100 @@
                 android:paddingStart="4dp"
 
                 />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="360dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_margin="14dp"
 
-            <EditText
-                android:id="@+id/editTextText16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Şehir"
-                android:inputType="text" />
+                android:elevation="6dp"
+                android:paddingStart="4dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit"
+                    android:drawableStart="@drawable/pin"
+                    android:inputType="none"
+                    android:text="Şehir" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <EditText
                 android:id="@+id/editTextText18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="İlçe"
-                android:inputType="text" />
+                android:inputType="text"
+
+
+                android:layout_margin="14dp"
+                android:drawableStart="@drawable/pin2"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
+
+
+
+
+
+                />
 
             <EditText
                 android:id="@+id/editTextText20"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:ems="10"
+
                 android:gravity="top"
-                android:hint="Açık Adsres"
-                android:inputType="text" />
+                android:hint="Açık Adres"
+                android:inputType="text"
+
+                android:layout_margin="14dp"
+
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
+
+
+                />
 
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Telefon Numarası"
-                android:inputType="phone" />
 
+                android:hint="Telefon Numarası"
+                android:inputType="phone"
+
+
+
+                android:layout_margin="14dp"
+                android:drawableStart="@drawable/phone"
+                android:background="@drawable/edit"
+                android:elevation="6dp"
+                android:paddingStart="4dp"
+
+
+
+
+
+
+
+                />
             <Button
                 android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="228dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/renk"
                 android:onClick="kayit"
-                android:text="Kayıt ol" />
-
+                android:text="Kayıt Ol"
+                android:textAllCaps="false"
+                android:textSize="21sp" />
 
         </LinearLayout>
     </ScrollView>
