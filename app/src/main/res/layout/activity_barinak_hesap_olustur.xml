@@ -147,7 +147,7 @@
                 android:layout_height="140dp"
                 android:ems="10"
                 android:gravity="top"
-                android:hint="Açık Adres"
+                android:hint="Açık Adsres"
                 android:inputType="text" />
 
             <EditText
