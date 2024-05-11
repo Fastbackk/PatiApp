@@ -1,80 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HesapGiris">
+    tools:context=".HesapGiris"
+    android:background="@color/white"
+    >
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/loginpanel"
-        android:scaleType="centerCrop" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/topMenu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="1dp"
+            app:cardBackgroundColor="@color/white">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginEnd="30dp"
-        app:cardCornerRadius="20dp"
-        android:elevation="10dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/underline"
+                android:orientation="horizontal">
 
-        >
 
-        <LinearLayout
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="124dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    android:src="@drawable/patiappisim" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="match_parent"
+            android:layout_height="201dp"
+            android:src="@drawable/girisekrani" />
+
+        <TextView
+            android:id="@+id/textView35"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/font123bold"
+            android:gravity="center"
+            android:text="PatiApp'a Hoş Geldin!"
+            android:textSize="30sp"
+  />
 
-            <EditText
-                android:id="@+id/editTextText4"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/edtdesign"
-                android:drawableStart="@drawable/email2"
-                android:drawablePadding="10dp"
-                android:hint="E-Posta"
-                android:textSize="18sp" />
+        <EditText
+            android:id="@+id/editTextText8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit"
+            android:drawableStart="@drawable/epostabiklmemas"
+            android:elevation="6dp"
+            android:hint="E-Posta"
+            android:inputType="text"
+            android:paddingStart="4dp"
+            android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/editTextTextEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/edtdesign"
-                android:drawableStart="@drawable/kilit"
-                android:drawablePadding="10dp"
-                android:hint="Şifre"
-                android:inputType="textPassword"
-                android:textSize="18sp" />
+        <EditText
+            android:id="@+id/editTextText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:background="@drawable/edit"
+            android:drawableStart="@drawable/lock_alt_svgrepo_com__1_"
+            android:elevation="6dp"
+            android:hint="Şifre"
+            android:inputType="text"
+            android:paddingStart="4dp" />
 
-            <Button
-                android:layout_width="228dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/renk"
-                android:onClick="giris"
-                android:text="Giriş Yap"
-                android:textAllCaps="false"
-                android:textSize="21sp" />
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp"
+            android:backgroundTint="#2196F3"
+            android:onClick="giris"
+            android:text="Giriş"
+            android:textSize="25sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:onClick="kayitol"
-                android:text="Herhangi bir hesabın yokmu? Kayıt ol"
-                android:textSize="15dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/underline"
+            android:gravity="center"
+            android:onClick="kayitol"
+            android:paddingBottom="2dp"
+            android:text="Buraya tıklayarak kayıt ol!"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

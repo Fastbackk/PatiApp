@@ -8,11 +8,10 @@ public class Post {
     public String date;
     public String foto;
     public String username;
+    public String hesapturu;
 
 
-
-
-    public Post(String ilanbaslik, String dowloandurl, String sehir, String ilanturu, String date,String foto,String username) {
+    public Post(String ilanbaslik, String dowloandurl, String sehir, String ilanturu, String date, String foto, String username, String hesapturu) {
         this.ilanbaslik = ilanbaslik;
         this.dowloandurl = dowloandurl;
         this.sehir = sehir;
@@ -20,7 +19,6 @@ public class Post {
         this.date = date;
         this.foto = foto;
         this.username = username;
-
-
+        this.hesapturu = hesapturu;
     }
 }
