@@ -34,8 +34,8 @@ public class Adapter5 extends RecyclerView.Adapter<Adapter5.PostHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.binding.textView100.setText(arrayList.get(position).kurumisim);
-        Picasso.get().load(arrayList.get(position).profil_foto).into(holder.binding.imageView24);
+        holder.binding.textView10.setText(arrayList.get(position).kurumisim);
+        Picasso.get().load(arrayList.get(position).profil_foto).into(holder.binding.imageView14);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
