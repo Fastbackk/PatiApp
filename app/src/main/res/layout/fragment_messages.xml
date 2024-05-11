@@ -44,15 +44,6 @@
                 android:layout_height="107dp"
 
                 android:src="@drawable/account_svgrepo_com" />
-            <TextView
-                android:text=""
-                android:textSize="15sp"
-                android:gravity="center"
-                android:id="@+id/bio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </TextView>
 
             <TextView
                 android:id="@+id/textView2"
@@ -85,6 +76,16 @@
                     android:text="Kullanıcı Adı"
                     android:textSize="15sp" />
         </LinearLayout>
+
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15sp">
+
+            </TextView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

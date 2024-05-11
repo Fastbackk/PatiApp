@@ -28,9 +28,9 @@
 
     <Button
         android:id="@+id/atla2"
-        android:text="Atla"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="Biyografiyi Sil">
 
     </Button>
     <Button

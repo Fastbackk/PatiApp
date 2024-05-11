@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -37,18 +38,24 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class MesajEkle extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private  FirebaseFirestore firebaseFirestore;
-    public String kullaniciEposta,username,telefon;
+    private FirebaseFirestore firebaseFirestore;
+    public String kullaniciEposta, username, telefon, gonderenemail;
     private ActivityMesajEkleBinding binding;
     Uri ImageData;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<String> izin;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +63,10 @@ public class MesajEkle extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        //Kullanıcı adını aldım
-        kullaniciEposta=firebaseAuth.getCurrentUser().getEmail();
+        // Kullanıcı adını aldım
+        kullaniciEposta = firebaseAuth.getCurrentUser().getEmail();
         firebaseFirestore = FirebaseFirestore.getInstance(); // Burada düzeltme yapıldı
 
         firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
@@ -73,10 +80,9 @@ public class MesajEkle extends AppCompatActivity {
                                 //  ID= snapshot.getId();
                                 username = (String) data.get("kullaniciadi");
                                 Toast.makeText(MesajEkle.this, kullaniciEposta, Toast.LENGTH_SHORT).show();
-                                System.out.println(username+"merejrfw");
+                                System.out.println(username + "merejrfw");
                                 Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(MesajEkle.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -88,7 +94,6 @@ public class MesajEkle extends AppCompatActivity {
                         Toast.makeText(MesajEkle.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        //registerLauncher();
 
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -97,7 +102,7 @@ public class MesajEkle extends AppCompatActivity {
         Intent intent = getIntent();
         String yanıtlanmısmesaj = intent.getStringExtra("gidenveri");
 
-        if (yanıtlanmısmesaj!=null){
+        if (yanıtlanmısmesaj != null) {
             binding.editTextText5.setText(yanıtlanmısmesaj);
         }
     }
@@ -110,31 +115,45 @@ public class MesajEkle extends AppCompatActivity {
         String mesajbaslik = binding.editTextText6.getText().toString();
         String mesaj = binding.editTextText.getText().toString();
 
-                HashMap<String, Object> ilanData = new HashMap<>();
+        HashMap<String, Object> ilanData = new HashMap<>();
 
-                ilanData.put("mesajbaslik", mesajbaslik);
-                ilanData.put("mesaj", mesaj);
-                ilanData.put("username", username);
-                ilanData.put("gonderenemail", kullaniciEposta);
-                ilanData.put("alici", alici);
-                firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(MesajEkle.this, "succes", Toast.LENGTH_SHORT).show();
+        ilanData.put("mesajbaslik", mesajbaslik);
+        ilanData.put("mesaj", mesaj);
+        ilanData.put("username", username);
+        ilanData.put("gonderenemail", kullaniciEposta);
+        ilanData.put("alici", alici);
+        firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                makeNotification(gonderenemail, alici+" Yeni bir mesajınız var!", "Yeni bir mesaj aldınız.");
 
-                        Intent intent = new Intent(MesajEkle.this, MainActivity.class);
-                        // Verileri intent ile MesajEkle aktivitesine gönder
-                        startActivity(intent);
-                        finish();
+                Toast.makeText(MesajEkle.this, alici, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MesajEkle.this, MainActivity.class);
+                // Verileri intent ile MesajEkle aktivitesine gönder
+                startActivity(intent);
+                finish();
 
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MesajEkle.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MesajEkle.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void makeNotification(String receiverToken, String notificationTitle, String notificationBody) {
+        // Alıcıya bildirim göndermek için gereken verileri oluştur
+        Map<String, String> notificationData = new HashMap<>();
+        notificationData.put("title", notificationTitle);
+        notificationData.put("body", notificationBody);
+
+        // Firebase Cloud Messaging ile bildirim gönderme isteği oluştur
+
+        FirebaseMessaging.getInstance().send(new RemoteMessage.Builder(receiverToken)
+                .setMessageId(UUID.randomUUID().toString())
+                .setData(notificationData)
+                .build());
     }
 }
-

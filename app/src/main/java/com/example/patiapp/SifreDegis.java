@@ -17,19 +17,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class SifreDegis extends AppCompatActivity {
     private ActivitySifreDegisBinding binding;
-    private String ad, soyad, email, kullaniciadi, sifre;
+    private String  email, sifre;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     private FirebaseUser currentUser;
+    private FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
 
 
     @Override
@@ -39,66 +44,31 @@ public class SifreDegis extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        // Firebase Authentication ve Firestore'u başlatın
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
+        firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Intent intent = getIntent();
-        ad = intent.getStringExtra("ad");
-        soyad = intent.getStringExtra("soyad");
-        kullaniciadi = intent.getStringExtra("kullaniciadi");
-        email = intent.getStringExtra("email");
-        sifre = intent.getStringExtra("sifre");
+        email = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
+        firebaseFirestore.collection("users").whereEqualTo("eposta", email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
 
-        // EditText alanlarına başlangıç değerlerini ayarlayın
-      //  binding.editTextText2.setText(ad);
-      //  binding.editTextText4.setText(kullaniciadi);
-     //   binding.editTextText3.setText(soyad);
-     //   binding.editTextTextEmailAddress.setText(email);
-        //binding.editTextTextPassword2.setText(sifre);
+                                sifre = (String) data.get("sifre");
+                                Toast.makeText(SifreDegis.this, sifre, Toast.LENGTH_SHORT).show();
+                                binding.editTextPassword.setText(sifre);
 
-
-        // "Kayıt Ol" düğmesine OnClickListener ekleyin
-
-
-/*/
-//Authcention değiştirme
-                String newEmail = binding.editTextTextEmailAddress.getText().toString();
-                //String newPassword = binding.editTextTextPassword2.getText().toString();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-
-                    user.updateEmail(newEmail)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(HesapDetay.this, "E-Posta güncellendi.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-
-                // Şifre güncelleme işlemi
-                if (!newPassword.isEmpty()) {
-                    currentUser.updatePassword(newPassword)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(HesapDetay.this, "Şifre güncellendi.", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(HesapDetay.this, "Şifre güncelleme hatası: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
- */
-
-
+                            }
+                        }
+                    }
+                });
         binding.kayitol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,8 +85,39 @@ public class SifreDegis extends AppCompatActivity {
                             }
                         });
             }
+
+            String updatedAd = binding.editTextPassword.getText().toString();
+
+
         });
-
-
     }
+
+    public void onClick(View v) {
+        // EditText alanlarından güncellenmiş verileri alın
+        String updatedPassword = binding.editTextPassword.getText().toString();
+
+
+
+        // Firestore'da kullanıcı verilerini güncelleyin
+        DocumentReference userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
+        Map<String, Object> updatedUserData = new HashMap<>();
+        updatedUserData.put("sifre", updatedPassword);
+
+
+        userRef.set(updatedUserData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(SifreDegis.this, "Şifre başarıyla güncellendi!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SifreDegis.this, "Şifre güncellenirken hata oluştu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
 }

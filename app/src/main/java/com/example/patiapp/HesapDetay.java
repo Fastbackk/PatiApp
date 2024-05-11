@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
@@ -30,11 +31,17 @@ import android.content.Intent;
 
 public class HesapDetay extends AppCompatActivity {
     private ActivityHesapDetayBinding binding;
-    private String ad, soyad, email, kullaniciadi, sifre;
     private FirebaseAuth mAuth;
+    private String ad, soyad, email, kullaniciadi, sifre;
+
     private FirebaseFirestore db;
 
     private FirebaseUser currentUser;
+
+    private FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+
+
 
 
     @Override
@@ -48,41 +55,66 @@ public class HesapDetay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
+        firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        Intent intent = getIntent();
-        ad = intent.getStringExtra("ad");
-        soyad = intent.getStringExtra("soyad");
-        kullaniciadi = intent.getStringExtra("kullaniciadi");
-        email = intent.getStringExtra("email");
-        sifre = intent.getStringExtra("sifre");
+        email = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
+        firebaseFirestore.collection("users").whereEqualTo("eposta", email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                kullaniciadi = (String) data.get("kullaniciadi");
+                                ad = (String) data.get("ad");
+                                soyad = (String) data.get("soyad");
+                                email = (String) data.get("email");
+                                sifre = (String) data.get("sifre");
+                                binding.editTextText2.setText(ad);
+                                binding.editTextText4.setText(kullaniciadi);
+                                binding.editTextText3.setText(soyad);
+
+
+                                Toast.makeText(HesapDetay.this, email, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(HesapDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+        binding.editTextTextEmailAddress.setText(email);
+        binding.editTextTextEmailAddress.setEnabled(false);
+        binding.editTextText4.setEnabled(false);
+
+
 
         // EditText alanlarına başlangıç değerlerini ayarlayın
-        binding.editTextText2.setText(ad);
-        binding.editTextText4.setText(kullaniciadi);
-        binding.editTextText3.setText(soyad);
-        binding.editTextTextEmailAddress.setText(email);
+
+
         //binding.editTextTextPassword2.setText(sifre);
 
 
         // "Kayıt Ol" düğmesine OnClickListener ekleyin
+
+
+
         binding.kayitol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // EditText alanlarından güncellenmiş verileri alın
                 String updatedAd = binding.editTextText2.getText().toString();
                 String updatedSoyad = binding.editTextText3.getText().toString();
-                String updatedKullaniciadi = binding.editTextText4.getText().toString();
-                String updatedEmail = binding.editTextTextEmailAddress.getText().toString();
-                //String updateSifre = binding.editTextTextPassword2.getText().toString();
+
+
 
                 // Firestore'da kullanıcı verilerini güncelleyin
                 DocumentReference userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
                 Map<String, Object> updatedUserData = new HashMap<>();
                 updatedUserData.put("ad", updatedAd);
                 updatedUserData.put("soyad", updatedSoyad);
-                updatedUserData.put("kullaniciadi", updatedKullaniciadi);
-                updatedUserData.put("eposta", updatedEmail);
-                //updatedUserData.put("sifre", updateSifre);
 
                 userRef.set(updatedUserData, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -97,48 +129,11 @@ public class HesapDetay extends AppCompatActivity {
                                 Toast.makeText(HesapDetay.this, "Kullanıcı verileri güncellenirken hata oluştu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
-                //Authcehtkoew değiştirme
-
-//Authcention değiştirme
-
-                String newEmail = binding.editTextTextEmailAddress.getText().toString();
-                //String newPassword = binding.editTextTextPassword2.getText().toString();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-
-                    user.updateEmail(newEmail)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(HesapDetay.this, "E-Posta güncellendi.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-/*/
-                // Şifre güncelleme işlemi
-                if (!newPassword.isEmpty()) {
-                    currentUser.updatePassword(newPassword)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(HesapDetay.this, "Şifre güncellendi.", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(HesapDetay.this, "Şifre güncelleme hatası: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
-
- */
             }
         });
+    }
+    public void onClick(View v) {
+        Intent intent = new Intent(HesapDetay.this, SifreDegis.class);
+        startActivity(intent);
     }
 }

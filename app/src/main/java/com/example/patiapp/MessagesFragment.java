@@ -5,18 +5,21 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.patiapp.databinding.AddPersonDialogBinding;
 import com.example.patiapp.databinding.FragmentMessagesBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Firebase;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +38,7 @@ import java.util.Map;
 
 public class MessagesFragment extends Fragment {
     private FragmentMessagesBinding binding;
+    private AddPersonDialogBinding binding2;
     private FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
     String ad,soyad,kullaniciadi,foto,biyografi;
@@ -137,7 +141,7 @@ public class MessagesFragment extends Fragment {
         binding.button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ProfilFotoIsteme.class);
+                Intent intent = new Intent(getContext(), HesapDetay.class);
                 startActivity(intent);
             }
         });
@@ -237,6 +241,41 @@ public class MessagesFragment extends Fragment {
                         }
                     }
                 });
-    }
 
+
+
+    binding.imageView13.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.add_person_dialog, null);
+            builder.setView(dialogView);
+
+
+
+            Button goToBio = dialogView.findViewById(R.id.goToBio);
+            Button goToProfile = dialogView.findViewById(R.id.goToProfile);
+
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            goToProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), ProfilFotoIsteme.class);
+
+                    startActivity(intent);
+                }
+            });
+            goToBio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), BiyografiEkle.class);
+                    startActivity(intent);
+                }
+            });
+        }
+    });
+    }
 }

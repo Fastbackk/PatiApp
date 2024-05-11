@@ -115,6 +115,8 @@
                     android:drawableStart="@drawable/hesabulhesab2"
                     android:drawablePadding="10dp"
                     android:hint="Bir kullanıcı adı belirleyin"
+
+                    android:digits="abcdefghijklmnopqrstuvwxyz0123456789_."
                     android:textSize="18sp" />
 
                 <EditText
@@ -126,7 +128,7 @@
                     android:drawableStart="@drawable/email2"
                     android:drawablePadding="10dp"
                     android:hint="E-Posta"
-                    android:inputType="textEmailAddress"
+
                     android:textSize="18sp" />
 
                 <EditText

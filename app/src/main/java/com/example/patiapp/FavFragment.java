@@ -58,6 +58,7 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
+
                                 Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 System.out.println(username);
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
