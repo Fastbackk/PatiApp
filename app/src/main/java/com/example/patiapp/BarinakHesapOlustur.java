@@ -106,6 +106,7 @@ public class BarinakHesapOlustur extends AppCompatActivity {
                 String date=makeDateString(day,month,year);
                 binding.editTextDate.setText(date);
 
+
             }
 
 

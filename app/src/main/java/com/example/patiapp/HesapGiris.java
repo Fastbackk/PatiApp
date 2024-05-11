@@ -31,7 +31,7 @@ public class HesapGiris extends AppCompatActivity {
         binding = ActivityHesapGirisBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        auth=FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
@@ -39,28 +39,25 @@ public class HesapGiris extends AppCompatActivity {
 
         if (user != null) {
 
-                Intent intent = new Intent(HesapGiris.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(HesapGiris.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
 
-
-
-
-
     }
+
     //kayıt yönlendirme
-    public void kayitol(View view){
-        Intent intent=new Intent(HesapGiris.this, HesapKayitSorgu.class);
+    public void kayitol(View view) {
+        Intent intent = new Intent(HesapGiris.this, HesapKayitSorgu.class);
         startActivity(intent);
         finish();
     }
 
     //Giriş
-   public void giris(View view){
-       String eposta = binding.editTextText4.getText().toString();
-       String sifre = binding.editTextTextEmailAddress.getText().toString();
+    public void giris(View view) {
+        String eposta = binding.editTextText8.getText().toString();
+        String sifre = binding.editTextText1.getText().toString();
 
         if (eposta.equals("") || sifre.equals("")) {
             Toast.makeText(this, "Boş alan bırakmayınız!", Toast.LENGTH_SHORT).show();
@@ -68,7 +65,7 @@ public class HesapGiris extends AppCompatActivity {
             auth.signInWithEmailAndPassword(eposta, sifre).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
-                    Intent intent = new Intent(HesapGiris.this,MainActivity.class);
+                    Intent intent = new Intent(HesapGiris.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

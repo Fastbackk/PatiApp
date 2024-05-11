@@ -25,7 +25,12 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
         replaceFragment(new Ilanlar());
+
+
+
+
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setSelectedItemId(R.id.paw); // Ilanlar tab'ını seçili hale getirin
 
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.add) {
                 Intent intentt = new Intent(MainActivity.this, IlanYukleme.class);
                 startActivity(intentt);
-                finish();
+
             }
             return true;
         });

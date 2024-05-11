@@ -119,8 +119,11 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         return date;
     }
     public void back(View view){
-        //aramafragment'e dön
-        //Intent intent=new Intent(Fil)
+
+        Intent intent = new Intent(FiltrelenmisSonuclar.this,MainActivity.class);
+        intent.putExtra("nereye","aramafragment");
+        startActivity(intent);
+        finish();
 
     }
 

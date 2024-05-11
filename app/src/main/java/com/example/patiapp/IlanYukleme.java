@@ -76,7 +76,6 @@ public class IlanYukleme extends AppCompatActivity {
 
     public void kisisel(View view){
         Intent intent=new Intent(IlanYukleme.this,HayvanIlanOlustur.class);
-
         startActivity(intent);
         finish();
 
@@ -89,7 +88,6 @@ public class IlanYukleme extends AppCompatActivity {
     }
     public void cift(View view){
         Intent intent=new Intent(IlanYukleme.this,HayvanIlanOlustur.class);
-
         startActivity(intent);
         finish();
 

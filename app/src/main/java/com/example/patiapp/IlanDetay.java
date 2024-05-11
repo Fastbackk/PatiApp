@@ -48,6 +48,7 @@ public class IlanDetay extends AppCompatActivity {
     String telno;
     String ilce;
     private FirebaseAuth mAuth;
+    String hesapturu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,9 @@ public class IlanDetay extends AppCompatActivity {
         String date= intent.getStringExtra("date");
         //link olarak alıyor resmi
         String dowloandurl= intent.getStringExtra("dowloandurl");
+        hesapturu = intent.getStringExtra("hesapturu");
 
-
+        System.out.println("HESAP TÜRÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ========>"+hesapturu);
 
 /*
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -100,6 +102,8 @@ public class IlanDetay extends AppCompatActivity {
                                 String saglik=(String) data.get("saglik");
                                 username=(String) data.get("kullaniciadi");
 
+
+
                                 foto=(String) data.get("profil_foto");
 
                                 // Verileri kullanarak UI güncelleyin
@@ -116,7 +120,33 @@ public class IlanDetay extends AppCompatActivity {
                                 binding.textView4.setText(sehir + " / " + ilce);
 
                                 Toast.makeText(IlanDetay.this, kullaniciemail, Toast.LENGTH_SHORT).show();
-                                firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciemail)
+                                if (hesapturu.equals("kisisel")){
+                                    firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciemail)
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                                                        if (documentSnapshot.exists()) {
+                                                            Map<String, Object> data = documentSnapshot.getData();
+                                                            foto2 = (String) data.get("profil_foto");
+                                                            Picasso.get().load(foto2).into(binding.imageView12);
+                                                            //kullaniciadii = (String) data.get("kullaniciadi");
+
+
+                                                        }
+
+                                                    }
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    System.out.println("Veriler yüklenemedi!");
+
+                                                }
+                                            });
+                                }
+                                else{ firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciemail)
                                         .get()
                                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                             @Override
@@ -140,6 +170,10 @@ public class IlanDetay extends AppCompatActivity {
 
                                             }
                                         });
+
+                                }
+
+
 
 
                                 // Diğer işlemler
@@ -227,9 +261,17 @@ public class IlanDetay extends AppCompatActivity {
 
     }
     public void profilegit(View view){
-        Intent intent=new Intent(this, KullaniciDetay.class);
-        intent.putExtra("username",username);
-        startActivity(intent);
+        if (hesapturu.equals("kisisel")){
+            Intent intent=new Intent(this, KullaniciDetay.class);
+            intent.putExtra("username",username);
+            startActivity(intent);
+        }
+        else{
+            Intent intent=new Intent(this, BarinakKullaniciDetay.class);
+            intent.putExtra("eposta",kullaniciemail);
+            startActivity(intent);
+        }
+
     }
     public void mesajgonder(View view){
         Intent intent = new Intent(IlanDetay.this, MesajEkle.class);

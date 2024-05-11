@@ -59,6 +59,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
         String date= intent.getStringExtra("date");
         //link olarak alıyor resmi
         String dowloandurl= intent.getStringExtra("dowloandurl");
+        String hesapturu = intent.getStringExtra("hesapturu");
 
 
         firebaseFirestore.collection("Ilanlar").whereEqualTo("ilanbaslik", ilanbaslik)

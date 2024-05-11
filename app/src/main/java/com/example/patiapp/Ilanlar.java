@@ -73,16 +73,8 @@ public class Ilanlar extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
 
 
-
-
-
-
-
-
     }
     public void getData(){
-
-
         firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -95,7 +87,7 @@ public class Ilanlar extends Fragment {
                             ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
                             for (DocumentSnapshot snapshot : value.getDocuments()){
                                 Map<String, Object> data = snapshot.getData();
-
+                                System.out.println("veri geldi");
                                 assert data != null;
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
@@ -103,6 +95,7 @@ public class Ilanlar extends Fragment {
                                 String ilanturu = (String) data.get("ilanturu");
                                 String foto= (String) data.get("userpp");
                                 String username= (String) data.get("kullaniciadi");
+                                String hesapturu= (String) data.get("hesapturu");
                                  date = null;
 
                                 Object dateObj = data.get("date");
@@ -115,7 +108,7 @@ public class Ilanlar extends Fragment {
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto,hesapturu);
                                 ilanArrayList.add(ilan);
 
 

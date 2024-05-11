@@ -34,7 +34,7 @@
                 android:layout_weight="9"
                 android:gravity="center"
                 android:paddingRight="20dp"
-                android:text="İlan Detayları"
+                android:text="Filtrelenmiş Sonuçlar"
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
