@@ -34,7 +34,7 @@ public class KullaniciDetay extends AppCompatActivity {
     private Intent intent;
     ArrayList<Post3> ilanArrayList;
     ArrayList<Post> ilanArrayList2;
-    Adapter adapter;
+    AdapterYedek adapter;
     private FirebaseFirestore firebaseFirestore;
     String ID;
 
@@ -53,7 +53,7 @@ public class KullaniciDetay extends AppCompatActivity {
         getData();
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(KullaniciDetay.this));
-        adapter = new Adapter(ilanArrayList2);
+        adapter = new AdapterYedek(ilanArrayList2);
         binding.recyclerView.setAdapter(adapter);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -61,7 +61,9 @@ public class KullaniciDetay extends AppCompatActivity {
         //verileri alma
         intent = getIntent();
 
-            username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
+
+        binding.kurulus.setText(username);
 
         // Kullanıcı bilgilerini gösterme
         firebaseFirestore.collection("users").whereEqualTo("kullaniciadi", username)
@@ -75,15 +77,20 @@ public class KullaniciDetay extends AppCompatActivity {
                                 ID = snapshot.getId();
                                 String ad = (String) data.get("ad");
                                 String soyad = (String) data.get("soyad");
-                                String foto= (String) data.get("profil_foto");
-                                String biyografi= (String) data.get("biyografi");
-                                if (foto!=null){
-                                    Picasso.get().load(foto).into(binding.imageView13);
+                                String foto = (String) data.get("profil_foto");
+                                String biyografi = (String) data.get("biyografi");
+                                String eposta = (String) data.get("eposta");
+                                String telefon = (String) data.get("telno");
+
+                                if (foto != null) {
+                                    Picasso.get().load(foto).into(binding.profileHeaderImage);
                                 }
-                                binding.bio.setText(biyografi);
+                                binding.biyografi.setText(biyografi);
                                 // Verileri kullanarak UI güncelleme
                                 adsoyad = ad + " " + soyad;
-                                binding.textView2.setText(adsoyad);
+                                binding.kurumisim.setText(adsoyad);
+                                binding.telefon.setText(telefon);
+                                binding.epostatext.setText(eposta);
                             } else {
                                 Toast.makeText(KullaniciDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
@@ -97,7 +104,6 @@ public class KullaniciDetay extends AppCompatActivity {
                     }
                 });
 
-        binding.textView6.setText(username);
     }
 
     public void getData() {
@@ -118,9 +124,9 @@ public class KullaniciDetay extends AppCompatActivity {
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
-                                String foto= (String) data.get("userpp");
-                                String username= (String) data.get("kullaniciadi");
-                                String hesapturu= (String) data.get("hesapturu");
+                                String foto = (String) data.get("userpp");
+                                String username = (String) data.get("kullaniciadi");
+                                String hesapturu = (String) data.get("hesapturu");
                                 String date = null;
 
                                 Object dateObj = data.get("date");
@@ -133,7 +139,7 @@ public class KullaniciDetay extends AppCompatActivity {
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto,hesapturu);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
                                 ilanArrayList2.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

@@ -8,7 +8,7 @@
         android:bottomLeftRadius="26dp"
         android:bottomRightRadius="26dp"/>
     <stroke
-        android:color="@color/lavender"
+        android:color="#00699f"
         android:width="2dp"/>
 
     >

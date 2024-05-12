@@ -132,6 +132,17 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/telno"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edtdesign"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="10dp"
+                    android:hint="Telno (ZORUNLU DEĞİL)"
+                    android:inputType="phone"
+                    android:textSize="18sp" />
+                <EditText
                     android:id="@+id/editTextTextPassword2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

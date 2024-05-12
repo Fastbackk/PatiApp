@@ -175,44 +175,7 @@ public class IlanlarKendi extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         String UserEmail = mAuth.getCurrentUser().getEmail();
         Toast.makeText(getContext(), UserEmail, Toast.LENGTH_SHORT).show();
-        firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
-                .whereEqualTo("eposta",UserEmail)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        
-                        if(value!=null){
-                            ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
-                            for (DocumentSnapshot snapshot : value.getDocuments()){
-                                Map<String, Object> data = snapshot.getData();
 
-                                assert data != null;
-                                String baslik = (String) data.get("ilanbaslik");
-                                String dowloandurl = (String) data.get("dowloandurl");
-                                String sehir = (String) data.get("sehir");
-                                String ilanturu = (String) data.get("ilanturu");
-                                String foto= (String) data.get("userpp");
-                                String username= (String) data.get("kullaniciadi");
-                                String hesapturu= (String) data.get("hesapturu");
-                                String date = null;
-
-                                Object dateObj = data.get("date");
-                                if (dateObj instanceof Timestamp) {
-                                    Timestamp timestamp = (Timestamp) dateObj;
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                                    date = sdf.format(timestamp.toDate());
-                                } else if (dateObj instanceof String) {
-                                    // String olarak kaydedilmişse, bu blok çalışacak
-                                    date = (String) dateObj;
-                                }
-
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date,username,foto,hesapturu);
-                                ilanArrayList.add(ilan);
-                            }
-                            adapter4.notifyDataSetChanged();
-                        }
-                    }
-                });
     }
 
     @Override

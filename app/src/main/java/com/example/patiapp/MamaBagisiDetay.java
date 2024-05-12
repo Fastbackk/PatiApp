@@ -35,12 +35,9 @@ public class MamaBagisiDetay extends AppCompatActivity {
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
     String kullaniciemail;
-    int kayitkackere;
-    String aciklamatext;
-    String telno;
-    String ilce;
+
     private FirebaseAuth mAuth;
-    String kayitlimi;
+
     private ActivityMamaBagisiDetayBinding binding;
 
 
@@ -150,7 +147,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
         });
     }
     public void profilegit(View view){
-        Intent intent=new Intent(this, KullaniciDetay.class);
+        Intent intent=new Intent(MamaBagisiDetay.this, KullaniciDetay.class);
         intent.putExtra("username",username);
         startActivity(intent);
     }

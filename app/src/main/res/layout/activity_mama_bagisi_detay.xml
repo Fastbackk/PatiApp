@@ -65,6 +65,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
+                    android:onClick="profilegit"
                     android:src="@drawable/account_svgrepo_com" />
 
                 <TextView
@@ -73,6 +74,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:gravity="fill"
+                    android:onClick="profilegit"
                     android:text="Kullanıcı Adı"
                     android:textSize="20sp" />
 

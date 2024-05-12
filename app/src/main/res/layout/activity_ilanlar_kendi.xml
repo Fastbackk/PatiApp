@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".IlanlarKendi">
+    tools:context=".IlanlarKendi"
+    android:background="@color/white">
     <androidx.cardview.widget.CardView
         android:id="@+id/topMenu"
         android:layout_width="match_parent"

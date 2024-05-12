@@ -129,16 +129,6 @@ public class IlanDuzenle extends AppCompatActivity {
 
 
 
-        //verileri kullanma
-        Picasso.get().load(dowloandurl).into(binding.fotoust);
-        binding.ilaninbaslik.setText(ilanbaslik);
-        binding.ilanturu2.setText(ilanturu);
-        binding.tarih2.setText(date);
-        binding.eposta.setText(kullaniciemail);
-        binding.buyukmesaj.setText(aciklamatext);
-        binding.telno.setText(telno);
-        binding.sehir2.setText(sehir+" / "+ilce);
-        System.out.println("işte burada "+kullaniciemail);
 
 
         FirebaseUser user = mAuth.getCurrentUser();
@@ -185,8 +175,6 @@ public class IlanDuzenle extends AppCompatActivity {
                 intent.putExtra("sehir", sehir);
                 intent.putExtra("ilce", ilce);
                 intent.putExtra("dowloandurl", dowloandurl);
-
-
                 startActivity(intent);
 
 

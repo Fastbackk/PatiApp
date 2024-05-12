@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HesapDetay">
+    tools:context=".HesapDetay"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +112,7 @@
                     android:background="@drawable/edtdesign"
                     android:drawableStart="@drawable/hesabulhesab2"
                     android:drawablePadding="10dp"
-                    android:hint="Örnek_kullaniciadi"
+                    android:hint="Kullanıcı Adı"
                     android:textSize="18sp" />
 
                 <EditText

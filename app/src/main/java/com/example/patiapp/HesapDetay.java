@@ -52,7 +52,7 @@ public class HesapDetay extends AppCompatActivity {
         setContentView(view);
 
         // Firebase Authentication ve Firestore'u başlatın
-        mAuth = FirebaseAuth.getInstance();
+
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
@@ -77,10 +77,8 @@ public class HesapDetay extends AppCompatActivity {
                                 binding.editTextText4.setText(kullaniciadi);
                                 binding.editTextText3.setText(soyad);
 
-
-                                Toast.makeText(HesapDetay.this, email, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(HesapDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }
