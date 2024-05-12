@@ -58,6 +58,20 @@ public class HayvanIlanOlustur extends AppCompatActivity {
         binding = com.example.patiapp.databinding.ActivityHayvanIlanOlusturBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Intent intent=getIntent();
+        String tur=intent.getStringExtra("tur");
+        if (tur.equals("normal")){
+            secilenTur="Ücretsiz Sahiplendirme";
+            binding.textView27.setText(secilenTur);
+        }
+        else{
+            secilenTur="Çiftleştirme İlanı";
+            binding.textView27.setText(secilenTur);
+            binding.textView27.setBackgroundColor(Color.parseColor("#f59e42"));
+        }
+
+
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 

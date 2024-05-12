@@ -101,8 +101,13 @@
                     <EditText
                         android:id="@+id/editTextText12"
                         android:layout_width="match_parent"
+
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
+
                         android:layout_height="60dp"
                         android:layout_gravity="center"
+
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
@@ -116,6 +121,7 @@
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="330dp"
                         android:layout_height="65dp"
+                        android:background="@drawable/edit"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp">
 
@@ -132,6 +138,7 @@
                         android:id="@+id/myTextInputLayout"
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="330dp"
+                        android:background="@drawable/edit"
                         android:layout_height="65dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp">
@@ -149,6 +156,7 @@
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="330dp"
                         android:layout_height="65dp"
+                        android:background="@drawable/edit"
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp">
 
@@ -167,6 +175,8 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
+                        android:padding="10dp"
+                        android:background="@drawable/edit"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
@@ -181,7 +191,9 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
+                        android:background="@drawable/edit"
                         android:layout_marginLeft="30dp"
+                        android:padding="10dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
                         android:ems="10"
@@ -195,8 +207,10 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
+                        android:padding="10dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
+                        android:background="@drawable/edit"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="50dp"
                         android:ems="10"
@@ -242,12 +256,14 @@
                         android:layout_width="330dp"
                         android:layout_height="65dp"
                         android:layout_gravity="center"
+                        android:background="@drawable/edit"
                         android:layout_marginTop="20dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/autoCompleteTextView6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:drawableStart="@drawable/pin2"
                             android:layout_weight="1"
                             android:inputType="none"
                             android:text="Şehir" />
@@ -260,7 +276,10 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
+                        android:drawableStart="@drawable/pin"
+                        android:background="@drawable/edit"
                         android:layout_marginTop="30dp"
+                        android:padding="10dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:ems="10"
@@ -274,6 +293,9 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:background="@drawable/edit"
+                        android:drawableStart="@drawable/phone"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
@@ -286,7 +308,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="30dp"
-                        android:backgroundTint="@color/renk"
+                        android:backgroundTint="#2196F3"
                         android:onClick="ilanyukle"
                         android:text="İlanı Yükle"
                         android:textSize="35sp">

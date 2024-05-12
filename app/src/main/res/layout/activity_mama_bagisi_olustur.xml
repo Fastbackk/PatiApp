@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MamaBagisiOlustur">
+    tools:context=".MamaBagisiOlustur"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -102,6 +103,8 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
@@ -115,12 +118,15 @@
                         android:layout_width="330dp"
                         android:layout_height="65dp"
                         android:layout_gravity="center"
+
                         android:layout_marginTop="50dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/kategoritext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@drawable/edit"
+                            android:padding="10dp"
                             android:layout_weight="1"
                             android:inputType="none"
                             android:text="Hayvan Kategorisi" />
@@ -136,6 +142,8 @@
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
                         android:layout_marginBottom="10dp"
                         android:ems="10"
                         android:gravity="top"
@@ -151,6 +159,8 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="50dp"
@@ -205,6 +215,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:inputType="none"
+                            android:background="@drawable/edit"
+                            android:padding="10dp"
                             android:text="Şehir" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,6 +226,8 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginEnd="30dp"
@@ -230,6 +244,8 @@
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="30dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="30dp"
@@ -241,8 +257,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="30dp"
-                        android:backgroundTint="@color/renk"
                         android:onClick="ilanyukle"
+                        android:backgroundTint="#2196F3"
                         android:text="İlanı Yükle"
                         android:textSize="35sp">
 

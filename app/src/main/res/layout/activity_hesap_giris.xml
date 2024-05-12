@@ -71,7 +71,7 @@
             android:elevation="6dp"
             android:hint="E-Posta"
             android:inputType="text"
-            android:paddingStart="4dp"
+            android:padding="10dp"
             android:textSize="18sp" />
 
         <EditText
@@ -85,7 +85,7 @@
             android:elevation="6dp"
             android:hint="Şifre"
             android:inputType="text"
-            android:paddingStart="4dp" />
+           android:padding="10dp" />
 
         <Button
             android:id="@+id/button7"
