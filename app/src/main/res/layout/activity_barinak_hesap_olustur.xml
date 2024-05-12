@@ -251,7 +251,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="40dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/renk"
+                android:backgroundTint="#2196F3"
                 android:onClick="kayit"
                 android:text="Kayıt Ol"
                 android:textAllCaps="false"

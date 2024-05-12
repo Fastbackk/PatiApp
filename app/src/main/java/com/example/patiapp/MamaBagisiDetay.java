@@ -2,9 +2,11 @@ package com.example.patiapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -27,9 +29,9 @@ import java.util.Map;
 public class MamaBagisiDetay extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     String ID;
-    String kullaniciadii;
 
     public String username,foto,foto2;
+    String userpp;
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
     String kullaniciemail;
@@ -38,6 +40,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
     String telno;
     String ilce;
     private FirebaseAuth mAuth;
+    String kayitlimi;
     private ActivityMamaBagisiDetayBinding binding;
 
 
@@ -71,6 +74,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 ID= snapshot.getId();
+                                kayitlimi();
                                 System.out.println(ID);
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
@@ -83,49 +87,20 @@ public class MamaBagisiDetay extends AppCompatActivity {
                                 String mamamiktar = (String) data.get("mamamiktar");
                                 String hayvankategori=(String) data.get("hayvankategori");
                                 username=(String) data.get("kullaniciadi");
-                                foto=(String) data.get("profil_foto");
+                                userpp=(String) data.get("userpp");
                                 //verileri kullanma
-                                Picasso.get().load(dowloandurl).into(binding.imageView6);
-
-                                binding.textView7.setText(ilanbaslik);
-                                binding.textView8.setText(ilanturu);
-                                binding.textView8.setBackgroundColor(Color.parseColor("#38b832"));
-                                binding.textView12.setText(username);
-                                binding.textView5.setText(date);
-                                binding.textView12ass.setText(kullaniciemail);
-                                binding.textView121.setText(mamamiktar);
-                                binding.textView13.setText(aciklamatext);
-                                binding.textView12ss.setText(telno);
-                                binding.textView10.setText(hayvankategori);
-                                binding.textView4.setText(sehir+" / "+ilce);
-
-                                Toast.makeText(MamaBagisiDetay.this, kullaniciemail, Toast.LENGTH_SHORT).show();
-                                firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciemail)
-                                        .get()
-                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                                                    if (documentSnapshot.exists()) {
-                                                        Map<String, Object> data = documentSnapshot.getData();
-                                                        foto2 = (String) data.get("profil_foto");
-                                                        Picasso.get().load(foto2).into(binding.imageView12);
-                                                        //kullaniciadii = (String) data.get("kullaniciadi");
-
-
-                                                    }
-
-                                                }
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                System.out.println("Veriler yüklenemedi!");
-
-                                            }
-                                        });
-
-
+                                Picasso.get().load(dowloandurl).into(binding.profileHeaderImage);
+                                Picasso.get().load(userpp).into(binding.profilephoto);
+                                binding.ilanbaslik.setText(ilanbaslik);
+                                binding.ilanturu.setText(ilanturu);
+                                binding.textView20.setText(username);
+                                binding.tarih.setText(date);
+                                binding.epostatext.setText(kullaniciemail);
+                                binding.konum.setText(mamamiktar);
+                                binding.aciklama.setText(aciklamatext);
+                                binding.telefon.setText(telno);
+                                binding.kurulus.setText(hayvankategori);
+                                binding.konum2.setText(sehir+" / "+ilce);
                                 // Diğer işlemler
                                 System.out.println("Veriler başarıyla yüklendi: " + kullaniciemail);
                             } else {
@@ -143,52 +118,36 @@ public class MamaBagisiDetay extends AppCompatActivity {
 
 
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        String useremail = user.getEmail();
-        System.out.println(useremail);
-
-        firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (documentSnapshot.exists()) {
-                                Map<String, Object> data = documentSnapshot.getData();
-                                //foto2 = (String) data.get("profil_foto");
-                                //Picasso.get().load(foto2).into(binding.imageView12);
-                                kullaniciadii = (String) data.get("kullaniciadi");
 
 
-                            }
 
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("Veriler yüklenemedi!");
+
+
+
+
+
+
+    }
+    public void kayitlimi(){
+        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedilenilanID",ID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                    if (documentSnapshot.exists()) {
+
+                        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.maaaaaaaaaaaaaaaaaaa);
+                        binding.kaydetbutton.setBackground(background);
 
                     }
-                });
 
-
-        new CountDownTimer(2000,1000){
-
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
+            public void onFailure(@NonNull Exception e) {
 
             }
-
-            @Override
-            public void onFinish() {
-                binding.textView12.setText(username);
-            }
-        }.start();
-
-
-
-
+        });
     }
     public void profilegit(View view){
         Intent intent=new Intent(this, KullaniciDetay.class);
@@ -203,13 +162,14 @@ public class MamaBagisiDetay extends AppCompatActivity {
         startActivity(intent);
     }
     public void kaydet(View view) {
+
         String kaydedilmisID;// kaydedilenler tablomdaki document'in ID'si
 
         String ilanID = ID; // İlan ID'sini al
 
         // Firestore'da "Kaydedilenler" koleksiyonunda "kaydedenkisi" ve "kaydedilenilanID" alanlarını sorgula
         firebaseFirestore.collection("Kaydedilenler")
-                .whereEqualTo("kaydedenkisi", kullaniciadii)
+                .whereEqualTo("kaydedenkisi", username)
                 .whereEqualTo("kaydedilenilanID", ilanID)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -220,12 +180,14 @@ public class MamaBagisiDetay extends AppCompatActivity {
                         if (task.getResult().isEmpty()) {
                             // Eğer sonuç yoksa, yani daha önce bu veri eklenmemişse yeni veriyi ekle
                             Map<String, Object> kaydedilenler = new HashMap<>();
-                            kaydedilenler.put("kaydedenkisi", kullaniciadii);
+                            kaydedilenler.put("kaydedenkisi", username);
                             kaydedilenler.put("kaydedilenilanID", ilanID);
 
                             firebaseFirestore.collection("Kaydedilenler").add(kaydedilenler)
                                     .addOnSuccessListener(documentReference -> {
                                         System.out.println("Eklendi");
+                                        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.maaaaaaaaaaaaaaaaaaa);
+                                        binding.kaydetbutton.setBackground(background);
                                     })
                                     .addOnFailureListener(e -> {
                                         System.out.println("Eklenemedi: " + e.getMessage());
@@ -236,6 +198,8 @@ public class MamaBagisiDetay extends AppCompatActivity {
                             firebaseFirestore.collection("Kaydedilenler").document(document.getId()).delete()
                                     .addOnSuccessListener(aVoid -> {
                                         System.out.println("Veri silindi.");
+                                        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.save);
+                                        binding.kaydetbutton.setBackground(background);
                                     })
                                     .addOnFailureListener(e -> {
                                         System.out.println("Silinemedi: " + e.getMessage());
