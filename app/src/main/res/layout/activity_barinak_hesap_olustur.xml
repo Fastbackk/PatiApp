@@ -88,6 +88,7 @@
                         android:background="@drawable/edit"
                         android:drawableStart="@drawable/company_svgrepo_com"
                         android:elevation="6dp"
+                        android:padding="10dp"
                         android:hint="Kurumun İsmi"
                         android:inputType="text"
                         android:paddingStart="4dp" />
@@ -149,7 +150,7 @@
                         android:hint="E-Posta"
                         android:inputType="textEmailAddress"
                         android:paddingStart="4dp"
-
+                        android:padding="10dp"
                         />
 
                     <EditText
@@ -160,7 +161,7 @@
                         android:background="@drawable/edit"
                         android:drawableStart="@drawable/lock_alt_svgrepo_com__1_"
 
-
+                        android:padding="10dp"
                         android:elevation="6dp"
                         android:hint="Şifre oluşturun"
                         android:inputType="textPassword"
@@ -176,9 +177,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="14dp"
                         android:background="@drawable/edit"
+                        android:padding="10dp"
 
-
-                        android:drawableStart="@drawable/pin2"
+                        android:drawableStart="@drawable/pin"
                         android:elevation="6dp"
                         android:hint="İlçe"
                         android:inputType="text"
@@ -191,7 +192,7 @@
                         android:id="@+id/editTextText20"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
-
+                        android:padding="10dp"
                         android:layout_margin="14dp"
                         android:background="@drawable/edit"
                         android:elevation="6dp"
@@ -209,7 +210,7 @@
                         android:id="@+id/editTextPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:padding="10dp"
                         android:layout_margin="14dp"
                         android:background="@drawable/edit"
 

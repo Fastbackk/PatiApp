@@ -5,39 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BiyografiEkle">
+    tools:context=".BiyografiEkle"
+    android:background="@color/white">
 
 
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Biyografi Ekle"
-        android:gravity="center">
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="@color/white">
 
-    </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal"
+            android:background="@drawable/underline">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:src="@drawable/back_arrow_navigation_svgrepo_com__2_" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:gravity="center"
+                android:paddingRight="20dp"
+                android:text=""
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/ediText"
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:hint="Biyografi"
-        >
+        android:layout_height="292dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/edit"
+        android:gravity="center|top"
+        android:hint="Merhaba! Hayvanları çok seviyorum"
+        android:padding="10dp">
 
     </EditText>
 
-    <Button
-        android:id="@+id/atla2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Biyografiyi Sil">
 
-    </Button>
-    <Button
-        android:id="@+id/onayla2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Onayla" />
+        android:weightSum="2"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/atla2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit5"
+            android:drawableStart="@drawable/deleteicon"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Biyografiyi Temizle"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/onayla2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit5"
+            android:backgroundTint="#28A745"
+            android:drawableStart="@drawable/check_mark_square_2_svgrepo_com"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Onayla"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

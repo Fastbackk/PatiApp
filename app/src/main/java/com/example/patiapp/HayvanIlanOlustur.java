@@ -106,7 +106,7 @@ public class HayvanIlanOlustur extends AppCompatActivity {
                     }
 
                 });
-        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
+                firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

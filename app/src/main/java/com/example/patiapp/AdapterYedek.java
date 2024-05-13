@@ -38,8 +38,7 @@ public class AdapterYedek extends RecyclerView.Adapter<AdapterYedek.PostHolder> 
         holder.binding.textView30.setText(arrayList.get(position).date);
         holder.binding.textView32.setText(arrayList.get(position).sehir);
         holder.binding.textView31.setText(arrayList.get(position).foto);
-        System.out.println("burası"+arrayList.get(position).dowloandurl);
-        System.out.println("burası"+arrayList.get(position).username);
+
         Picasso.get().load(arrayList.get(position).dowloandurl).into(holder.binding.imageView18);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
