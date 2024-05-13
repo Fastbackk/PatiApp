@@ -38,6 +38,7 @@ public class BiyografiEkle extends AppCompatActivity {
     private Uri selectedImageUri = null;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth mAuth;
+    //garanti
     FirebaseFirestore firebaseFirestore;
 
     @Override
