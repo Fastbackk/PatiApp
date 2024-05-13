@@ -54,14 +54,22 @@
             </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:id="@+id/textView16"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Öncelikle Ne Tür Bir İlan Yüklemek İstediğini Seçmelisin."
-                android:textSize="21sp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="15dp">
 
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Öncelikle Ne Tür Bir İlan Yüklemek İstediğini Seçmelisin."
+                    android:textSize="21sp" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

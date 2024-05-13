@@ -59,7 +59,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="294dp"
-                android:src="@drawable/selectson" />
+              android:src="@drawable/photo_download_svgrepo_com" />
 
             <TextView
                 android:id="@+id/textView27"

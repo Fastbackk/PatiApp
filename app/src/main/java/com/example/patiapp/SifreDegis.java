@@ -63,7 +63,7 @@ public class SifreDegis extends AppCompatActivity {
 
                                 sifre = (String) data.get("sifre");
                                 Toast.makeText(SifreDegis.this, sifre, Toast.LENGTH_SHORT).show();
-                                binding.editTextPassword.setText(sifre);
+                                binding.editTextTextPassword.setText(sifre);
 
                             }
                         }
@@ -73,7 +73,7 @@ public class SifreDegis extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String newPassword = binding.editTextPassword.getText().toString();
+                String newPassword = binding.editTextTextPassword.getText().toString();
 
                 user.updatePassword(newPassword)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -86,7 +86,7 @@ public class SifreDegis extends AppCompatActivity {
                         });
             }
 
-            String updatedAd = binding.editTextPassword.getText().toString();
+            String updatedAd = binding.editTextTextPassword.getText().toString();
 
 
         });
@@ -94,7 +94,7 @@ public class SifreDegis extends AppCompatActivity {
 
     public void onClick(View v) {
         // EditText alanlarından güncellenmiş verileri alın
-        String updatedPassword = binding.editTextPassword.getText().toString();
+        String updatedPassword = binding.editTextTextPassword.getText().toString();
 
 
 

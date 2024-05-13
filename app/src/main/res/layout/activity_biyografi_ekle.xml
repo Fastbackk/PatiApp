@@ -50,7 +50,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/edit"
         android:gravity="center|top"
-        android:hint="Merhaba! Hayvanları çok seviyorum"
+        android:hint="Hayvansever biri, hayvanların refahını her zaman ön planda tutan biri."
         android:padding="10dp">
 
     </EditText>

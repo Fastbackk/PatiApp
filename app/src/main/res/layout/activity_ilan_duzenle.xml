@@ -50,7 +50,7 @@
             android:id="@+id/fotoust"
             android:layout_width="match_parent"
             android:layout_height="287dp"
-            app:srcCompat="@drawable/biritsh" />
+         />
 
 
 

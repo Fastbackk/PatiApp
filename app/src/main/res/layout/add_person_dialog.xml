@@ -3,20 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+  >
 
     <Button
         android:id="@+id/goToProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="Fotoğraf Değiştir" />
+        android:background="#C53939"
+        android:text="Profil Fotoğrafı Değiştir"
+        android:textSize="20sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000" />
 
     <Button
         android:id="@+id/goToBio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="Biyografi Değiştir" />
+        android:background="#FA2E2E"
+        android:text="Biyografi Değiştir"
+        android:textSize="20sp" />
 
 </LinearLayout>

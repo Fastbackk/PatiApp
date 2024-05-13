@@ -120,53 +120,7 @@ public class IlanUpdate extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = firebaseStorage.getReference();
 
-        Adapterİl = ArrayAdapter.createFromResource(this,R.array.ilListeleme, android.R.layout.simple_spinner_item);
-        Adapterİl.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        binding.spinner1.setAdapter(Adapterİl);
 
-        AdapterKategori = ArrayAdapter.createFromResource(this,R.array.kategoriListele, android.R.layout.simple_spinner_item);
-        AdapterKategori.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        binding.spinner3.setAdapter(AdapterKategori);
-
-        AdapterTur = ArrayAdapter.createFromResource(this,R.array.ilanTurListele, android.R.layout.simple_spinner_item);
-        AdapterTur.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        binding.spinner2.setAdapter(AdapterTur);
-
-
-        binding.spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                secilenİl= parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                secilenİl= parent.getItemAtPosition(0).toString();
-            }
-        });
-
-        binding.spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                secilenTur= parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                secilenTur= parent.getItemAtPosition(0).toString();
-            }
-        });
-        binding.spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                secilenKategori= parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                secilenKategori= parent.getItemAtPosition(0).toString();
-            }
-        });
 
 
 
@@ -188,15 +142,13 @@ public class IlanUpdate extends AppCompatActivity {
 
 
 
-         binding.editTextText7.setText(ilanbaslik);
-         binding.editTextText9.setText(ilce);
-         binding.editTextText10.setText(aciklamatext);
-         binding.editTextText17.setText(telno);
-         Picasso.get().load(dowloandURL).into(binding.imageView11);
-         binding.imageView11.setEnabled(false);
-         binding.spinner2.setEnabled(false);
-         binding.spinner1.setEnabled(false);
-         binding.spinner3.setEnabled(false);
+         binding.editTextText12.setText(ilanbaslik);
+         binding.editTextTexttt.setText(ilce);
+         binding.editTextTextt.setText(aciklamatext);
+         binding.editTextNumber2.setText(telno);
+         Picasso.get().load(dowloandURL).into(binding.imageView2);
+         binding.imageView2.setEnabled(false);
+
 
 
     }
@@ -264,11 +216,11 @@ public class IlanUpdate extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String dowloandurl=uri.toString();
                             String kullaniciAdi;
-                            String ilanbaslik=binding.editTextText7.getText().toString();
+                            String ilanbaslik=binding.editTextText12.getText().toString();
                             //String sehir=binding.editTextText8.getText().toString();
-                            String ilce=binding.editTextText9.getText().toString();
-                            String aciklama=binding.editTextText10.getText().toString();
-                            String ekipman=binding.editTextText11.getText().toString();
+                            String ilce=binding.editTextTexttt.getText().toString();
+                            String aciklama=binding.editTextTextt.getText().toString();
+                            String saglik=binding.editTextText14.getText().toString();
                             //String hayvankategori=binding.editTextText12.getText().toString();
                             String hayvancinsi=binding.editTextText13.getText().toString();
                             //String ilanturu=binding.editTextText14.getText().toString();
@@ -285,7 +237,7 @@ public class IlanUpdate extends AppCompatActivity {
                             ilanData.put("sehir",secilenİl);
                             ilanData.put("ilce",ilce);
                             ilanData.put("aciklama",aciklama);
-                            ilanData.put("ekipman",ekipman);
+                            ilanData.put("saglikdurumu",saglik);
                             // ilanData.put("hayvankategori",hayvankategori);
                             ilanData.put("hayvankategori",secilenKategori);
                             ilanData.put("hayvancinsi",hayvancinsi);
