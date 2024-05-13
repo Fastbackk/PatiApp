@@ -131,6 +131,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:inputType="none"
+                            android:background="@drawable/edit"
                             android:text="Hayvan Kategorisi" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,6 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@drawable/edit"
                             android:inputType="none"
                             android:text="Hayvanın Cinsi" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -157,6 +159,7 @@
                         android:layout_width="330dp"
                         android:layout_height="65dp"
 
+
                         android:layout_gravity="center"
                         android:layout_marginTop="50dp">
 
@@ -165,6 +168,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@drawable/edit"
                             android:inputType="none"
                             android:text="Cinsiyeti" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -263,7 +267,7 @@
                             android:id="@+id/autoCompleteTextView6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-
+                            android:background="@drawable/edit"
                             android:layout_weight="1"
                             android:inputType="none"
                             android:text="Şehir" />
