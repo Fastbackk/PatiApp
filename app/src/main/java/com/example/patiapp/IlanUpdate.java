@@ -66,9 +66,9 @@ public class IlanUpdate extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
-    private String secilenİl,secilenTur,secilenKategori;
-    private ArrayAdapter<CharSequence>Adapterİl,AdapterTur,AdapterKategori;
-    public String kullaniciEposta2,NickName,ID;
+    private String secilenİl, secilenTur, secilenKategori;
+    private ArrayAdapter<CharSequence> Adapterİl, AdapterTur, AdapterKategori;
+    public String kullaniciEposta2, NickName, ID;
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
     public String username, ilanbaslik, ilanturu, date, kullaniciemail, aciklamatext, telno, sehir, ilce, dowloandURL;
@@ -80,11 +80,11 @@ public class IlanUpdate extends AppCompatActivity {
         binding = ActivityIlanUpdateBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Kullanıcı adını aldım
-        kullaniciEposta2=firebaseAuth.getCurrentUser().getEmail();
-        firebaseFirestore=FirebaseFirestore.getInstance();
+        kullaniciEposta2 = firebaseAuth.getCurrentUser().getEmail();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta2)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -95,10 +95,9 @@ public class IlanUpdate extends AppCompatActivity {
                                 Map<String, Object> data = snapshot.getData();
                                 //  ID= snapshot.getId();
                                 String kullaniciadi = (String) data.get("kullaniciadi");
-                                NickName=kullaniciadi;
+                                NickName = kullaniciadi;
                                 System.out.println(NickName);
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(IlanUpdate.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -112,8 +111,6 @@ public class IlanUpdate extends AppCompatActivity {
                 });
 
 
-
-
         registerLauncher();
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -121,39 +118,30 @@ public class IlanUpdate extends AppCompatActivity {
         storageReference = firebaseStorage.getReference();
 
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        ilanbaslik = intent.getStringExtra("ilanbaslik");
+        ilanturu = intent.getStringExtra("ilanturu");
+        date = intent.getStringExtra("date");
+        kullaniciemail = intent.getStringExtra("kullaniciemail");
+        aciklamatext = intent.getStringExtra("aciklamatext");
+        telno = intent.getStringExtra("telno");
+        sehir = intent.getStringExtra("sehir");
+        ilce = intent.getStringExtra("ilce");
+        dowloandURL = intent.getStringExtra("dowloandurl");
 
 
-
-
-
-        Intent intent=getIntent();
-         username= intent.getStringExtra("username");
-         ilanbaslik= intent.getStringExtra("ilanbaslik");
-         ilanturu= intent.getStringExtra("ilanturu");
-         date= intent.getStringExtra("date");
-         kullaniciemail= intent.getStringExtra("kullaniciemail");
-         aciklamatext= intent.getStringExtra("aciklamatext");
-         telno= intent.getStringExtra("telno");
-         sehir= intent.getStringExtra("sehir");
-         ilce= intent.getStringExtra("ilce");
-         dowloandURL= intent.getStringExtra("dowloandurl");
-
-
-
-
-
-         binding.editTextText12.setText(ilanbaslik);
-         binding.editTextTexttt.setText(ilce);
-         binding.editTextTextt.setText(aciklamatext);
-         binding.editTextNumber2.setText(telno);
-         Picasso.get().load(dowloandURL).into(binding.imageView2);
-         binding.imageView2.setEnabled(false);
-
+        binding.editTextText12.setText(ilanbaslik);
+        binding.editTextTexttt.setText(ilce);
+        binding.editTextTextt.setText(aciklamatext);
+        binding.editTextNumber2.setText(telno);
+        Picasso.get().load(dowloandURL).into(binding.imageView2);
+        binding.imageView2.setEnabled(false);
 
 
     }
 
-    public void getDataID(){
+    public void getDataID() {
         firebaseFirestore.collection("Ilanlar").whereEqualTo("date", timestamp)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -164,9 +152,8 @@ public class IlanUpdate extends AppCompatActivity {
                                 Map<String, Object> data = snapshot.getData();
                                 //ID'yi aldık şimdi ise ID'yi ilanın içerisinde gömeceğiz
 
-                                ID=snapshot.getId();
+                                ID = snapshot.getId();
                                 System.out.println(ID);
-
 
 
                                 // Belirli bir dokümanı güncelleme
@@ -186,8 +173,7 @@ public class IlanUpdate extends AppCompatActivity {
                                                 System.err.println("Hata! Doküman güncellenemedi: " + e.getLocalizedMessage());
                                             }
                                         });
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(IlanUpdate.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -204,45 +190,45 @@ public class IlanUpdate extends AppCompatActivity {
     public void uploadButton(View view) {
         //universal uniq id
 
-        UUID uuid=UUID.randomUUID();
-        String ImageName="images/"+uuid+".jpg";
-        if(ImageData!=null){
+        UUID uuid = UUID.randomUUID();
+        String ImageName = "images/" + uuid + ".jpg";
+        if (ImageData != null) {
             storageReference.child(ImageName).putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    StorageReference newReferance=firebaseStorage.getReference(ImageName);
+                    StorageReference newReferance = firebaseStorage.getReference(ImageName);
                     newReferance.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            String dowloandurl=uri.toString();
+                            String dowloandurl = uri.toString();
                             String kullaniciAdi;
-                            String ilanbaslik=binding.editTextText12.getText().toString();
+                            String ilanbaslik = binding.editTextText12.getText().toString();
                             //String sehir=binding.editTextText8.getText().toString();
-                            String ilce=binding.editTextTexttt.getText().toString();
-                            String aciklama=binding.editTextTextt.getText().toString();
-                            String saglik=binding.editTextText14.getText().toString();
+                            String ilce = binding.editTextTexttt.getText().toString();
+                            String aciklama = binding.editTextTextt.getText().toString();
+                            String saglik = binding.editTextText14.getText().toString();
                             //String hayvankategori=binding.editTextText12.getText().toString();
-                            String hayvancinsi=binding.editTextText13.getText().toString();
+                            //String hayvancinsi=binding.editTextText13.getText().toString();
                             //String ilanturu=binding.editTextText14.getText().toString();
-                            String telno=binding.editTextText17.getText().toString();
+                            //String telno=binding.editTextText17.getText().toString();
 
-                            FirebaseUser user=firebaseAuth.getCurrentUser();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            String email=user.getEmail();
+                            String email = user.getEmail();
 
-                            HashMap<String,Object>ilanData=new HashMap<>();
-                            ilanData.put("dowloandurl",dowloandurl);
-                            ilanData.put("ilanbaslik",ilanbaslik);
+                            HashMap<String, Object> ilanData = new HashMap<>();
+                            ilanData.put("dowloandurl", dowloandurl);
+                            ilanData.put("ilanbaslik", ilanbaslik);
                             //ilanData.put("sehir",sehir);
-                            ilanData.put("sehir",secilenİl);
-                            ilanData.put("ilce",ilce);
-                            ilanData.put("aciklama",aciklama);
-                            ilanData.put("saglikdurumu",saglik);
+                            ilanData.put("sehir", secilenİl);
+                            ilanData.put("ilce", ilce);
+                            ilanData.put("aciklama", aciklama);
+                            ilanData.put("saglikdurumu", saglik);
                             // ilanData.put("hayvankategori",hayvankategori);
-                            ilanData.put("hayvankategori",secilenKategori);
-                            ilanData.put("hayvancinsi",hayvancinsi);
+                            ilanData.put("hayvankategori", secilenKategori);
+                            // ilanData.put("hayvancinsi",hayvancinsi);
                             //ilanData.put("ilanturu",ilanturu);
-                            ilanData.put("ilanturu",secilenTur);
+                            ilanData.put("ilanturu", secilenTur);
 
                             timestamp = new Timestamp(new Date());
                             ilanData.put("date", timestamp);
@@ -250,9 +236,9 @@ public class IlanUpdate extends AppCompatActivity {
                            /* Timestamp Date=FieldValue.serverTimestamp();
                             ilanData.put("date",Date);*/
 
-                            ilanData.put("email",email);
-                            ilanData.put("kullaniciadi",NickName);
-                            ilanData.put("telno",telno);
+                            ilanData.put("email", email);
+                            ilanData.put("kullaniciadi", NickName);
+                            ilanData.put("telno", telno);
                             firebaseFirestore.collection("Ilanlar").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
@@ -260,11 +246,9 @@ public class IlanUpdate extends AppCompatActivity {
                                     getDataID();
 
 
-
-
-                                    Intent intent=new Intent(IlanUpdate.this,IlanlarKendi.class);
+                                    Intent intent = new Intent(IlanUpdate.this, IlanlarKendi.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("ilan","ilanhayvan");
+                                    intent.putExtra("ilan", "ilanhayvan");
                                     startActivity(intent);
                                     finish();
                                 }
@@ -347,7 +331,7 @@ public class IlanUpdate extends AppCompatActivity {
                     Intent intentFromResult = result.getData();
                     if (intentFromResult != null) {
                         ImageData = intentFromResult.getData();
-                        binding.imageView11.setImageURI(ImageData);
+                        //   binding.imageView11.setImageURI(ImageData);
 
 
                     }
@@ -366,47 +350,16 @@ public class IlanUpdate extends AppCompatActivity {
             }
         });
 
-        binding.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseFirestore.collection("Ilanlar").whereEqualTo("kullaniciadi", username)
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                    // İlan bulunduğunda ilgili alanları güncelle
-                                    snapshot.getReference().update("ilanbaslik", binding.editTextText7.getText().toString(),
-                                                    "ilce", binding.editTextText9.getText().toString(),
-                                                    "aciklama", binding.editTextText10.getText().toString(),
-                                                    "telno", binding.editTextText17.getText().toString())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    // Güncelleme başarılı
-                                                    Toast.makeText(IlanUpdate.this, "İlan başarıyla güncellendi", Toast.LENGTH_SHORT).show();
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // Güncelleme başarısız
-                                                    Toast.makeText(IlanUpdate.this, "İlan güncellenirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                }
-                            }
 
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Veri yüklenemediği durumda kullanıcıya bilgi verme
-                                Toast.makeText(IlanUpdate.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-
-        });
     }
+
+
+
+
+
+
+
+
+
 
 }
