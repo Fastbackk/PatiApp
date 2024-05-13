@@ -99,6 +99,7 @@ public class IlanDetay extends AppCompatActivity {
                                 String aciklamatext = (String) data.get("aciklama");
                                 String telno = (String) data.get("telno");
                                 String ilce = (String) data.get("ilce");
+                                String cinsiyet = (String) data.get("cinsiyet");
                                 String yas = (String) data.get("yas");
                                 String hayvankategori=(String) data.get("hayvankategori");
                                 String hayvancinsi=(String) data.get("hayvancinsi");
@@ -121,6 +122,7 @@ public class IlanDetay extends AppCompatActivity {
                                 binding.telefon.setText(telno);
                                 binding.saglikdurumu.setText(saglik);
                                 binding.yas.setText(yas);
+                                binding.cinsiyet.setText(cinsiyet);
                                 binding.kurulus.setText(hayvankategori);
                                 binding.konum.setText(hayvancinsi);
                                 binding.konum2.setText(sehir + " / " + ilce);
@@ -213,14 +215,13 @@ public class IlanDetay extends AppCompatActivity {
         startActivity(intent);
     }
     public void kaydet(View view) {
-
         String kaydedilmisID;// kaydedilenler tablomdaki document'in ID'si
 
         String ilanID = ID; // İlan ID'sini al
 
         // Firestore'da "Kaydedilenler" koleksiyonunda "kaydedenkisi" ve "kaydedilenilanID" alanlarını sorgula
         firebaseFirestore.collection("Kaydedilenler")
-                .whereEqualTo("kaydedenkisi", username)
+                .whereEqualTo("kaydedenkisi", kullaniciadii)
                 .whereEqualTo("kaydedilenilanID", ilanID)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -231,7 +232,7 @@ public class IlanDetay extends AppCompatActivity {
                         if (task.getResult().isEmpty()) {
                             // Eğer sonuç yoksa, yani daha önce bu veri eklenmemişse yeni veriyi ekle
                             Map<String, Object> kaydedilenler = new HashMap<>();
-                            kaydedilenler.put("kaydedenkisi", username);
+                            kaydedilenler.put("kaydedenkisi", kullaniciadii);
                             kaydedilenler.put("kaydedilenilanID", ilanID);
 
                             firebaseFirestore.collection("Kaydedilenler").add(kaydedilenler)
