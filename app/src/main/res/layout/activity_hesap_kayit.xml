@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     tools:context=".HesapKayit">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -54,12 +54,8 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_margin="25dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginEnd="30dp"
             android:background="@drawable/cardviewborder"
             android:elevation="10dp"
             app:cardBackgroundColor="#FFFFFF"
@@ -178,5 +174,5 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

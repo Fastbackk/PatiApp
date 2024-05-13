@@ -8,25 +8,26 @@
 
     <ScrollView
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#FFFFFF"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/topMenu"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="1dp"
-                app:cardBackgroundColor="@color/white">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:onClick="back"
                         android:paddingLeft="10dp"
                         android:src="@drawable/back_arrow_navigation_svgrepo_com__2_" />
 
@@ -48,168 +50,278 @@
                         android:layout_weight="9"
                         android:gravity="center"
                         android:paddingRight="20dp"
-                        android:text="İlan Yükle"
+                        android:text="İlan Düzenle"
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="294dp"
+                android:src="@drawable/photo_download_svgrepo_com"/>
+
+            <TextView
+                android:id="@+id/textView27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/select" />
+                android:background="@color/renk"
+                android:gravity="center"
+                android:text="Ücretsiz Sahiplendirme"
+                android:textColor="#FFFFFF"
+                android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/txt2"
-                android:layout_width="300dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:text="İlan Türü"
-                android:textSize="20sp" />
+                app:cardBackgroundColor="#EAE9E9"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="İlan Türü"
-                android:inputType="text" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="51dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/underline"
+                        android:gravity="center"
+                        android:text="İlan Bilgileri"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                    <EditText
+                        android:id="@+id/editTextText12"
+                        android:layout_width="match_parent"
+
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
+
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:hint="İlan Başlığı"
+                        android:inputType="text" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="330dp"
+                        android:layout_height="65dp"
+
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/kategoritext"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:background="@drawable/edit"
+                            android:text="Hayvan Kategorisi" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/myTextInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="330dp"
+
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit"
+                            android:inputType="none"
+                            android:text="Hayvanın Cinsi" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="330dp"
+                        android:layout_height="65dp"
 
 
-            <EditText
-                android:id="@+id/editTextText7"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="İlan Başlığı"
-                android:inputType="text" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp">
 
-            <TextView
-                android:id="@+id/txt1"
-                android:layout_width="300dp"
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit"
+                            android:inputType="none"
+                            android:text="Cinsiyeti" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/editTextNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:padding="10dp"
+                        android:background="@drawable/edit"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:hint="Hayvanın Yaşı"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/editTextText14"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/edit"
+                        android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:ems="10"
+                        android:hint="Sağlık Durumu"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/editTextTextt"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/edit"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="50dp"
+                        android:ems="10"
+                        android:gravity="top"
+                        android:hint="Açıklama"
+                        android:inputType="text" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardVieww"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:text="Şehir"
-                android:textSize="20sp" />
+                app:cardBackgroundColor="#EAE9E9"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
 
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="Şehir"
-                android:inputType="text" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
-            <EditText
-                android:id="@+id/editTextText9"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="İlçe"
-                android:inputType="text" />
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/underline"
+                        android:gravity="center"
+                        android:text="İletişim Bilgileri"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
 
-            <EditText
-                android:id="@+id/editTextText10"
-                android:layout_width="300dp"
-                android:layout_height="284dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:gravity="top"
-                android:hint="Açıklama"
-                android:inputType="text" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="330dp"
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
 
-            <EditText
-                android:id="@+id/editTextText11"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="Sağlık Durumu"
-                android:inputType="text" />
+                        android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/txt4"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:text="Hayvan Kategori"
-                android:textSize="20sp" />
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/edit"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="Şehir" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="Hayvan Kategorisi"
-                android:inputType="text" />
+                    <EditText
+                        android:id="@+id/editTextTexttt"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:drawableStart="@drawable/pin"
+                        android:background="@drawable/edit"
+                        android:layout_marginTop="30dp"
+                        android:padding="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:ems="10"
+                        android:hint="İlçe"
+                        android:inputType="text" />
 
-            <EditText
-                android:id="@+id/editTextText13"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="Hayvanın Cinsi"
-                android:inputType="text" />
+                    <EditText
+                        android:id="@+id/editTextNumber2"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:background="@drawable/edit"
+                        android:drawableStart="@drawable/phone"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:ems="10"
+                        android:hint="Telefon Numarası"
+                        android:inputType="number" />
 
-            <EditText
-                android:id="@+id/editTextText17"
-                android:layout_width="300dp"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#FFFFFF"
-                android:backgroundTint="#D1CECE"
-                android:ems="10"
-                android:hint="Telefon Numarası"
-                android:inputType="phone" />
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="30dp"
+                        android:backgroundTint="#2196F3"
+                        android:onClick="ilanyukle"
+                        android:text="Güncelle"
+                        android:textSize="35sp">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/renk"
-                android:onClick="uploadButton"
-                android:text="İlanı Güncelle!"
-                android:textSize="24sp" />
+                    </Button>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

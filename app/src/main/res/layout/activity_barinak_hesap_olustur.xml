@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="278dp"
                 android:layout_marginBottom="40dp"
-                android:src="@drawable/selectson" />
+                android:src="@drawable/photo_download_svgrepo_com" />
 
 
             <androidx.cardview.widget.CardView

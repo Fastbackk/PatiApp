@@ -66,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/cardviewborder"
+
+                android:elevation="6dp"
                 android:padding="16dp">
 
                 <LinearLayout
@@ -75,17 +76,19 @@
                     android:orientation="horizontal"/>
 
 
+
                 <EditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/editTextTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/edtdesign"
-                    android:drawableStart="@drawable/kilit"
+                    android:background="@drawable/edit6"
+                    android:drawableStart="@drawable/lock_alt_svgrepo_com__1_"
                     android:drawablePadding="10dp"
                     android:hint="Şifre"
-                    android:inputType="text"
-                    android:textSize="18sp" />
+                    android:inputType="phone"
+                    android:padding="6dp"
+                    android:textSize="16sp" />
                 <Button
                     android:id="@+id/kayitol"
                     android:layout_width="258dp"
