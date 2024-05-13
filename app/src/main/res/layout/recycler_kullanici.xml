@@ -23,7 +23,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:src="@drawable/hesabulhesab2" />
+            android:src="@drawable/account_svgrepo_com" />
 
         <TextView
             android:id="@+id/textView10"

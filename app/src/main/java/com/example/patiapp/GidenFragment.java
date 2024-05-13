@@ -29,12 +29,12 @@ import java.util.Map;
 
 
 public class GidenFragment extends Fragment {
-    private FragmentGidenBinding binding;
+    FragmentGidenBinding binding;
     ArrayList<Post2> messageArrayList;
     Adapter2 adapter;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
-    public String kullaniciEposta, username;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+    String kullaniciEposta, username,profil_picture;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class GidenFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-                                System.out.println(username);
+//                                profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
@@ -187,11 +187,12 @@ public class GidenFragment extends Fragment {
                                 Map<String, Object> data = snapshot.getData();
                                 assert data != null;
                                 String mesajbaslik = (String) data.get("mesajbaslik");
-                                 username = (String) data.get("username");
+                                username = (String) data.get("username");
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 String alici = (String) data.get("alici");
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici);
+                                String profil_picture = (String) data.get("profil_picture");
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

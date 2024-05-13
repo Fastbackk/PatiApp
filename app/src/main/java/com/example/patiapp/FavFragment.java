@@ -58,7 +58,6 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-
                                 Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 System.out.println(username);
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
@@ -184,7 +183,8 @@ public class FavFragment extends Fragment {
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 alici = (String) data.get("alici");
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici);
+                                String profil_picture = (String) data.get("profil_picture");
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
