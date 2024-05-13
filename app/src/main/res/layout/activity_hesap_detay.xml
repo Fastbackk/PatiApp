@@ -76,12 +76,14 @@
                     <EditText
                         android:id="@+id/editTextText2"
                         android:layout_width="wrap_content"
+                        android:padding="5dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/edit6"
                         android:layout_marginTop="7dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
+
                         android:drawablePadding="10dp"
                         android:ems="10"
                         android:hint="Ad"
@@ -91,16 +93,19 @@
                     <EditText
                         android:id="@+id/editTextText3"
                         android:layout_width="wrap_content"
+                        android:padding="5dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/edit6"
                         android:layout_marginTop="7dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
                         android:drawablePadding="10dp"
                         android:ems="10"
                         android:hint="Soyad"
                         android:inputType="text"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
                 <EditText
@@ -108,8 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
+                    android:padding="6dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/edtdesign"
+                    android:background="@drawable/edit6"
                     android:drawableStart="@drawable/hesabulhesab2"
                     android:drawablePadding="10dp"
                     android:hint="Kullanıcı Adı"
@@ -120,7 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/edtdesign"
+                    android:padding="6dp"
+                    android:background="@drawable/edit6"
                     android:drawableStart="@drawable/email2"
                     android:drawablePadding="10dp"
                     android:hint="E-Posta"
@@ -135,12 +142,16 @@
                     android:onClick="onClick"
                     android:text="Şifre Değiştir" />
 
-                <Button
+                <TextView
                     android:id="@+id/kayitol"
                     android:layout_width="258dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:padding="15dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/edit5"
                     android:layout_marginTop="20dp"
+                    android:drawableStart="@drawable/check_mark_square_2_svgrepo_com"
                     android:backgroundTint="#37B53A"
                     android:text="Bilgilerimi Güncelle"
                     android:textAllCaps="false"

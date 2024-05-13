@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/topMenu"
             android:layout_width="match_parent"
@@ -80,29 +81,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_marginTop="7dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
+                        android:background="@drawable/edit6"
                         android:drawablePadding="10dp"
+
                         android:ems="10"
                         android:hint="Ad"
                         android:inputType="text"
-                        android:textSize="18sp" />
+                        android:padding="5dp" />
 
                     <EditText
                         android:id="@+id/editTextText3"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_marginTop="7dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
-
                         android:layout_weight="1"
-                        android:background="@drawable/edtdesign"
+                        android:background="@drawable/edit6"
                         android:drawablePadding="10dp"
                         android:ems="10"
                         android:hint="Soyad"
                         android:inputType="text"
+                        android:padding="5dp"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
                 <EditText
@@ -110,13 +115,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/edtdesign"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/edit6"
+                    android:digits="abcdefghijklmnopqrstuvwxyz0123456789_."
                     android:drawableStart="@drawable/hesabulhesab2"
                     android:drawablePadding="10dp"
-                    android:hint="Bir kullanıcı adı belirleyin"
-
-                    android:digits="abcdefghijklmnopqrstuvwxyz0123456789_."
+                    android:hint="Kullanıcı Adı"
+                    android:padding="6dp"
                     android:textSize="18sp" />
 
                 <EditText
@@ -124,11 +129,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/edtdesign"
+                    android:background="@drawable/edit6"
                     android:drawableStart="@drawable/email2"
                     android:drawablePadding="10dp"
                     android:hint="E-Posta"
-
+                    android:inputType="textEmailAddress"
+                    android:padding="6dp"
                     android:textSize="18sp" />
 
                 <EditText
@@ -136,23 +142,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/edtdesign"
+                    android:background="@drawable/edit6"
                     android:drawableStart="@drawable/phone"
                     android:drawablePadding="10dp"
-                    android:hint="Telno (ZORUNLU DEĞİL)"
+                    android:hint="Telefon Numarası(Zorunlu Değil)"
                     android:inputType="phone"
-                    android:textSize="18sp" />
+                    android:padding="6dp"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/editTextTextPassword2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/edtdesign"
-                    android:drawableStart="@drawable/kilit"
+                    android:background="@drawable/edit6"
+                    android:drawableStart="@drawable/lock_alt_svgrepo_com__1_"
                     android:drawablePadding="10dp"
                     android:hint="Şifre"
-                    android:inputType="textPassword"
-                    android:textSize="18sp" />
+                    android:inputType="phone"
+                    android:padding="6dp"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/kayitol"
