@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/tuna" />
+                android:src="@drawable/asdasd" />
 
             <TextView
                 android:id="@+id/kurumisim"
