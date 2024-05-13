@@ -17,24 +17,28 @@ import com.example.patiapp.databinding.FragmentFavBinding;
 import com.example.patiapp.databinding.FragmentGidenBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class GidenFragment extends Fragment {
-    private FragmentGidenBinding binding;
+    FragmentGidenBinding binding;
     ArrayList<Post2> messageArrayList;
     Adapter2 adapter;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
-    public String kullaniciEposta, username;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+    String kullaniciEposta, username,profil_picture;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +58,7 @@ public class GidenFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-                                System.out.println(username);
+//                                profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
@@ -134,7 +138,7 @@ public class GidenFragment extends Fragment {
 
 
                 // İlgili belgeyi sorgula ve sil
-                firebaseFirestore.collection("Messages").whereEqualTo("username", username)
+                firebaseFirestore.collection("Messages").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("username", username)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
@@ -187,11 +191,21 @@ public class GidenFragment extends Fragment {
                                 Map<String, Object> data = snapshot.getData();
                                 assert data != null;
                                 String mesajbaslik = (String) data.get("mesajbaslik");
-                                 username = (String) data.get("username");
+                                username = (String) data.get("username");
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 String alici = (String) data.get("alici");
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici);
+                                String profil_picture = (String) data.get("profil_picture");
+                                String date = null;
+                                Object dateObj = data.get("date");
+                                if (dateObj instanceof Timestamp) {
+                                    Timestamp timestamp = (Timestamp) dateObj;
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                    date = sdf.format(timestamp.toDate());
+                                } else if (dateObj instanceof String) {
+                                    date = (String) dateObj;
+                                }
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.patiapp.databinding.FragmentFavBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -26,7 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -58,7 +61,6 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-
                                 Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 System.out.println(username);
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
@@ -126,7 +128,7 @@ public class FavFragment extends Fragment {
 
 
                 // İlgili belgeyi sorgula ve sil
-                firebaseFirestore.collection("Messages").whereEqualTo("alici", alici)
+                firebaseFirestore.collection("Messages").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("alici", alici)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
@@ -184,7 +186,17 @@ public class FavFragment extends Fragment {
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 alici = (String) data.get("alici");
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici);
+                                String profil_picture = (String) data.get("profil_picture");
+                                String date = null;
+                                Object dateObj = data.get("date");
+                                if (dateObj instanceof Timestamp) {
+                                    Timestamp timestamp = (Timestamp) dateObj;
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                    date = sdf.format(timestamp.toDate());
+                                } else if (dateObj instanceof String) {
+                                    date = (String) dateObj;
+                                }
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
