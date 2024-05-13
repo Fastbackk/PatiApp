@@ -40,7 +40,7 @@ public class Mesajdetay extends AppCompatActivity {
 
 
 
-    public String mesajbaslik, mesaj, username, gonderenemail, alici;
+    public String mesajbaslik, mesaj, username, gonderenemail, alici,profil_picture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +62,10 @@ public class Mesajdetay extends AppCompatActivity {
         mesajbaslik= intent.getStringExtra("mesajbaslik");
         alici= intent.getStringExtra("alici");
         gonderenemail = intent.getStringExtra("gonderenemail");
+        profil_picture = intent.getStringExtra("profil_picture");
+        String date = intent.getStringExtra("date");
+        binding.tarih.setText(date);
+
 
         if (anlik_eposta+" " == gonderenemail){
             Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
@@ -86,11 +90,14 @@ public class Mesajdetay extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 ID= snapshot.getId();
+                                /*/
                                 String username = (String) data.get("username");
                                 String mesajbaslik = (String) data.get("mesajbaslik");
                                 String mesaj = (String) data.get("mesaj");
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 String alici = (String) data.get("alici");
+
+                                 */
 
 
                                 // Verileri kullanarak UI ggonderenemailüncelleyin
@@ -100,6 +107,10 @@ public class Mesajdetay extends AppCompatActivity {
                                 binding.mesaj.setText(mesaj);
                                 binding.gonderenemail.setText(gonderenemail);
                                 binding.alici.setText(alici);
+                                if (profil_picture!=null){
+                                    Picasso.get().load(profil_picture).into(binding.imageView12);
+                                }
+
                                 //binding.tarih.setText(date);
 
 

@@ -39,7 +39,7 @@ public class MessagesFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Post> ilanArrayList;
     private AdapterYedek adapter;
-    private String kullaniciEposta, ilankullaniciadi,kendikullaniciadi;
+    private String kullaniciEposta,kendikullaniciadi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -159,7 +159,7 @@ public class MessagesFragment extends Fragment {
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
                                 String foto = (String) data.get("userpp");
-                                ilankullaniciadi= (String) data.get("kullaniciadi");
+                                String username= (String) data.get("kullaniciadi");
                                 String hesapturu = (String) data.get("hesapturu");
                                 String date = null;
                                 Object dateObj = data.get("date");
@@ -171,7 +171,7 @@ public class MessagesFragment extends Fragment {
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, ilankullaniciadi, foto, hesapturu);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
                                 ilanArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
