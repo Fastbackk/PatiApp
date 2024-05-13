@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class MessagesFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Post> ilanArrayList;
     private AdapterYedek adapter;
-    private String kullaniciEposta, username;
+    private String kullaniciEposta, ilankullaniciadi,kendikullaniciadi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MessagesFragment extends Fragment {
         setupRecyclerView();
         fetchUserData();
         setupButtonListeners();
+
+
     }
 
     private void setupRecyclerView() {
@@ -68,33 +71,6 @@ public class MessagesFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
     }
 
-    private void fetchUserData() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            kullaniciEposta = user.getEmail();
-            firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                if (snapshot.exists()) {
-                                    Map<String, Object> data = snapshot.getData();
-                                    username = (String) data.get("kullaniciadi");
-                                    Toast.makeText(getContext(), "Kullanıcı adı: " + username, Toast.LENGTH_SHORT).show();
-                                    // Diğer işlemler...
-                                }
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(), "Veri yükleme hatası: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
 
     private void setupButtonListeners() {
         binding.buttonn.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +90,40 @@ public class MessagesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        binding.imageView13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.add_person_dialog, null);
+                builder.setView(dialogView);
+
+
+
+                Button goToBio = dialogView.findViewById(R.id.goToBio);
+                Button goToProfile = dialogView.findViewById(R.id.goToProfile);
+
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+                goToProfile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), ProfilFotoIsteme.class);
+
+                        startActivity(intent);
+                    }
+                });
+                goToBio.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), BiyografiEkle.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
 
         binding.buttonkaydedilenler.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,14 +140,14 @@ public class MessagesFragment extends Fragment {
         });
     }
 
-    public void ilanlarim(){
+    public void ilanlarim() {
         firebaseFirestore.collection("Ilanlar").orderBy("date", Query.Direction.DESCENDING)
-                .whereEqualTo("eposta",kullaniciEposta)
+                .whereEqualTo("eposta", kullaniciEposta)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error != null) {
-                            Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println(error.getLocalizedMessage());
                             return;
                         }
                         if (value != null) {
@@ -148,20 +158,20 @@ public class MessagesFragment extends Fragment {
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
-                                String foto= (String) data.get("userpp");
-                                String username= (String) data.get("kullaniciadi");
-                                String hesapturu= (String) data.get("hesapturu");
+                                String foto = (String) data.get("userpp");
+                                ilankullaniciadi= (String) data.get("kullaniciadi");
+                                String hesapturu = (String) data.get("hesapturu");
                                 String date = null;
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                                     date = sdf.format(timestamp.toDate());
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
+                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, ilankullaniciadi, foto, hesapturu);
                                 ilanArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
@@ -170,17 +180,31 @@ public class MessagesFragment extends Fragment {
                 });
     }
 
-    public void kaydedilenler(){
-        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", username)
+    public void kaydedilenler() {
+        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", kendikullaniciadi)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        ilanArrayList.clear();  // Listeyi başta temizleyin.
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 String kayit = (String) data.get("kaydedilenilanID");
-                                // Further data retrieval and processing...
+                                // İlanları ID'ye göre çek
+                                firebaseFirestore.collection("Ilanlar").document(kayit)
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()) {
+                                                    Map<String, Object> ilanData = documentSnapshot.getData();
+                                                    Post ilan = createPostFromData(ilanData); // Veriyi Post objesine dönüştüren metod
+                                                    ilanArrayList.add(ilan);
+                                                    adapter.notifyDataSetChanged();  // Adapter'ı güncelle
+                                                }
+                                            }
+                                        });
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
@@ -194,6 +218,66 @@ public class MessagesFragment extends Fragment {
                     }
                 });
     }
+
+    private Post createPostFromData(Map<String, Object> data) {
+        // Verileri Post objesine dönüştür
+        String date = null;
+        Object dateObj = data.get("date");
+        if (dateObj instanceof Timestamp) {
+            Timestamp timestamp = (Timestamp) dateObj;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+            date = sdf.format(timestamp.toDate());
+        } else if (dateObj instanceof String) {
+            date = (String) dateObj;
+        }
+
+        return new Post(
+                (String) data.get("ilanbaslik"),
+                (String) data.get("dowloandurl"),
+                (String) data.get("sehir"),
+                (String) data.get("ilanturu"),
+                date,
+                (String) data.get("kullaniciadi"),
+                (String) data.get("userpp"),
+                (String) data.get("hesapturu")
+        );
+    }
+
+    private void fetchUserData() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            kullaniciEposta = user.getEmail();
+            firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                if (snapshot.exists()) {
+                                    Map<String, Object> data = snapshot.getData();
+                                    kendikullaniciadi = (String) data.get("kullaniciadi");
+                                    String bio = (String) data.get("bio");
+                                    String ad = (String) data.get("ad");
+                                    String profilfotoURI = (String) data.get("profil_foto");
+                                    String soyad = (String) data.get("soyad");
+                                    Toast.makeText(getContext(), "Kullanıcı adı: " + kendikullaniciadi, Toast.LENGTH_SHORT).show();
+                                    binding.textView6.setText(kendikullaniciadi);
+                                    binding.textView2.setText(ad + soyad);
+                                    binding.bio.setText(bio);
+                                    Picasso.get().load(profilfotoURI).into(binding.imageView13);
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "Veri yükleme hatası: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
 
     @Override
     public void onDestroyView() {

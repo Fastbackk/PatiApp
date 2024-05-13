@@ -50,7 +50,7 @@ public class MesajEkle extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     public String kullaniciEposta, username, telefon, gonderenemail;
     private ActivityMesajEkleBinding binding;
-    Uri ImageData;
+
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<String> izin;
     private FirebaseStorage firebaseStorage;
@@ -125,7 +125,6 @@ public class MesajEkle extends AppCompatActivity {
         firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                makeNotification(gonderenemail, alici+" Yeni bir mesajınız var!", "Yeni bir mesaj aldınız.");
 
                 Toast.makeText(MesajEkle.this, alici, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MesajEkle.this, MainActivity.class);

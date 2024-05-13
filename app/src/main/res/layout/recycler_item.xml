@@ -24,14 +24,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <ImageView
+                <com.github.siyamed.shapeimageview.CircularImageView
+
                     android:id="@+id/userpp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/account_svgrepo_com"
-                    >
+                    android:src="@drawable/account_svgrepo_com"/>
 
-                </ImageView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
