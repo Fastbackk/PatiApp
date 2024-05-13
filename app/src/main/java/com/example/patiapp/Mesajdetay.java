@@ -63,6 +63,9 @@ public class Mesajdetay extends AppCompatActivity {
         alici= intent.getStringExtra("alici");
         gonderenemail = intent.getStringExtra("gonderenemail");
         profil_picture = intent.getStringExtra("profil_picture");
+        String date = intent.getStringExtra("date");
+        binding.tarih.setText(date);
+
 
         if (anlik_eposta+" " == gonderenemail){
             Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();

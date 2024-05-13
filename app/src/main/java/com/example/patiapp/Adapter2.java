@@ -51,6 +51,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.PostHolder> {
                 intent.putExtra("gonderenemail",arrayList.get(position).gonderenemail);
                 intent.putExtra("alici",arrayList.get(position).alici);
                 intent.putExtra("profil_picture",arrayList.get(position).profil_picture);
+                intent.putExtra("date",arrayList.get(position).date);
                 //intent.putExtra("sehir",arrayList.get(position).sehir);
                 //intent.putExtra("date",arrayList.get(position).date);
                 //intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
