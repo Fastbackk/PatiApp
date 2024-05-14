@@ -86,11 +86,23 @@ public class MesajEkle extends AppCompatActivity {
                             }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                });
+        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MesajEkle.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                //  ID= snapshot.getId();
+                                username = (String) data.get("kurumisim");
+                                profil_picture = (String) data.get("profil_foto");
+                                Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MesajEkle.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 });
 

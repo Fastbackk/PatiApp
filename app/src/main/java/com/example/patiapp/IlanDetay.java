@@ -57,12 +57,8 @@ public class IlanDetay extends AppCompatActivity {
         binding = ActivityIlanDetayBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
-
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //verileri alma
         Intent intent=getIntent();
         String ilanbaslik= intent.getStringExtra("ilanbaslik");
         String ilanturu= intent.getStringExtra("ilanturu");
@@ -72,13 +68,43 @@ public class IlanDetay extends AppCompatActivity {
         String dowloandurl= intent.getStringExtra("dowloandurl");
         hesapturu = intent.getStringExtra("hesapturu");
 
-        System.out.println("HESAP TÜRÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ========>"+hesapturu);
+       kullaniciemail= mAuth.getCurrentUser().getEmail();
+       firebaseFirestore.collection("Barinak").whereEqualTo("eposta",kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+           @Override
+           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+               for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                   if (snapshot.exists()) {
+                       Map<String, Object> data = snapshot.getData();
+                       kullaniciadii = (String) data.get("kurumisim");
+                       kayitlimi();
+                   }
+               }
+           }
+       });
+        firebaseFirestore.collection("users").whereEqualTo("eposta",kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                    if (snapshot.exists()) {
+                        Map<String, Object> data = snapshot.getData();
+                        kullaniciadii = (String) data.get("kullaniciadi");
+                        kayitlimi();
+                    }
+                }
+            }
+        });
 
-/*
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date parsedDate = dateFormat.parse(date);
-        Timestamp timestamp = new Timestamp(parsedDate.getTime());*/
 
+
+
+
+
+
+
+
+
+
+        //Tıklanın ilanın tüm bilgilerine erişiliyor.
         firebaseFirestore.collection("Ilanlar").whereEqualTo("ilanbaslik", ilanbaslik)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -88,7 +114,6 @@ public class IlanDetay extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 ID= snapshot.getId();
-                                kayitlimi();
                                 System.out.println(ID);
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
@@ -105,9 +130,6 @@ public class IlanDetay extends AppCompatActivity {
                                 String hayvancinsi=(String) data.get("hayvancinsi");
                                 String saglik=(String) data.get("saglik");
                                 username=(String) data.get("kullaniciadi");
-
-
-
                                 foto=(String) data.get("profil_foto");
 
                                 // Verileri kullanarak UI güncelleyin
@@ -127,7 +149,6 @@ public class IlanDetay extends AppCompatActivity {
                                 binding.konum.setText(hayvancinsi);
                                 binding.konum2.setText(sehir + " / " + ilce);
 
-                                System.out.println("Veriler başarıyla yüklendi: " + kullaniciemail);
                             } else {
                                 Toast.makeText(IlanDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
@@ -141,40 +162,10 @@ public class IlanDetay extends AppCompatActivity {
                     }
                 });
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        String useremail = user.getEmail();
-        System.out.println(useremail);
-
-        firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (documentSnapshot.exists()) {
-                                Map<String, Object> data = documentSnapshot.getData();
-                                //foto2 = (String) data.get("profil_foto");
-                                //Picasso.get().load(foto2).into(binding.imageView12);
-                                kullaniciadii = (String) data.get("kullaniciadi");
-
-
-                            }
-
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("Veriler yüklenemedi!");
-
-                    }
-                });
-
-
 
     }
     public void kayitlimi(){
-        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedilenilanID",ID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi",kullaniciadii).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
@@ -215,54 +206,61 @@ public class IlanDetay extends AppCompatActivity {
         startActivity(intent);
     }
     public void kaydet(View view) {
-        String kaydedilmisID;// kaydedilenler tablomdaki document'in ID'si
+        if (kullaniciadii==null){
+            System.out.println("NULL LA VERİ");
+        }
+        else{
+            String kaydedilmisID;// kaydedilenler tablomdaki document'in ID'si
 
-        String ilanID = ID; // İlan ID'sini al
+            String ilanID = ID; // İlan ID'sini al
 
-        // Firestore'da "Kaydedilenler" koleksiyonunda "kaydedenkisi" ve "kaydedilenilanID" alanlarını sorgula
-        firebaseFirestore.collection("Kaydedilenler")
-                .whereEqualTo("kaydedenkisi", kullaniciadii)
-                .whereEqualTo("kaydedilenilanID", ilanID)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+            // Firestore'da "Kaydedilenler" koleksiyonunda "kaydedenkisi" ve "kaydedilenilanID" alanlarını sorgula
+            firebaseFirestore.collection("Kaydedilenler")
+                    .whereEqualTo("kaydedenkisi", kullaniciadii)
+                    .whereEqualTo("kaydedilenilanID", ilanID)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
 
-                        // Sorgulama başarılı, sonuçları kontrol et
+                            // Sorgulama başarılı, sonuçları kontrol et
 
-                        if (task.getResult().isEmpty()) {
-                            // Eğer sonuç yoksa, yani daha önce bu veri eklenmemişse yeni veriyi ekle
-                            Map<String, Object> kaydedilenler = new HashMap<>();
-                            kaydedilenler.put("kaydedenkisi", kullaniciadii);
-                            kaydedilenler.put("kaydedilenilanID", ilanID);
+                            if (task.getResult().isEmpty()) {
+                                // Eğer sonuç yoksa, yani daha önce bu veri eklenmemişse yeni veriyi ekle
+                                Map<String, Object> kaydedilenler = new HashMap<>();
+                                kaydedilenler.put("kaydedenkisi", kullaniciadii);
+                                kaydedilenler.put("kaydedilenilanID", ilanID);
 
-                            firebaseFirestore.collection("Kaydedilenler").add(kaydedilenler)
-                                    .addOnSuccessListener(documentReference -> {
-                                        System.out.println("Eklendi");
-                                        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.maaaaaaaaaaaaaaaaaaa);
-                                        binding.kaydetbutton.setBackground(background);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        System.out.println("Eklenemedi: " + e.getMessage());
-                                    });
+                                firebaseFirestore.collection("Kaydedilenler").add(kaydedilenler)
+                                        .addOnSuccessListener(documentReference -> {
+                                            System.out.println("Eklendi");
+                                            Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.maaaaaaaaaaaaaaaaaaa);
+                                            binding.kaydetbutton.setBackground(background);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            System.out.println("Eklenemedi: " + e.getMessage());
+                                        });
+                            } else {
+                                // Eğer sonuç varsa, yani daha önce bu veri eklenmişse belgeyi sil
+                                DocumentSnapshot document = task.getResult().getDocuments().get(0); // İlk belgeyi al
+                                firebaseFirestore.collection("Kaydedilenler").document(document.getId()).delete()
+                                        .addOnSuccessListener(aVoid -> {
+                                            System.out.println("Veri silindi.");
+                                            Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.save);
+                                            binding.kaydetbutton.setBackground(background);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            System.out.println("Silinemedi: " + e.getMessage());
+                                        });
+
+                            }
                         } else {
-                            // Eğer sonuç varsa, yani daha önce bu veri eklenmişse belgeyi sil
-                            DocumentSnapshot document = task.getResult().getDocuments().get(0); // İlk belgeyi al
-                            firebaseFirestore.collection("Kaydedilenler").document(document.getId()).delete()
-                                    .addOnSuccessListener(aVoid -> {
-                                        System.out.println("Veri silindi.");
-                                        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.save);
-                                        binding.kaydetbutton.setBackground(background);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        System.out.println("Silinemedi: " + e.getMessage());
-                                    });
-
+                            // Sorgulama başarısız oldu
+                            System.out.println("Sorgulama başarısız: " + task.getException().getMessage());
                         }
-                    } else {
-                        // Sorgulama başarısız oldu
-                        System.out.println("Sorgulama başarısız: " + task.getException().getMessage());
-                    }
-                });
+                    });
+        }
+
+
     }
 
 

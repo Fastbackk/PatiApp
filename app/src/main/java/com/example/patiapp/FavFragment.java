@@ -69,11 +69,23 @@ public class FavFragment extends Fragment {
                             }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                });
+        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                username = (String) data.get("kurumisim");
+                                Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
+                                System.out.println(username);
+                                getData(); // Kullanıcı adı alındıktan sonra verileri getir
+                            } else {
+                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 });
 

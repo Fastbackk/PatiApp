@@ -60,7 +60,7 @@
                 android:orientation="horizontal"
                 android:weightSum="4">
 
-                <ImageView
+                <com.github.siyamed.shapeimageview.CircularImageView
                     android:id="@+id/profilephoto"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
