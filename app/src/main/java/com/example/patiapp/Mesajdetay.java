@@ -69,7 +69,7 @@ public class Mesajdetay extends AppCompatActivity {
 
         if (anlik_eposta+" " == gonderenemail){
             Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
-            binding.kaydet.setText("Mesajı Sil");
+            binding.atla2.setText("Mesajı Sil");
             degisken=true;
         }
         else {
@@ -148,14 +148,8 @@ public class Mesajdetay extends AppCompatActivity {
 
 
 
-        binding.kaydet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println(ID);
 
-            }
-        });
-        binding.kaydet.setOnClickListener(new View.OnClickListener() {
+        binding.atla2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -123,15 +123,7 @@ public class FavFragment extends Fragment {
                 transaction.commit();
             }
         });
-        binding.gelen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FavFragment FavFragment = new FavFragment();
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, FavFragment);
-                transaction.commit();
-            }
-        });
+
         binding.gelenKutusuTemizle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

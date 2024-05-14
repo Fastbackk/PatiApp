@@ -172,22 +172,23 @@
                 android:background="@drawable/edit5"
                 android:drawableStart="@drawable/deleteicon"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="12dp"
+                android:textSize="17sp"
                 android:text="Mesajı Sil"
                 android:textColor="#000000" />
-
-            <Button
-                android:id="@+id/kaydet"
+            <TextView
+                android:id="@+id/giden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/edit5"
                 android:backgroundTint="#0b57d0"
-                android:paddingStart="50dp"
-                android:paddingLeft="50dp"
-                android:paddingEnd="50dp"
-                android:paddingRight="50dp"
+                android:drawableStart="@drawable/paper_plane_svgrepo_com"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="20sp"
                 android:text="Yanıtla"
-                android:textSize="24sp" />
+                android:textColor="#FFFFFF" />
 
 
         </LinearLayout>
