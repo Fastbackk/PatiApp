@@ -72,6 +72,7 @@ public class IlanUpdate extends AppCompatActivity {
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
     public String username, ilanbaslik, ilanturu, date, kullaniciemail, aciklamatext, telno, sehir, ilce, dowloandURL;
+    //
 
 
     @Override
