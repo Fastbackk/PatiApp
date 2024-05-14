@@ -41,7 +41,7 @@ public class MessagesFragment extends Fragment {
     private ArrayList<Post> ilanArrayList2;
     private AdapterYedek adapter;
     private AdapterYedek2 adapter2;
-    private String kullaniciEposta,kendikullaniciadi;
+    private String kullaniciEposta, kendikullaniciadi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +68,6 @@ public class MessagesFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-
-
         adapter2 = new AdapterYedek2(ilanArrayList2);
         binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView2.setAdapter(adapter2);
@@ -108,7 +106,6 @@ public class MessagesFragment extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.add_person_dialog, null);
                 builder.setView(dialogView);
-
 
 
                 Button goToBio = dialogView.findViewById(R.id.goToBio);
@@ -163,7 +160,7 @@ public class MessagesFragment extends Fragment {
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
                                 String foto = (String) data.get("userpp");
-                                String username= (String) data.get("kullaniciadi");
+                                String username = (String) data.get("kullaniciadi");
                                 String hesapturu = (String) data.get("hesapturu");
                                 String date = null;
                                 Object dateObj = data.get("date");
@@ -183,10 +180,11 @@ public class MessagesFragment extends Fragment {
                     }
                 });
     }
- /*/
 
-    }
- /*/
+    /*/
+
+       }
+    /*/
     private Post createPostFromData(Map<String, Object> data) {
         // Verileri Post objesine dönüştür
         String date = null;
@@ -243,12 +241,43 @@ public class MessagesFragment extends Fragment {
                             Toast.makeText(getContext(), "Veri yükleme hatası: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+
+            if (user != null) {
+                kullaniciEposta = user.getEmail();
+                firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    if (snapshot.exists()) {
+                                        Map<String, Object> data = snapshot.getData();
+                                        kendikullaniciadi = (String) data.get("kurumisim");
+                                        String bio = (String) data.get("biyografi");
+                                        String profilfotoURI = (String) data.get("profil_foto");
+                                        Toast.makeText(getContext(), "Kullanıcı adı: " + kendikullaniciadi, Toast.LENGTH_SHORT).show();
+                                        binding.textView6.setText(kendikullaniciadi);
+                                        binding.textView2.setText(" ");
+                                        binding.bio.setText(bio);
+                                        Picasso.get().load(profilfotoURI).into(binding.imageView13);
+                                    }
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Veri yükleme hatası: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         }
+
+
+
     }
-
-
     @Override
-    public void onDestroyView() {
+    public void onDestroyView () {
         super.onDestroyView();
         binding = null;
     }

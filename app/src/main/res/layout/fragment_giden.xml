@@ -14,19 +14,13 @@
         android:layout_height="wrap_content"
         android:text="Gelen Kutusu" />
 
-    <Button
-        android:id="@+id/giden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giden Kutusu" />
-
 
     <Button
         android:id="@+id/giden_kutusu_temizle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#616161"
-        android:text="Gelen Kutusu Temizle" />
+        android:text="Giden Kutusu Temizle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView6"

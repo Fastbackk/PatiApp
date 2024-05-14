@@ -38,7 +38,7 @@ public class GidenFragment extends Fragment {
     Adapter2 adapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
-    String kullaniciEposta, username,profil_picture;
+    String kullaniciEposta, username, profil_picture;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,14 +65,24 @@ public class GidenFragment extends Fragment {
                             }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                });
+        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            if (snapshot.exists()) {
+                                Map<String, Object> data = snapshot.getData();
+                                username = (String) data.get("kurumisim");
+//                                profil_picture = (String) data.get("profil_picture");
+                                getData(); // Kullanıcı adı alındıktan sonra verileri getir
+                            } else {
+                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 });
-
 
 
     }
@@ -98,22 +108,7 @@ public class GidenFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        binding.giden.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                GidenFragment GidenFragment = new GidenFragment();
-
-                // FragmentTransaction başlatın
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-                // GidenFragment'i ekleyin
-                transaction.replace(R.id.frame_layout, GidenFragment);
-
-                // FragmentTransaction'ı gerçekleştirin
-                transaction.commit();
-            }
-        });
         binding.gelen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +129,6 @@ public class GidenFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 firebaseFirestore = FirebaseFirestore.getInstance();
-
 
 
                 // İlgili belgeyi sorgula ve sil
@@ -205,7 +199,7 @@ public class GidenFragment extends Fragment {
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
                                 }
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,date);
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici, profil_picture, date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

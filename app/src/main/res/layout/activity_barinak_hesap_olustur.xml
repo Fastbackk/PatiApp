@@ -170,22 +170,6 @@
                         />
 
 
-                    <EditText
-                        android:id="@+id/editTextText18"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="14dp"
-                        android:background="@drawable/edit"
-                        android:padding="10dp"
-
-                        android:drawableStart="@drawable/pin"
-                        android:elevation="6dp"
-                        android:hint="İlçe"
-                        android:inputType="text"
-                        android:paddingStart="4dp"
-
-
-                        />
 
                     <EditText
                         android:id="@+id/editTextText20"
@@ -195,14 +179,10 @@
                         android:layout_margin="14dp"
                         android:background="@drawable/edit"
                         android:elevation="6dp"
-
                         android:gravity="top"
-
                         android:hint="Açık Adres"
                         android:inputType="text"
                         android:paddingStart="4dp"
-
-
                         />
 
                     <EditText
@@ -235,12 +215,29 @@
                             android:id="@+id/autoCompleteTextView2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+
                             android:background="@drawable/edit"
                             android:drawableStart="@drawable/pin"
                             android:inputType="none"
                             android:text="Şehir" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/editTextText18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="14dp"
+                        android:background="@drawable/edit"
+                        android:padding="10dp"
+
+                        android:drawableStart="@drawable/pin"
+                        android:elevation="6dp"
+                        android:hint="İlçe"
+                        android:inputType="text"
+                        android:paddingStart="4dp"
+
+
+                        />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
