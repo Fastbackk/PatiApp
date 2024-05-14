@@ -37,8 +37,10 @@ public class MessagesFragment extends Fragment {
     private FragmentMessagesBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
-    private ArrayList<Post> ilanArrayList;
+
+    private ArrayList<Post> ilanArrayList2;
     private AdapterYedek adapter;
+    private AdapterYedek2 adapter2;
     private String kullaniciEposta,kendikullaniciadi;
 
     @Override
@@ -46,7 +48,7 @@ public class MessagesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        ilanArrayList = new ArrayList<>();
+        ilanArrayList2 = new ArrayList<>();
     }
 
     @Override
@@ -66,19 +68,28 @@ public class MessagesFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new AdapterYedek(ilanArrayList);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setAdapter(adapter);
+
+
+        adapter2 = new AdapterYedek2(ilanArrayList2);
+        binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView2.setAdapter(adapter2);
     }
 
 
     private void setupButtonListeners() {
-        binding.buttonn.setOnClickListener(new View.OnClickListener() {
+        binding.buttonsingout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent intent = new Intent(getContext(), HesapGiris.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        binding.saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), KaydedilenIlanlar.class);
                 startActivity(intent);
             }
         });
@@ -125,13 +136,6 @@ public class MessagesFragment extends Fragment {
         });
 
 
-        binding.buttonkaydedilenler.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                kaydedilenler();
-            }
-        });
-
         binding.buttonilanlar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +155,7 @@ public class MessagesFragment extends Fragment {
                             return;
                         }
                         if (value != null) {
-                            ilanArrayList.clear();
+                            ilanArrayList2.clear();
                             for (DocumentSnapshot snapshot : value.getDocuments()) {
                                 Map<String, Object> data = snapshot.getData();
                                 String baslik = (String) data.get("ilanbaslik");
@@ -172,53 +176,17 @@ public class MessagesFragment extends Fragment {
                                 }
 
                                 Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
-                                ilanArrayList.add(ilan);
+                                ilanArrayList2.add(ilan);
                             }
-                            adapter.notifyDataSetChanged();
+                            adapter2.notifyDataSetChanged();
                         }
                     }
                 });
     }
+ /*/
 
-    public void kaydedilenler() {
-        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", kendikullaniciadi)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        ilanArrayList.clear();  // Listeyi başta temizleyin.
-                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (snapshot.exists()) {
-                                Map<String, Object> data = snapshot.getData();
-                                String kayit = (String) data.get("kaydedilenilanID");
-                                // İlanları ID'ye göre çek
-                                firebaseFirestore.collection("Ilanlar").document(kayit)
-                                        .get()
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                if (documentSnapshot.exists()) {
-                                                    Map<String, Object> ilanData = documentSnapshot.getData();
-                                                    Post ilan = createPostFromData(ilanData); // Veriyi Post objesine dönüştüren metod
-                                                    ilanArrayList.add(ilan);
-                                                    adapter.notifyDataSetChanged();  // Adapter'ı güncelle
-                                                }
-                                            }
-                                        });
-                            } else {
-                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
-
+ /*/
     private Post createPostFromData(Map<String, Object> data) {
         // Verileri Post objesine dönüştür
         String date = null;

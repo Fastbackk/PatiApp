@@ -38,6 +38,7 @@ public class ProfilFotoIsteme extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
+    public String fotoyol;
 
 
     @Override
@@ -54,6 +55,7 @@ public class ProfilFotoIsteme extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String useremail = user.getEmail();
 
+
         firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -64,14 +66,28 @@ public class ProfilFotoIsteme extends AppCompatActivity {
                                 Map<String, Object> data = documentSnapshot.getData();
 
                                 String foto= (String) data.get("profil_foto");
+                                firebaseFirestore.collection("UserPhoto")
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                                    if (snapshot.exists()) {
+                                                        Map<String, Object> data = snapshot.getData();
+                                                        fotoyol = (String) data.get("FotografYolu");
+                                                        if (foto.equals(fotoyol)) {
+                                                            binding.atlabutton.setVisibility(View.GONE);
+                                                        } else {
+                                                            Picasso.get().load(foto).into(binding.pp);
+                                                        }
 
-                                if (foto!=null){
-                                    Picasso.get().load(foto).into(binding.pp);
 
-                                }
-                                else{
-                                    binding.atlabutton.setVisibility(View.GONE);
-                                }
+                                                    }
+                                                }
+                                            }
+                                        });
+
+
 
                             }
                         }
@@ -87,6 +103,21 @@ public class ProfilFotoIsteme extends AppCompatActivity {
         binding.atlabutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseFirestore.collection("UserPhoto")
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    if (snapshot.exists()) {
+                                        Map<String, Object> data = snapshot.getData();
+                                        fotoyol = (String) data.get("FotografYolu");
+
+                                    }
+                                }
+                            }
+                        });
+
                 String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -107,7 +138,7 @@ public class ProfilFotoIsteme extends AppCompatActivity {
                             userProfile.put("soyad", soyad);
                             userProfile.put("kullaniciadi", kullaniciadi);
                             userProfile.put("eposta", eposta);
-                            userProfile.put("profil_foto", null);
+                            userProfile.put("profil_foto", fotoyol);
 
                             // Veritabanına güncellenmiş kullanıcı profili yaz
                             db.collection("users")
@@ -207,6 +238,7 @@ public class ProfilFotoIsteme extends AppCompatActivity {
         }
     }
 
+
     private void uploadImageToFirebaseStorage(Uri imageUri) {
         if (imageUri != null) {
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("profilephoto/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -230,6 +262,100 @@ public class ProfilFotoIsteme extends AppCompatActivity {
         }
     }
     private void updateUserProfile(String imageUrl) {
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (currentUserUid != null) {
+
+
+
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+
+
+
+            DocumentReference userRef = db.collection("users").document(currentUserUid);
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists()) {
+                        // Kullanıcı verilerini al
+                        String ad = documentSnapshot.getString("ad");
+                        String soyad = documentSnapshot.getString("soyad");
+                        String kullaniciadi = documentSnapshot.getString("kullaniciadi");
+                        String eposta = documentSnapshot.getString("eposta");
+
+                        // Profil fotoğrafı güncellemesi
+                        Map<String, Object> userProfile = new HashMap<>();
+                        userProfile.put("ad", ad);
+                        userProfile.put("soyad", soyad);
+                        userProfile.put("kullaniciadi", kullaniciadi);
+                        userProfile.put("eposta", eposta);
+                        userProfile.put("profil_foto", imageUrl);
+
+                        // Veritabanına güncellenmiş kullanıcı profili yaz
+                        db.collection("users")
+                                .document(currentUserUid)
+                                .set(userProfile)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        DocumentReference userRef = db.collection("Ilanlar").document(currentUserUid);
+                                        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if (documentSnapshot.exists()) {
+                                                    // Profil fotoğrafı güncellemesi
+                                                    Map<String, Object> userProfile = new HashMap<>();
+                                                    userProfile.put("userpp", imageUrl);
+
+                                                    // Veritabanına güncellenmiş kullanıcı profili yaz
+                                                    db.collection("Ilanlar")
+                                                            .document(currentUserUid)
+                                                            .set(userProfile)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Toast.makeText(ProfilFotoIsteme.this, "Profil fotoğrafı başarıyla güncellendi", Toast.LENGTH_SHORT).show();
+                                                                    Intent intent = new Intent(ProfilFotoIsteme.this, BiyografiEkle.class);
+                                                                    startActivity(intent);
+                                                                    binding.atlabutton.setText("Devam Edebilirsiniz ");
+                                                                    finish();
+                                                                }
+                                                            })  // Noktalı virgül eklenmişti
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(ProfilFotoIsteme.this, "Profil fotoğrafı güncellenirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });  // Noktalı virgül eklenmişti
+                                                }
+                                            }
+                                        });  // Noktalı virgül eklenmişti
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfilFotoIsteme.this, "Profil fotoğrafı güncellenirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(ProfilFotoIsteme.this, "Kullanıcı verisi bulunamadı", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(ProfilFotoIsteme.this, "Kullanıcı oturumu açık değil", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(ProfilFotoIsteme.this, "Profil fotoğrafı başarıyla güncellendi", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ProfilFotoIsteme.this, MainActivity.class);
+        startActivity(intent);
+        binding.atlabutton.setText("Devam Edebilirsiniz ");
+        finish();
+    }
+    private void atlaButton(String imageUrl) {
         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (currentUserUid != null) {
 
