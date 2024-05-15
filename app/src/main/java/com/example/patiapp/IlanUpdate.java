@@ -71,7 +71,22 @@ public class IlanUpdate extends AppCompatActivity {
     public String kullaniciEposta2, NickName, ID;
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
-    public String username, ilanbaslik, ilanturu, date, kullaniciemail, aciklamatext, telno, sehir, ilce, dowloandURL;
+    public String baslik;
+    public String dowloandurl;
+    public String sehir;
+    public String ilanturu;
+    public String foto;
+    public String username;
+    public String hesapturu;
+    public String hayvankategori;
+    public String hayvancinsi;
+    public String cinsiyet;
+    public String yas;
+    public String saglikdurumu;
+    public String ilce;
+    public String telno;
+    public String date;
+    public String aciklama;
     //
 
 
@@ -120,72 +135,38 @@ public class IlanUpdate extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        ilanbaslik = intent.getStringExtra("ilanbaslik");
-        ilanturu = intent.getStringExtra("ilanturu");
-        date = intent.getStringExtra("date");
-        kullaniciemail = intent.getStringExtra("kullaniciemail");
-        aciklamatext = intent.getStringExtra("aciklamatext");
-        telno = intent.getStringExtra("telno");
+        baslik = intent.getStringExtra("ilanbaslik");
+        dowloandurl = intent.getStringExtra("dowloandurl");
         sehir = intent.getStringExtra("sehir");
+        ilanturu = intent.getStringExtra("ilanturu");
+        foto = intent.getStringExtra("foto");
+        username = intent.getStringExtra("username");
+        hesapturu = intent.getStringExtra("hesapturu");
+        hayvankategori = intent.getStringExtra("hayvankategori");
+        hayvancinsi = intent.getStringExtra("hayvancinsi");
+        cinsiyet = intent.getStringExtra("cinsiyet");
+        yas = intent.getStringExtra("yas");
+        saglikdurumu = intent.getStringExtra("saglikdurumu");
         ilce = intent.getStringExtra("ilce");
-        dowloandURL = intent.getStringExtra("dowloandurl");
+        telno = intent.getStringExtra("telno");
+        aciklama = intent.getStringExtra("aciklama");
+        date = intent.getStringExtra("date");
 
 
-        binding.editTextText12.setText(ilanbaslik);
+        binding.editTextText12.setText(baslik);
+        binding.kategoritext.setText(hayvankategori);
+        binding.autoCompleteTextView3.setText(hayvancinsi);
+        binding.autoCompleteTextView4.setText(cinsiyet);
+        binding.editTextNumber.setText(yas);
+        binding.editTextText14.setText(saglikdurumu);
+        binding.editTextTextt.setText(aciklama);
+        binding.autoCompleteTextView6.setText(sehir);
         binding.editTextTexttt.setText(ilce);
-        binding.editTextTextt.setText(aciklamatext);
         binding.editTextNumber2.setText(telno);
-        Picasso.get().load(dowloandURL).into(binding.imageView2);
-        binding.imageView2.setEnabled(false);
+
+        Picasso.get().load(dowloandurl).into(binding.imageView2);
 
 
-    }
-
-    public void getDataID() {
-        firebaseFirestore.collection("Ilanlar").whereEqualTo("date", timestamp)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (snapshot.exists()) {
-                                Map<String, Object> data = snapshot.getData();
-                                //ID'yi aldık şimdi ise ID'yi ilanın içerisinde gömeceğiz
-
-                                ID = snapshot.getId();
-                                System.out.println(ID);
-
-
-                                // Belirli bir dokümanı güncelleme
-                                DocumentReference docRef = firebaseFirestore.collection("Ilanlar").document(ID);
-                                docRef.update("ID", ID)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                // Güncelleme başarılı
-                                                System.out.println("Doküman başarıyla güncellendi: " + ID);
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                // Güncelleme sırasında hata
-                                                System.err.println("Hata! Doküman güncellenemedi: " + e.getLocalizedMessage());
-                                            }
-                                        });
-                            } else {
-                                Toast.makeText(IlanUpdate.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(IlanUpdate.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     public void uploadButton(View view) {
@@ -244,7 +225,6 @@ public class IlanUpdate extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     //ID'yi içeri yükleme
-                                    getDataID();
 
 
                                     Intent intent = new Intent(IlanUpdate.this, IlanlarKendi.class);
