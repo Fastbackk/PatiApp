@@ -44,14 +44,14 @@ public class Adapter5 extends RecyclerView.Adapter<Adapter5.PostHolder> {
 
                 intent.putExtra("acikadres",arrayList.get(position).acikadres);
                 intent.putExtra("biyografi",arrayList.get(position).biyografi);
+                intent.putExtra("eposta",arrayList.get(position).eposta);
                 intent.putExtra("ilce",arrayList.get(position).ilce);
                 intent.putExtra("kurumisim",arrayList.get(position).kurumisim);
                 intent.putExtra("kurulusyili",arrayList.get(position).kurulusyili);
-                intent.putExtra("kurumisim",arrayList.get(position).kurumisim);
                 intent.putExtra("profil_foto",arrayList.get(position).profil_foto);
                 intent.putExtra("sehir",arrayList.get(position).sehir);
                 intent.putExtra("telno",arrayList.get(position).telno);
-
+                System.out.println("SOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"+arrayList.get(position).telno);
                 holder.itemView.getContext().startActivity(intent);
             }
         });

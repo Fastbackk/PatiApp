@@ -38,7 +38,7 @@ public class MessagesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
 
-    private ArrayList<Post> ilanArrayList2;
+    private ArrayList<Post6> ilanArrayList2;
     private AdapterYedek adapter;
     private AdapterYedek2 adapter2;
     private String kullaniciEposta, kendikullaniciadi;
@@ -155,24 +155,36 @@ public class MessagesFragment extends Fragment {
                             ilanArrayList2.clear();
                             for (DocumentSnapshot snapshot : value.getDocuments()) {
                                 Map<String, Object> data = snapshot.getData();
+                                assert data != null;
                                 String baslik = (String) data.get("ilanbaslik");
                                 String dowloandurl = (String) data.get("dowloandurl");
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
-                                String foto = (String) data.get("userpp");
-                                String username = (String) data.get("kullaniciadi");
-                                String hesapturu = (String) data.get("hesapturu");
+                                String foto= (String) data.get("userpp");
+                                String username= (String) data.get("kullaniciadi");
+                                String hesapturu= (String) data.get("hesapturu");
+                                String hayvankategori= (String) data.get("hayvankategori");
+                                String hayvancinsi= (String) data.get("hayvancinsi");
+                                String cinsiyet= (String) data.get("cinsiyet");
+                                String yas= (String) data.get("yas");
+                                String saglikdurumu= (String) data.get("saglikdurumu");
+                                String ilce= (String) data.get("ilce");
+                                String telno= (String) data.get("telno");
+                                String aciklama= (String) data.get("aciklama");
                                 String date = null;
                                 Object dateObj = data.get("date");
+
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                                     date = sdf.format(timestamp.toDate());
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
+
+
                                 }
 
-                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
+                                Post6 ilan = new Post6(baslik, dowloandurl, sehir, ilanturu,foto, username, hesapturu, aciklama, hayvankategori, hayvancinsi, cinsiyet, yas, saglikdurumu, ilce, telno,  date);
                                 ilanArrayList2.add(ilan);
                             }
                             adapter2.notifyDataSetChanged();
@@ -185,29 +197,7 @@ public class MessagesFragment extends Fragment {
 
        }
     /*/
-    private Post createPostFromData(Map<String, Object> data) {
-        // Verileri Post objesine dönüştür
-        String date = null;
-        Object dateObj = data.get("date");
-        if (dateObj instanceof Timestamp) {
-            Timestamp timestamp = (Timestamp) dateObj;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
-            date = sdf.format(timestamp.toDate());
-        } else if (dateObj instanceof String) {
-            date = (String) dateObj;
-        }
 
-        return new Post(
-                (String) data.get("ilanbaslik"),
-                (String) data.get("dowloandurl"),
-                (String) data.get("sehir"),
-                (String) data.get("ilanturu"),
-                date,
-                (String) data.get("kullaniciadi"),
-                (String) data.get("userpp"),
-                (String) data.get("hesapturu")
-        );
-    }
 
     private void fetchUserData() {
         FirebaseUser user = mAuth.getCurrentUser();

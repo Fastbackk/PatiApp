@@ -31,6 +31,12 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
+                <ImageView
+                    android:id="@+id/userpp"
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp"
+        />
+
                 <TextView
                     android:id="@+id/textView31"
                     android:layout_width="match_parent"

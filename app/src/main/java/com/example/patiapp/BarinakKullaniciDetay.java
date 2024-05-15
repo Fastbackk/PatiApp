@@ -32,6 +32,7 @@ import java.util.Map;
 public class BarinakKullaniciDetay extends AppCompatActivity {
     private ActivityBarinakKullaniciDetayBinding binding;
     private String eposta;
+    String acikadres,biyografi,ilce,kurumisim,kurulusyili,profil_foto,sehir,telno;
     private FirebaseFirestore firebaseFirestore;
     ArrayList<Post> ilanArrayList;
     AdapterYedek adapter;
@@ -49,51 +50,30 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(BarinakKullaniciDetay.this));
         adapter = new AdapterYedek(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
+
         Intent intent = getIntent();
-
         eposta = intent.getStringExtra("eposta");
+        acikadres = intent.getStringExtra("acikadres");
+        biyografi = intent.getStringExtra("biyografi");
+        ilce = intent.getStringExtra("ilce");
+        kurumisim = intent.getStringExtra("kurumisim");
+        username = intent.getStringExtra("kurumisim");
+        kurulusyili = intent.getStringExtra("kurulusyili");
+        profil_foto = intent.getStringExtra("profil_foto");
+        sehir = intent.getStringExtra("sehir");
+        telno = intent.getStringExtra("telno");
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", eposta).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (documentSnapshot.exists()) {
-                                Map<String, Object> data = documentSnapshot.getData();
-                                kurumisimi = (String) data.get("kurumisim");
-                                getData();
-                                String kurulusyili = (String) data.get("kurulusyili");
-                                String acikadres = (String) data.get("acikadres");
-                                String biyografi = (String) data.get("biyografi");
-
-                                String telno = (String) data.get("telno");
-                                String sehir = (String) data.get("sehir");
-                                String ilce = (String) data.get("ilce");
-                                String profil_foto = (String) data.get("profil_foto");
-
-
-                                // Verileri kullanarak UI güncelleyin
-                                Picasso.get().load(profil_foto).into(binding.profileHeaderImage);
-                                binding.kurumisim.setText(kurumisimi);
-                                binding.kurulus.setText(kurulusyili);
-                                binding.acikadres.setText(acikadres);
-                                binding.biyografi.setText(biyografi);
-                                binding.epostatext.setText(eposta);
-                                binding.telefon.setText(telno);
-                                binding.konum.setText(sehir + " / " + ilce);
+        binding.epostatext.setText(eposta);
+        binding.kurumisim.setText(kurumisim);
+        binding.telefon.setText(telno);
+        binding.acikadres.setText(acikadres);
+        binding.kurulus.setText(kurulusyili);
+        binding.biyografi.setText(biyografi);
+        binding.konum.setText(sehir+"/"+ilce);
+        Picasso.get().load(profil_foto).into(binding.profileHeaderImage);
 
 
-                            }
 
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BarinakKullaniciDetay.this, "Kullanıcı Sayfası Yüklenemedi Tekrar Deneyiniz", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
 
 
