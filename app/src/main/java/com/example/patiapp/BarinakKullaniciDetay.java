@@ -35,6 +35,7 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     ArrayList<Post> ilanArrayList;
     AdapterYedek adapter;
+    String username;
     public String date;
     String kurumisimi;
 
@@ -121,7 +122,7 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
                                 String sehir = (String) data.get("sehir");
                                 String ilanturu = (String) data.get("ilanturu");
                                 String foto = (String) data.get("userpp");
-                                String username = (String) data.get("kullaniciadi");
+                                username = (String) data.get("kullaniciadi");
                                 String hesapturu = (String) data.get("hesapturu");
                                 date = null;
 
@@ -144,6 +145,12 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    public void mesajgonder(View view){
+        Intent intent = new Intent(BarinakKullaniciDetay.this, MesajEkle.class);
+        // Verileri intent ile MesajEkle aktivitesine gönder
+        intent.putExtra("gidenveri", username);
+        startActivity(intent);
     }
 
 }

@@ -25,8 +25,8 @@ import java.util.Map;
 
 public class FiltrelenmisSonuclar extends AppCompatActivity {
     private ActivityFiltrelenmisSonuclarBinding binding;
-    ArrayList<Post5> ilanArrayList;
-    Adapter6 adapter;
+    ArrayList<Post> ilanArrayList;
+    Adapter adapter;
     private FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -35,13 +35,11 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         binding = ActivityFiltrelenmisSonuclarBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ilanArrayList=new ArrayList<>();
-        firebaseFirestore= FirebaseFirestore.getInstance();
+        ilanArrayList = new ArrayList<>();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(FiltrelenmisSonuclar.this));
-        adapter=new Adapter6(ilanArrayList);
+        adapter = new Adapter(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
-
-
 
         Intent intent = getIntent();
         String sehir = intent.getStringExtra("secilenSehir");
@@ -49,21 +47,19 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         String cins = intent.getStringExtra("secilenCins");
         String ilanTuru = intent.getStringExtra("secilenTur");
 
-        System.out.println(sehir+" "+hayvan+" "+cins+" "+ilanTuru);
+        System.out.println(sehir + " " + hayvan + " " + cins + " " + ilanTuru);
 
         // Verileri filtreleme fonksiyonuna gönder
         getDataFiltered(sehir, hayvan, cins, ilanTuru);
-
-
-
     }
+
     public void getDataFiltered(String sehir, String hayvan, String cins, String ilanTuru) {
         Query query = firebaseFirestore.collection("Ilanlar");
 
         if (sehir != null && !sehir.isEmpty() && !"bos".equals(sehir)) {
             query = query.whereEqualTo("sehir", sehir);
         }
-       // Aynı düzenlemeyi diğer alanlar için de yapın
+        // Aynı düzenlemeyi diğer alanlar için de yapın
         if (hayvan != null && !hayvan.isEmpty() && !"bos".equals(hayvan)) {
             query = query.whereEqualTo("hayvankategori", hayvan);
         }
@@ -73,7 +69,6 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         if (ilanTuru != null && !ilanTuru.isEmpty() && !"bos".equals(ilanTuru)) {
             query = query.whereEqualTo("ilanturu", ilanTuru);
         }
-
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -86,45 +81,47 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
                     ilanArrayList.clear();
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
                         Map<String, Object> data = snapshot.getData();
-                        // Print data to log for debugging
-                        System.out.println("Data received: " + data);
-                        Post5 ilan = new Post5(data.get("ilanbaslik").toString(),
-                                data.get("dowloandurl").toString(),
-                                data.get("sehir").toString(),
-                                data.get("ilanturu").toString(),
-                                //data.get("kullaniciadi").toString(),
-                                //data.get("userpp").toString(),
-                                parseDate(data.get("date")));
-                        ilanArrayList.add(ilan);
+                        if (data != null) {
+                            // Print data to log for debugging
+                            System.out.println("Data received: " + data);
+
+                            String ilanbaslik = data.get("ilanbaslik") != null ? data.get("ilanbaslik").toString() : "";
+                            String dowloandurl = data.get("dowloandurl") != null ? data.get("dowloandurl").toString() : "";
+                            String sehir = data.get("sehir") != null ? data.get("sehir").toString() : "";
+                            String hesapturu = data.get("hesapturu") != null ? data.get("hesapturu").toString() : "";
+                            String foto = data.get("userpp") != null ? data.get("userpp").toString() : "";
+                            String username = data.get("kullaniciadi") != null ? data.get("kullaniciadi").toString() : "";
+                            String ilanturu = data.get("ilanturu") != null ? data.get("ilanturu").toString() : "";
+
+                            Post ilan = new Post(ilanbaslik, dowloandurl, sehir, ilanturu, parseDate(data.get("date")),username,foto,hesapturu);
+                            ilanArrayList.add(ilan);
+                        }
                     }
                     adapter.notifyDataSetChanged();
                     if (ilanArrayList.isEmpty()) {
                         System.out.println("No data matched the query.");
-
                     }
                 }
-
             }
         });
     }
+
     private String parseDate(Object dateObj) {
         String date = null;
         if (dateObj instanceof Timestamp) {
             Timestamp timestamp = (Timestamp) dateObj;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             date = sdf.format(timestamp.toDate());
         } else if (dateObj instanceof String) {
             date = (String) dateObj;
         }
-        return date;
+        return date != null ? date : "";
     }
-    public void back(View view){
 
-        Intent intent = new Intent(FiltrelenmisSonuclar.this,MainActivity.class);
-        intent.putExtra("nereye","aramafragment");
+    public void back(View view) {
+        Intent intent = new Intent(FiltrelenmisSonuclar.this, MainActivity.class);
+        intent.putExtra("nereye", "aramafragment");
         startActivity(intent);
         finish();
-
     }
-
 }

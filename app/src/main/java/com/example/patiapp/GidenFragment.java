@@ -75,7 +75,7 @@ public class GidenFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kurumisim");
-//                                profil_picture = (String) data.get("profil_picture");
+                               profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();

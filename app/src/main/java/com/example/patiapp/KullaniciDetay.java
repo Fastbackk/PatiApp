@@ -147,4 +147,10 @@ public class KullaniciDetay extends AppCompatActivity {
                     }
                 });
     }
+    public void mesajgonder(View view){
+        Intent intent = new Intent(KullaniciDetay.this, MesajEkle.class);
+        // Verileri intent ile MesajEkle aktivitesine gönder
+        intent.putExtra("gidenveri", username);
+        startActivity(intent);
+    }
 }

@@ -36,7 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class IlanDetay extends AppCompatActivity {
-    ActivityIlanDetayBinding binding;
+    private ActivityIlanDetayBinding binding;
     private FirebaseFirestore firebaseFirestore;
     String ID;
     String kullaniciadii;
@@ -201,7 +201,6 @@ public class IlanDetay extends AppCompatActivity {
     public void mesajgonder(View view){
         Intent intent = new Intent(IlanDetay.this, MesajEkle.class);
         // Verileri intent ile MesajEkle aktivitesine gönder
-
         intent.putExtra("gidenveri", username);
         startActivity(intent);
     }

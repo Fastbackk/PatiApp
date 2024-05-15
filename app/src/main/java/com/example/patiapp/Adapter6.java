@@ -33,7 +33,9 @@ public class Adapter6 extends RecyclerView.Adapter<Adapter6.PostHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
+        Picasso.get().load(arrayList.get(position).username).into(holder.binding.userpp);
         holder.binding.ilanbaslik.setText(arrayList.get(position).ilanbaslik);
+        holder.binding.textView28.setText(arrayList.get(position).foto);
         holder.binding.ilanturu.setText(arrayList.get(position).ilanturu);
         if (arrayList.get(position).ilanturu.equals("Çiftleştirme İlanı")) {
             holder.binding.ilanturu.setBackgroundColor(Color.parseColor("#f59e42"));
@@ -45,17 +47,37 @@ public class Adapter6 extends RecyclerView.Adapter<Adapter6.PostHolder> {
         }
         holder.binding.sehir.setText(arrayList.get(position).sehir);
         holder.binding.tarih.setText(arrayList.get(position).date);
+
+
+
+
         Picasso.get().load(arrayList.get(position).dowloandurl).into(holder.binding.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(holder.itemView.getContext(), IlanDetay.class);
-                intent.putExtra("ilanbaslik",arrayList.get(position).ilanbaslik);
-                intent.putExtra("ilanturu",arrayList.get(position).ilanturu);
-                intent.putExtra("sehir",arrayList.get(position).sehir);
-                intent.putExtra("date",arrayList.get(position).date);
-                intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
-                holder.itemView.getContext().startActivity(intent);
+                if (arrayList.get(position).ilanturu.equals("Mama Bağışı")){
+                    Intent intent=new Intent(holder.itemView.getContext(), MamaBagisiDetay.class);
+                    intent.putExtra("ilanbaslik",arrayList.get(position).ilanbaslik);
+                    intent.putExtra("ilanturu",arrayList.get(position).ilanturu);
+                    intent.putExtra("sehir",arrayList.get(position).sehir);
+                    intent.putExtra("hesapturu",arrayList.get(position).hesapturu);
+                    intent.putExtra("date",arrayList.get(position).date);
+                    intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
+
+                    holder.itemView.getContext().startActivity(intent);
+                }
+                else{
+                    Intent intent=new Intent(holder.itemView.getContext(), IlanDetay.class);
+                    intent.putExtra("ilanbaslik",arrayList.get(position).ilanbaslik);
+                    intent.putExtra("ilanturu",arrayList.get(position).ilanturu);
+                    intent.putExtra("sehir",arrayList.get(position).sehir);
+                    intent.putExtra("date",arrayList.get(position).date);
+                    intent.putExtra("hesapturu",arrayList.get(position).hesapturu);
+                    intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
+                    holder.itemView.getContext().startActivity(intent);
+                }
+
+
             }
         });
     }

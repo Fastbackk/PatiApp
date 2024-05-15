@@ -63,7 +63,7 @@
                 <com.github.siyamed.shapeimageview.CircularImageView
                     android:id="@+id/profilephoto"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:onClick="profilegit"
                     android:src="@drawable/account_svgrepo_com" />
@@ -388,6 +388,7 @@
                 android:backgroundTint="#28A745"
                 android:drawableLeft="@drawable/mesajsvgggg"
                 android:padding="15dp"
+                android:onClick="mesajgonder"
                 android:text="Mesaj Gönder"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />

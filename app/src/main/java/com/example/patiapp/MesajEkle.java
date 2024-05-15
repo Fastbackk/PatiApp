@@ -79,6 +79,7 @@ public class MesajEkle extends AppCompatActivity {
                                 Map<String, Object> data = snapshot.getData();
                                 //  ID= snapshot.getId();
                                 username = (String) data.get("kullaniciadi");
+                                System.out.println(username);
                                 profil_picture = (String) data.get("profil_foto");
                                 Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
                             } else {
@@ -97,6 +98,7 @@ public class MesajEkle extends AppCompatActivity {
                                 Map<String, Object> data = snapshot.getData();
                                 //  ID= snapshot.getId();
                                 username = (String) data.get("kurumisim");
+                                System.out.println(username);
                                 profil_picture = (String) data.get("profil_foto");
                                 Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
                             } else {
@@ -119,7 +121,8 @@ public class MesajEkle extends AppCompatActivity {
         }
     }
 
-    public void uploadButton(View view) {
+    public void mesajj(View view) {
+
 
         //universal uniq id
 
