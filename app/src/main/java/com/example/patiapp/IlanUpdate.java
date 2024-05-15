@@ -56,18 +56,12 @@ import java.util.UUID;
 
 public class IlanUpdate extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
-    Uri ImageData;
-    String referansdeger;
-    ActivityResultLauncher<Intent> activityResultLauncher;
-    ActivityResultLauncher<String> izin;
     Timestamp timestamp;
     private FirebaseStorage firebaseStorage;
     private ActivityIlanUpdateBinding binding;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
-    private String secilenİl, secilenTur, secilenKategori;
-    private ArrayAdapter<CharSequence> Adapterİl, AdapterTur, AdapterKategori;
     public String kullaniciEposta2, NickName, ID;
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
@@ -87,7 +81,7 @@ public class IlanUpdate extends AppCompatActivity {
     public String telno;
     public String date;
     public String aciklama;
-    //
+
 
 
     @Override
@@ -96,7 +90,10 @@ public class IlanUpdate extends AppCompatActivity {
         binding = ActivityIlanUpdateBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
+
 
         //Kullanıcı adını aldım
         kullaniciEposta2 = firebaseAuth.getCurrentUser().getEmail();
@@ -127,7 +124,6 @@ public class IlanUpdate extends AppCompatActivity {
                 });
 
 
-        registerLauncher();
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -167,180 +163,109 @@ public class IlanUpdate extends AppCompatActivity {
         Picasso.get().load(dowloandurl).into(binding.imageView2);
 
 
-    }
-
-    public void uploadButton(View view) {
-        //universal uniq id
-
-        UUID uuid = UUID.randomUUID();
-        String ImageName = "images/" + uuid + ".jpg";
-        if (ImageData != null) {
-            storageReference.child(ImageName).putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    StorageReference newReferance = firebaseStorage.getReference(ImageName);
-                    newReferance.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String dowloandurl = uri.toString();
-                            String kullaniciAdi;
-                            String ilanbaslik = binding.editTextText12.getText().toString();
-                            //String sehir=binding.editTextText8.getText().toString();
-                            String ilce = binding.editTextTexttt.getText().toString();
-                            String aciklama = binding.editTextTextt.getText().toString();
-                            String saglik = binding.editTextText14.getText().toString();
-                            //String hayvankategori=binding.editTextText12.getText().toString();
-                            //String hayvancinsi=binding.editTextText13.getText().toString();
-                            //String ilanturu=binding.editTextText14.getText().toString();
-                            //String telno=binding.editTextText17.getText().toString();
-
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                            String email = user.getEmail();
-
-                            HashMap<String, Object> ilanData = new HashMap<>();
-                            ilanData.put("dowloandurl", dowloandurl);
-                            ilanData.put("ilanbaslik", ilanbaslik);
-                            //ilanData.put("sehir",sehir);
-                            ilanData.put("sehir", secilenİl);
-                            ilanData.put("ilce", ilce);
-                            ilanData.put("aciklama", aciklama);
-                            ilanData.put("saglikdurumu", saglik);
-                            // ilanData.put("hayvankategori",hayvankategori);
-                            ilanData.put("hayvankategori", secilenKategori);
-                            // ilanData.put("hayvancinsi",hayvancinsi);
-                            //ilanData.put("ilanturu",ilanturu);
-                            ilanData.put("ilanturu", secilenTur);
-
-                            timestamp = new Timestamp(new Date());
-                            ilanData.put("date", timestamp);
-
-                           /* Timestamp Date=FieldValue.serverTimestamp();
-                            ilanData.put("date",Date);*/
-
-                            ilanData.put("email", email);
-                            ilanData.put("kullaniciadi", NickName);
-                            ilanData.put("telno", telno);
-                            firebaseFirestore.collection("Ilanlar").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    //ID'yi içeri yükleme
-
-
-                                    Intent intent = new Intent(IlanUpdate.this, IlanlarKendi.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    intent.putExtra("ilan", "ilanhayvan");
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(IlanUpdate.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(IlanUpdate.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(IlanUpdate.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    public void selectImage(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission(Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission(Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                // İzin verilmemişse izin iste
-                requestPermissions(new String[]{
-                        Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO,
-                        Manifest.permission.READ_MEDIA_AUDIO
-                }, PERMISSION_REQUEST_CODE);
-            } else {
-                // İzin verilmişse galeriye git
-                openGallery();
-            }
-        } else {
-            // Android 13 öncesi sürümler için mevcut izin isteme yöntemini kullan
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // İzin verilmemişse izin iste
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-            } else {
-                // İzin verilmişse galeriye git
-                openGallery();
-            }
-        }
-    }
-
-
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activityResultLauncher.launch(intent);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // İzin verildiyse galeriye git
-                openGallery();
-            } else {
-                Toast.makeText(this, "Galeriye erişim izni reddedildi.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-
-    private void registerLauncher() {
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        binding.guncelle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent intentFromResult = result.getData();
-                    if (intentFromResult != null) {
-                        ImageData = intentFromResult.getData();
-                        //   binding.imageView11.setImageURI(ImageData);
+            public void onClick(View v) {
+
+                HashMap<String, Object> ilanData = new HashMap<>();
+                ilanData.put("ilanbaslik", binding.editTextText12.getText().toString().trim());
+                ilanData.put("yas", binding.editTextNumber.getText().toString().trim());
+                ilanData.put("saglikdurumu", binding.editTextText14.getText().toString().trim());
+                ilanData.put("ilce", binding.editTextTexttt.getText().toString().trim());
+                ilanData.put("aciklama", binding.editTextTextt.getText().toString().trim());
+                ilanData.put("telno", binding.editTextNumber2.getText().toString().trim());
+                ilanData.put("saglik", binding.editTextText14.getText().toString().trim());
 
 
-                    }
-                }
+                firebaseFirestore.collection("Ilanlar")
+                        .whereEqualTo("ilanbaslik", baslik)
+                        .whereEqualTo("aciklama", aciklama)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    // Belgeyi yeni verilerle güncelle
+                                    snapshot.getReference().update(ilanData)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Güncelleme başarılı
+                                                    Toast.makeText(IlanUpdate.this, "İlan başarıyla güncellendi", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(IlanUpdate.this, "İlan başarıyla silindi", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(IlanUpdate.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    // İsteğe bağlı olarak, güncellemeden sonra başka işlemler gerçekleştirebilirsiniz
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Başarısızlık durumunu ele alın
+                                                    Toast.makeText(IlanUpdate.this, "Güncelleme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Başarısızlık durumunu ele alın
+                                Toast.makeText(IlanUpdate.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
-        izin = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+
+        binding.sil.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onActivityResult(Boolean o) {
-                if (o) {
-                    Intent intentToGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    activityResultLauncher.launch(intentToGallery);
-                } else {
-                    Toast.makeText(IlanUpdate.this, "Galeriye Erişim İçin İzin Gerekiyor", Toast.LENGTH_SHORT).show();
-                }
+            public void onClick(View v) {
+                firebaseFirestore = FirebaseFirestore.getInstance();
+
+                // Verileri alma
+
+                // İlgili belgeyi sorgula ve sil
+                firebaseFirestore.collection("Ilanlar").whereEqualTo("ilanbaslik", baslik).whereEqualTo("aciklama", aciklama)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                    // Belgeyi silme
+                                    snapshot.getReference().delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Silme başarılı olduğunda yapılacak işlemler
+                                                    Toast.makeText(IlanUpdate.this, "İlan başarıyla silindi", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(IlanUpdate.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    // Silme işleminden sonra belki bir işlem yapmak istersiniz
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Hata durumunda kullanıcıya bilgi verme
+                                                    Toast.makeText(IlanUpdate.this, "Silme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Veri yüklenemediği durumda kullanıcıya bilgi verme
+                                Toast.makeText(IlanUpdate.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
 
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -2,6 +2,7 @@ package com.example.patiapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,11 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.PostHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.get().load(arrayList.get(position).profil_picture).into(holder.binding.imageView14);
+        if (arrayList.get(position).onClick != null && arrayList.get(position).onClick.equals("false")) {
+            holder.binding.background.setBackgroundColor(Color.BLACK);
+            holder.binding.textView17.setTextColor(Color.WHITE);
+            holder.binding.textView18.setTextColor(Color.WHITE);
+        }
         //holder.binding.ilanbaslik.setText(arrayList.get(position).mesaj);
         holder.binding.textView18.setText(arrayList.get(position).mesajbaslik);
         //holder.binding.sehir.setText(arrayList.get(position).mesajfromsend);
@@ -51,15 +57,8 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.PostHolder> {
                 intent.putExtra("gonderenemail",arrayList.get(position).gonderenemail);
                 intent.putExtra("alici",arrayList.get(position).alici);
                 intent.putExtra("profil_picture",arrayList.get(position).profil_picture);
+                intent.putExtra("onClick",arrayList.get(position).onClick);
                 intent.putExtra("date",arrayList.get(position).date);
-                //intent.putExtra("sehir",arrayList.get(position).sehir);
-                //intent.putExtra("date",arrayList.get(position).date);
-                //intent.putExtra("dowloandurl",arrayList.get(position).dowloandurl);
-
-
-
-
-
                 holder.itemView.getContext().startActivity(intent);
             }
         });

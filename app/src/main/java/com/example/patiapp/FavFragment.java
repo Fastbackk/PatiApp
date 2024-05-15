@@ -132,7 +132,7 @@ public class FavFragment extends Fragment {
 
 
                 // İlgili belgeyi sorgula ve sil
-                firebaseFirestore.collection("Messages").orderBy("date", Query.Direction.DESCENDING).whereEqualTo("alici", alici)
+                firebaseFirestore.collection("Messages").whereEqualTo("alici", alici)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
@@ -191,7 +191,10 @@ public class FavFragment extends Fragment {
                                 String gonderenemail = (String) data.get("gonderenemail");
                                 alici = (String) data.get("alici");
                                 String profil_picture = (String) data.get("profil_picture");
+                                String onClick = (String) data.get("onClick");
                                 String date = null;
+
+
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
@@ -200,7 +203,7 @@ public class FavFragment extends Fragment {
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
                                 }
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,date);
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,onClick,date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();

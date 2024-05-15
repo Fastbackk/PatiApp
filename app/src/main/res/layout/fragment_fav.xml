@@ -49,35 +49,14 @@
                         android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-            <TextView
-                android:id="@+id/button10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_gravity="right"
-                android:background="@drawable/edit5"
-                android:backgroundTint="#FFFFFF"
-                android:drawableStart="@drawable/add_plus_circle_svgrepo_com2"
-                android:gravity="center"
-
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView6"
-                android:layout_width="match_parent"
-                android:layout_height="447dp"
-                android:layout_margin="2dp"
-                android:paddingTop="20dp"
-                android:scrollbars="vertical" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginBottom="100dp"
                 android:weightSum="2">
 
                 <TextView
@@ -85,15 +64,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/edit5"
                     android:layout_margin="5dp"
+                    android:background="@drawable/edit5"
                     android:backgroundTint="#007BFF"
                     android:drawableStart="@drawable/mail_open_alt_svgrepo_com"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:textSize="18sp"
                     android:text="Gönderilen Mesajlar"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/gelen_kutusu_temizle"
@@ -112,8 +91,31 @@
             </LinearLayout>
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView6"
+                android:layout_width="match_parent"
+                android:layout_height="447dp"
+                android:layout_margin="2dp"
+                android:paddingTop="20dp"
+                android:scrollbars="vertical" />
+            <TextView
+                android:id="@+id/button10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="right"
+                android:background="@drawable/edit5"
+                android:backgroundTint="#FFFFFF"
+                android:drawableStart="@drawable/add_plus_circle_svgrepo_com2"
+                android:gravity="center"
+
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
 
         </LinearLayout>
+
     </ScrollView>
 
 

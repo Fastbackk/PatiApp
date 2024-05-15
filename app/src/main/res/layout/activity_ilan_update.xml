@@ -101,11 +101,11 @@
                     <EditText
                         android:id="@+id/editTextText12"
                         android:layout_width="match_parent"
-
+                        android:layout_height="60dp"
                         android:background="@drawable/edit"
                         android:padding="10dp"
 
-                        android:layout_height="60dp"
+
                         android:layout_gravity="center"
 
                         android:layout_marginStart="30dp"
@@ -117,61 +117,71 @@
                         android:hint="İlan Başlığı"
                         android:inputType="text" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="330dp"
-                        android:layout_height="65dp"
 
-                        android:layout_gravity="center"
-                        android:layout_marginTop="50dp">
 
-                        <AutoCompleteTextView
+                        <EditText
+                            android:enabled="false"
                             android:id="@+id/kategoritext"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:inputType="none"
+                            android:layout_height="60dp"
                             android:background="@drawable/edit"
-                            android:text="Hayvan Kategorisi" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:padding="10dp"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/myTextInputLayout"
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="330dp"
 
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="50dp">
+                            android:layout_gravity="center"
 
-                        <AutoCompleteTextView
+                            android:layout_marginStart="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:ems="10"
+                            android:hint="Hayvan Kategorisi"
+                            />
+
+
+
+                        <EditText
+                            android:enabled="false"
                             android:id="@+id/autoCompleteTextView3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="60dp"
                             android:background="@drawable/edit"
-                            android:inputType="none"
-                            android:text="Hayvanın Cinsi" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="330dp"
-                        android:layout_height="65dp"
+                            android:padding="10dp"
 
 
-                        android:layout_gravity="center"
-                        android:layout_marginTop="50dp">
+                            android:layout_gravity="center"
+
+                            android:layout_marginStart="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:ems="10"
+                            android:hint="Hayvanın Cinsi" />
+
+
+
 
                         <AutoCompleteTextView
+                            android:enabled="false"
                             android:id="@+id/autoCompleteTextView4"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_height="60dp"
                             android:background="@drawable/edit"
-                            android:inputType="none"
-                            android:text="Cinsiyeti" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:padding="10dp"
+
+
+                            android:layout_gravity="center"
+
+                            android:layout_marginStart="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:ems="10"
+                            android:hint="Cinsiyeti" />
+
 
                     <EditText
                         android:id="@+id/editTextNumber"
@@ -255,23 +265,27 @@
                         android:textColor="@color/black"
                         android:textSize="25sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="330dp"
-                        android:layout_height="65dp"
-                        android:layout_gravity="center"
 
-                        android:layout_marginTop="20dp">
 
                         <AutoCompleteTextView
+                            android:enabled="false"
                             android:id="@+id/autoCompleteTextView6"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="60dp"
                             android:background="@drawable/edit"
-                            android:layout_weight="1"
-                            android:inputType="none"
-                            android:text="Şehir" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:padding="10dp"
+
+
+                            android:layout_gravity="center"
+
+                            android:layout_marginStart="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="30dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginRight="30dp"
+                            android:ems="10"
+                            android:hint="Şehir" />
+
 
                     <EditText
                         android:id="@+id/editTextTexttt"

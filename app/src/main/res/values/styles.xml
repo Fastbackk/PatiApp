@@ -13,4 +13,9 @@
 <item name="android:layout_weight">2</item>
 <item name="android:textSize">16sp</item>
 </style>
-    </resources>
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>

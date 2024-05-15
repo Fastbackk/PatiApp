@@ -138,6 +138,7 @@ public class MesajEkle extends AppCompatActivity {
         ilanData.put("gonderenemail", kullaniciEposta);
         ilanData.put("alici", alici);
         ilanData.put("profil_picture", profil_picture);
+        ilanData.put("onClick", "false");
         ilanData.put("date", FieldValue.serverTimestamp());
 
         firebaseFirestore.collection("Messages").add(ilanData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

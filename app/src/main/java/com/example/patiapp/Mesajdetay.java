@@ -40,7 +40,7 @@ public class Mesajdetay extends AppCompatActivity {
 
 
 
-    public String mesajbaslik, mesaj, username, gonderenemail, alici,profil_picture;
+    public String mesajbaslik, mesaj, username, gonderenemail, alici,profil_picture,onClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,17 +63,66 @@ public class Mesajdetay extends AppCompatActivity {
         alici= intent.getStringExtra("alici");
         gonderenemail = intent.getStringExtra("gonderenemail");
         profil_picture = intent.getStringExtra("profil_picture");
+        onClick = intent.getStringExtra("onClick");
         String date = intent.getStringExtra("date");
         binding.tarih.setText(date);
-        binding.atla2.setVisibility(View.INVISIBLE);
+
+
+
+
 
         if (anlik_eposta.equals(gonderenemail)){
             binding.atla2.setVisibility(View.VISIBLE);
+            binding.giden.setVisibility(View.INVISIBLE);
 
         }
         else {
-            Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
-            binding.giden.setVisibility(View.INVISIBLE);
+            binding.giden.setVisibility(View.VISIBLE);
+            binding.atla2.setVisibility(View.INVISIBLE);
+
+
+            firebaseFirestore.collection("Messages")
+                    .whereEqualTo("mesajbaslik", mesajbaslik)
+                    .whereEqualTo("username", username)
+                    .whereEqualTo("mesaj", mesaj)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                                // Belgeye erişim sağlandı, şimdi veriyi güncelle
+                                String documentId = snapshot.getId();
+
+                                    // Gönderen e-posta, şu anki kullanıcı e-postasına eşit değilse, onClick'i true yap
+                                    snapshot.getReference().update("onClick", "true")
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Güncelleme başarılı
+                                                    Toast.makeText(Mesajdetay.this, "onClick değeri başarıyla güncellendi", Toast.LENGTH_SHORT).show();
+                                                    // İsteğe bağlı olarak, güncellemeden sonra başka işlemler gerçekleştirebilirsiniz
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Güncelleme başarısız oldu
+                                                    Toast.makeText(Mesajdetay.this, "onClick değeri güncellenemedi: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Belirtilen kriterlere uygun belge bulunamadı veya erişilemedi
+                            Toast.makeText(Mesajdetay.this, "Belirtilen kriterlere uygun belge bulunamadı veya erişilemedi: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
         }
 
       /*
