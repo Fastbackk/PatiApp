@@ -65,18 +65,18 @@ public class Mesajdetay extends AppCompatActivity {
         profil_picture = intent.getStringExtra("profil_picture");
         String date = intent.getStringExtra("date");
         binding.tarih.setText(date);
+        binding.atla2.setVisibility(View.INVISIBLE);
 
+        if (anlik_eposta.equals(gonderenemail)){
+            binding.atla2.setVisibility(View.VISIBLE);
 
-        if (anlik_eposta+" " == gonderenemail){
-            Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
-            binding.atla2.setText("Mesajı Sil");
-            degisken=true;
         }
         else {
             Toast.makeText(Mesajdetay.this, anlik_eposta+" "+gonderenemail, Toast.LENGTH_SHORT).show();
+            binding.giden.setVisibility(View.INVISIBLE);
         }
 
-/*
+      /*
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date parsedDate = dateFormat.parse(date);
         Timestamp timestamp = new Timestamp(parsedDate.getTime());*/
@@ -153,11 +153,8 @@ public class Mesajdetay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (anlik_eposta==gonderenemail){
+
                     firebaseFirestore = FirebaseFirestore.getInstance();
-
-
-
                     // İlgili belgeyi sorgula ve sil
                     firebaseFirestore.collection("Messages").whereEqualTo("mesajbaslik", mesajbaslik).whereEqualTo("username",username).whereEqualTo("mesaj",mesaj)
                             .get()
@@ -196,18 +193,19 @@ public class Mesajdetay extends AppCompatActivity {
                                     Toast.makeText(Mesajdetay.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                    degisken=false;
-                }
-                else {
-                    Intent intent=getIntent();
-                    intent = new Intent(Mesajdetay.this, MesajEkle.class);
-                    // Verileri intent ile MesajEkle aktivitesine gönder
-                    intent.putExtra("gidenveri", username);
-                    startActivity(intent);
-                }
+
+
+
 
 
             }
         });
+    }
+    public void yanitla(View view){
+        Intent intent=getIntent();
+        intent = new Intent(Mesajdetay.this, MesajEkle.class);
+        // Verileri intent ile MesajEkle aktivitesine gönder
+        intent.putExtra("gidenveri", username);
+        startActivity(intent);
     }
 }

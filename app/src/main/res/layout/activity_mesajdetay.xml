@@ -186,6 +186,7 @@
                 android:drawableStart="@drawable/paper_plane_svgrepo_com"
                 android:gravity="center"
                 android:padding="12dp"
+                android:onClick="yanitla"
                 android:textSize="20sp"
                 android:text="Yanıtla"
                 android:textColor="#FFFFFF" />
