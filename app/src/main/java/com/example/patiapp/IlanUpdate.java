@@ -117,7 +117,6 @@ public class IlanUpdate extends AppCompatActivity {
                                 NickName = kullaniciadi;
                                 System.out.println(NickName);
                             } else {
-                                Toast.makeText(IlanUpdate.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

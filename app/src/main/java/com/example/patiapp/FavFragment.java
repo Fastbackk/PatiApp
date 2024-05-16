@@ -58,10 +58,7 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-                                Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 getData();
-                            } else {
-                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -76,10 +73,7 @@ public class FavFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kurumisim");
-                                Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
                                 getData();
-                            } else {
-                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

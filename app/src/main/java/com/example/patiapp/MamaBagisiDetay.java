@@ -142,7 +142,6 @@ public class MamaBagisiDetay extends AppCompatActivity {
                                 binding.konum2.setText(sehir + " / " + ilce);
 
                             } else {
-                                Toast.makeText(MamaBagisiDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

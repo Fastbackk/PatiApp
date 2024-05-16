@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
 public class HayvanIlanOlustur extends AppCompatActivity {
     private com.example.patiapp.databinding.ActivityHayvanIlanOlusturBinding binding;
     String kullaniciadi, userpp;
@@ -124,7 +125,6 @@ public class HayvanIlanOlustur extends AppCompatActivity {
                                 hesapturu = "barinak";
                                 System.out.println(hesapturu);
                             } else {
-                                Toast.makeText(HayvanIlanOlustur.this, "Belirtilen kriterlere uygun kullanıcı bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -316,7 +316,6 @@ public class HayvanIlanOlustur extends AppCompatActivity {
                                         });
 
                             } else {
-                                Toast.makeText(HayvanIlanOlustur.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

@@ -104,7 +104,6 @@ public class Mesajdetay extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     // Güncelleme başarılı
-                                                    Toast.makeText(Mesajdetay.this, "onClick değeri başarıyla güncellendi", Toast.LENGTH_SHORT).show();
                                                     // İsteğe bağlı olarak, güncellemeden sonra başka işlemler gerçekleştirebilirsiniz
                                                 }
                                             })
@@ -112,7 +111,6 @@ public class Mesajdetay extends AppCompatActivity {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     // Güncelleme başarısız oldu
-                                                    Toast.makeText(Mesajdetay.this, "onClick değeri güncellenemedi: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
 

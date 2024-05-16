@@ -38,6 +38,7 @@ public class BiyografiEkle extends AppCompatActivity {
     private Uri selectedImageUri = null;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth mAuth;
+
     //garanti
     FirebaseFirestore firebaseFirestore;
 
@@ -76,7 +77,6 @@ public class BiyografiEkle extends AppCompatActivity {
 
                                 if (bio != null) {
                                     binding.ediText.setText(bio);
-                                    Toast.makeText(BiyografiEkle.this, bio, Toast.LENGTH_SHORT).show();
 
 
                                 } else {
@@ -140,7 +140,7 @@ public class BiyografiEkle extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(BiyografiEkle.this, "Biyofrafi silirken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(BiyografiEkle.this, "Biyofrafi silerken bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             } else {

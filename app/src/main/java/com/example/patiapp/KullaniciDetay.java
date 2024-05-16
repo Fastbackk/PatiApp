@@ -98,7 +98,6 @@ public class KullaniciDetay extends AppCompatActivity {
                                 binding.telefon.setText(telefon);
                                 binding.epostatext.setText(eposta);
                             } else {
-                                Toast.makeText(KullaniciDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
