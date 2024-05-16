@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp"
-    android:background="#DDDDDD"
+    android:layout_marginBottom="25dp"
+    android:background="#FFFFFF"
     android:orientation="horizontal">
 
     <com.github.siyamed.shapeimageview.CircularImageView
@@ -31,15 +32,23 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+
             android:text="Konu:"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/tick"
+            android:layout_width="61dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/black_tick" />
 
     </LinearLayout>
 </LinearLayout>

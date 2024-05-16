@@ -35,9 +35,11 @@ public class Adapter2Bucuk extends RecyclerView.Adapter<Adapter2Bucuk.PostHolder
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.get().load(arrayList.get(position).profil_picture).into(holder.binding.imageView14);
         if (arrayList.get(position).onClick != null && arrayList.get(position).onClick.equals("false")) {
-            holder.binding.background.setBackgroundColor(Color.BLACK);
-            holder.binding.textView17.setTextColor(Color.WHITE);
-            holder.binding.textView18.setTextColor(Color.WHITE);
+            holder.binding.tick.setImageResource(R.drawable.black_tick);
+            holder.binding.background.setBackgroundColor(Color.parseColor("#DDDDDD"));
+        }
+        else {
+            holder.binding.tick.setImageResource(R.drawable.blue_tick);
         }
         //holder.binding.ilanbaslik.setText(arrayList.get(position).mesaj);
         holder.binding.textView18.setText(arrayList.get(position).mesajbaslik);
