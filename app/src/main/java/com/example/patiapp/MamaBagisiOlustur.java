@@ -51,7 +51,12 @@ public class MamaBagisiOlustur extends AppCompatActivity {
         binding = ActivityMamaBagisiOlusturBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 

@@ -54,7 +54,12 @@ public class ProfilFotoIsteme extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         String useremail = user.getEmail();
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         firebaseFirestore.collection("users").whereEqualTo("eposta", useremail)
                 .get()

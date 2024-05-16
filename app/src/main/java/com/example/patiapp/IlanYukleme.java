@@ -69,6 +69,12 @@ public class IlanYukleme extends AppCompatActivity {
         binding = ActivityIlanYuklemeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 

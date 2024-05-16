@@ -33,7 +33,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/buttonBack"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -55,7 +55,7 @@
             <ImageView
                 android:id="@+id/pp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:src="@drawable/photo_download_svgrepo_com" />
 
             <LinearLayout
@@ -76,7 +76,7 @@
                     android:drawableStart="@drawable/deleteicon"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Biyografiyi Temizle"
+                    android:text="Profil Fotoğrafını Sil"
                     android:textColor="#000000" />
 
                 <TextView

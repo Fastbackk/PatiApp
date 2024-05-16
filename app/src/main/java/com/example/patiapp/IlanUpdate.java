@@ -90,6 +90,12 @@ public class IlanUpdate extends AppCompatActivity {
         binding = ActivityIlanUpdateBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         firebaseAuth = FirebaseAuth.getInstance();

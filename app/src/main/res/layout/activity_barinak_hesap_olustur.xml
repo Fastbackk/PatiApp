@@ -36,11 +36,11 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/buttonBack"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:onClick="back"
+                        android:onClick="buttonBack"
                         android:paddingLeft="10dp"
                         android:src="@drawable/back_arrow_navigation_svgrepo_com__2_" />
 

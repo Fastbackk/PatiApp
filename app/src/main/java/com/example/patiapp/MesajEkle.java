@@ -38,8 +38,10 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -48,7 +50,7 @@ public class MesajEkle extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-    public String kullaniciEposta, username, telefon, gonderenemail,profil_picture;
+    public String kullaniciEposta, username, telefon, gonderenemail, profil_picture;
     private ActivityMesajEkleBinding binding;
     Uri ImageData;
     ActivityResultLauncher<Intent> activityResultLauncher;
@@ -62,6 +64,12 @@ public class MesajEkle extends AppCompatActivity {
         binding = ActivityMesajEkleBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
 

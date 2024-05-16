@@ -19,12 +19,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="horizontal"
             android:background="@drawable/underline">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/buttonBack"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

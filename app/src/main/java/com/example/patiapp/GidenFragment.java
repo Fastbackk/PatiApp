@@ -46,6 +46,16 @@ public class GidenFragment extends Fragment {
         messageArrayList = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Activity'e erişim sağla ve geri dönüş fonksiyonunu çağır
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+
 
         kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
 

@@ -45,6 +45,13 @@ public class HesapKayit extends AppCompatActivity {
         setContentView(view);
         auth=FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance(); // firebaseFirestore değişkenini başlat
+
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
 

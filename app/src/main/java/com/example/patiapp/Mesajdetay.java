@@ -53,7 +53,12 @@ public class Mesajdetay extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         String anlik_eposta = firebaseAuth.getCurrentUser().getEmail();
 
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //verileri alma
         Intent intent=getIntent();
