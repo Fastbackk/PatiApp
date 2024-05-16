@@ -88,6 +88,7 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), KaydedilenIlanlar.class);
+                intent.putExtra("username",kendikullaniciadi);
                 startActivity(intent);
             }
         });
@@ -99,6 +100,7 @@ public class MessagesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         binding.imageView13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,11 +108,8 @@ public class MessagesFragment extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.add_person_dialog, null);
                 builder.setView(dialogView);
-
-
                 Button goToBio = dialogView.findViewById(R.id.goToBio);
                 Button goToProfile = dialogView.findViewById(R.id.goToProfile);
-
                 final AlertDialog dialog = builder.create();
                 dialog.show();
 
@@ -193,10 +192,6 @@ public class MessagesFragment extends Fragment {
                 });
     }
 
-    /*/
-
-       }
-    /*/
 
 
     private void fetchUserData() {
@@ -212,13 +207,13 @@ public class MessagesFragment extends Fragment {
                                 if (snapshot.exists()) {
                                     Map<String, Object> data = snapshot.getData();
                                     kendikullaniciadi = (String) data.get("kullaniciadi");
-                                    String bio = (String) data.get("bio");
+                                    String bio = (String) data.get("biyografi");
                                     String ad = (String) data.get("ad");
                                     String profilfotoURI = (String) data.get("profil_foto");
                                     String soyad = (String) data.get("soyad");
                                     Toast.makeText(getContext(), "Kullanıcı adı: " + kendikullaniciadi, Toast.LENGTH_SHORT).show();
                                     binding.textView6.setText(kendikullaniciadi);
-                                    binding.textView2.setText(ad + soyad);
+                                    binding.textView2.setText(ad +" " + soyad);
                                     binding.bio.setText(bio);
                                     Picasso.get().load(profilfotoURI).into(binding.imageView13);
                                 }

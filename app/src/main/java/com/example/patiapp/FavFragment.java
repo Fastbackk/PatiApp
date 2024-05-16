@@ -1,6 +1,5 @@
 package com.example.patiapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +24,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
-
 
 public class FavFragment extends Fragment {
     private FragmentFavBinding binding;
@@ -47,10 +45,9 @@ public class FavFragment extends Fragment {
         super.onCreate(savedInstanceState);
         messageArrayList = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
+        firebaseAuth = FirebaseAuth.getInstance();
 
-
-        kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
+        kullaniciEposta = firebaseAuth.getCurrentUser().getEmail();
 
         firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
                 .get()
@@ -62,14 +59,14 @@ public class FavFragment extends Fragment {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
                                 Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
-                                System.out.println(username);
-                                getData(); // Kullanıcı adı alındıktan sonra verileri getir
+                                getData();
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
+
         firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -80,25 +77,19 @@ public class FavFragment extends Fragment {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kurumisim");
                                 Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
-                                System.out.println(username);
-                                getData(); // Kullanıcı adı alındıktan sonra verileri getir
+                                getData();
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
-
-
-
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
@@ -107,6 +98,7 @@ public class FavFragment extends Fragment {
         binding.recyclerView6.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Adapter2(messageArrayList);
         binding.recyclerView6.setAdapter(adapter);
+
         binding.button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +106,7 @@ public class FavFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         binding.giden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,30 +122,23 @@ public class FavFragment extends Fragment {
             public void onClick(View v) {
                 firebaseFirestore = FirebaseFirestore.getInstance();
 
-
-
-                // İlgili belgeyi sorgula ve sil
                 firebaseFirestore.collection("Messages").whereEqualTo("alici", alici)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                    // Belgeyi silme
                                     snapshot.getReference().delete()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    // Silme başarılı olduğunda yapılacak işlemler
                                                     Toast.makeText(getContext(), "Gelen Mesajlar başarıyla silindi", Toast.LENGTH_SHORT).show();
                                                     getData();
-                                                    // Silme işleminden sonra belki bir işlem yapmak istersiniz
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    // Hata durumunda kullanıcıya bilgi verme
                                                     Toast.makeText(getContext(), "Silme işlemi başarısız: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
@@ -162,13 +148,21 @@ public class FavFragment extends Fragment {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // Veri yüklenemediği durumda kullanıcıya bilgi verme
                                 Toast.makeText(getContext(), "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
 
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        getData();
     }
 
     public void getData() {
@@ -178,13 +172,12 @@ public class FavFragment extends Fragment {
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error != null) {
                             Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            return; // Hata olduğunda işlemi durdur.
+                            return;
                         }
                         if (value != null) {
-                            messageArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
+                            messageArrayList.clear();
                             for (DocumentSnapshot snapshot : value.getDocuments()) {
                                 Map<String, Object> data = snapshot.getData();
-                                assert data != null;
                                 String mesajbaslik = (String) data.get("mesajbaslik");
                                 String username = (String) data.get("username");
                                 String mesaj = (String) data.get("mesaj");
@@ -194,7 +187,6 @@ public class FavFragment extends Fragment {
                                 String onClick = (String) data.get("onClick");
                                 String date = null;
 
-
                                 Object dateObj = data.get("date");
                                 if (dateObj instanceof Timestamp) {
                                     Timestamp timestamp = (Timestamp) dateObj;
@@ -203,7 +195,8 @@ public class FavFragment extends Fragment {
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
                                 }
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici,profil_picture,onClick,date);
+
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici, profil_picture, onClick, date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
@@ -212,13 +205,9 @@ public class FavFragment extends Fragment {
                 });
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-
-
 }

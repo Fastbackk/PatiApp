@@ -21,7 +21,8 @@ public class HesapKayitSorgu extends AppCompatActivity {
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent=new Intent(HesapKayitSorgu.this,HesapGiris.class);
+                startActivity(intent);
             }
         });
     }

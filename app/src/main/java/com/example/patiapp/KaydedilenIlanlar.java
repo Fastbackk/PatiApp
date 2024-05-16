@@ -31,7 +31,7 @@ import java.util.Map;
 public class KaydedilenIlanlar extends AppCompatActivity {
     private ActivityKaydedilenIlanlarBinding binding;
     FirebaseFirestore firebaseFirestore;
-    String username;
+    String username, kullaniciEposta;
     String kayit;
     ArrayList<Post> ilanArrayList;
     Adapter adapter;
@@ -47,11 +47,11 @@ public class KaydedilenIlanlar extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
+        username = intent.getStringExtra("username");
         ilanArrayList = new ArrayList<>();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(KaydedilenIlanlar.this));
         adapter = new Adapter(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
-
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +62,9 @@ public class KaydedilenIlanlar extends AppCompatActivity {
         });
 
 
-        String kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
+        kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
 
-        firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciEposta)
+        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", username)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -72,168 +72,61 @@ public class KaydedilenIlanlar extends AppCompatActivity {
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
-                                username = (String) data.get("kullaniciadi");
-                                firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", username)
-                                        .get()
-                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                kayit = (String) data.get("kaydedilenilanID");
+                                firebaseFirestore.collection("Ilanlar")
+                                        .whereEqualTo("ID", kayit)
+                                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                             @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                                    if (snapshot.exists()) {
+                                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                                if (error != null) {
+                                                    Toast.makeText(KaydedilenIlanlar.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                    return; // Hata olduğunda işlemi durdur.
+                                                }
+                                                if (value != null) {
+                                                   // ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
+                                                    for (DocumentSnapshot snapshot : value.getDocuments()) {
                                                         Map<String, Object> data = snapshot.getData();
 
-                                                        kayit = (String) data.get("kaydedilenilanID");
+                                                        assert data != null;
+                                                        String baslik = (String) data.get("ilanbaslik");
+                                                        String dowloandurl = (String) data.get("dowloandurl");
+                                                        String sehir = (String) data.get("sehir");
+                                                        String ilanturu = (String) data.get("ilanturu");
+                                                        String foto = (String) data.get("userpp");
+                                                        String username= (String) data.get("kullaniciadi");
+                                                        String hesapturu = (String) data.get("hesapturu");
+                                                        String date = null;
+                                                        Object dateObj = data.get("date");
+                                                        if (dateObj instanceof Timestamp) {
+                                                            Timestamp timestamp = (Timestamp) dateObj;
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
+                                                            date = sdf.format(timestamp.toDate());
+                                                        } else if (dateObj instanceof String) {
+                                                            // String olarak kaydedilmişse, bu blok çalışacak
+                                                            date = (String) dateObj;
+                                                        }
 
-                                                        firebaseFirestore.collection("Ilanlar")
-                                                                .whereEqualTo("ID", kayit)
-                                                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                                                    @Override
-                                                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                                        if (error != null) {
-                                                                            Toast.makeText(KaydedilenIlanlar.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                                                            return; // Hata olduğunda işlemi durdur.
-                                                                        }
-                                                                        if (value != null) {
-                                                                            ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
-                                                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                                                                Map<String, Object> data = snapshot.getData();
-
-                                                                                assert data != null;
-                                                                                String baslik = (String) data.get("ilanbaslik");
-                                                                                String dowloandurl = (String) data.get("dowloandurl");
-                                                                                String sehir = (String) data.get("sehir");
-                                                                                String ilanturu = (String) data.get("ilanturu");
-                                                                                String foto = (String) data.get("userpp");
-                                                                                String username= (String) data.get("kullaniciadi");
-                                                                                String hesapturu = (String) data.get("hesapturu");
-
-                                                                                String date = null;
-
-                                                                                Object dateObj = data.get("date");
-                                                                                if (dateObj instanceof Timestamp) {
-                                                                                    Timestamp timestamp = (Timestamp) dateObj;
-                                                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
-                                                                                    date = sdf.format(timestamp.toDate());
-                                                                                } else if (dateObj instanceof String) {
-                                                                                    // String olarak kaydedilmişse, bu blok çalışacak
-                                                                                    date = (String) dateObj;
-                                                                                }
-
-                                                                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
-                                                                                ilanArrayList.add(ilan);
-                                                                            }
-                                                                            adapter.notifyDataSetChanged();
-                                                                        }
-                                                                    }
-                                                                });
-
-
-                                                    } else {
-                                                        Toast.makeText(KaydedilenIlanlar.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
+                                                        Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
+                                                        ilanArrayList.add(ilan);
                                                     }
+                                                    adapter.notifyDataSetChanged();
                                                 }
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(KaydedilenIlanlar.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
 
 
+                            } else {
+                                Toast.makeText(KaydedilenIlanlar.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
-                });
-        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciEposta)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                })
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                            if (snapshot.exists()) {
-                                Map<String, Object> data = snapshot.getData();
-                                username = (String) data.get("kurumisim");
-                                firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", username)
-                                        .get()
-                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                                                    if (snapshot.exists()) {
-                                                        Map<String, Object> data = snapshot.getData();
-
-                                                        kayit = (String) data.get("kaydedilenilanID");
-
-                                                        firebaseFirestore.collection("Ilanlar")
-                                                                .whereEqualTo("ID", kayit)
-                                                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                                                    @Override
-                                                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                                                        if (error != null) {
-                                                                            Toast.makeText(KaydedilenIlanlar.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                                                            return; // Hata olduğunda işlemi durdur.
-                                                                        }
-                                                                        if (value != null) {
-                                                                            ilanArrayList.clear(); // Listenin her veri çekilişinde temizlenmesi önemli.
-                                                                            for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                                                                Map<String, Object> data = snapshot.getData();
-
-                                                                                assert data != null;
-                                                                                String baslik = (String) data.get("ilanbaslik");
-                                                                                String dowloandurl = (String) data.get("dowloandurl");
-                                                                                String sehir = (String) data.get("sehir");
-                                                                                String ilanturu = (String) data.get("ilanturu");
-                                                                                String foto = (String) data.get("userpp");
-                                                                                String username= (String) data.get("kullaniciadi");
-                                                                                String hesapturu = (String) data.get("hesapturu");
-
-                                                                                String date = null;
-
-                                                                                Object dateObj = data.get("date");
-                                                                                if (dateObj instanceof Timestamp) {
-                                                                                    Timestamp timestamp = (Timestamp) dateObj;
-                                                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy", Locale.getDefault());
-                                                                                    date = sdf.format(timestamp.toDate());
-                                                                                } else if (dateObj instanceof String) {
-                                                                                    // String olarak kaydedilmişse, bu blok çalışacak
-                                                                                    date = (String) dateObj;
-                                                                                }
-
-                                                                                Post ilan = new Post(baslik, dowloandurl, sehir, ilanturu, date, username, foto, hesapturu);
-                                                                                ilanArrayList.add(ilan);
-                                                                            }
-                                                                            adapter.notifyDataSetChanged();
-                                                                        }
-                                                                    }
-                                                                });
-
-
-                                                    } else {
-                                                        Toast.makeText(KaydedilenIlanlar.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(KaydedilenIlanlar.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-
-                            }
-                        }
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(KaydedilenIlanlar.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
-
-
-
     }
 
 
