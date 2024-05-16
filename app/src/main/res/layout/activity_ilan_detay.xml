@@ -386,7 +386,7 @@
                     android:id="@+id/wp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/account_svgrepo_com"/>
+                    android:src="@drawable/whatsapp_3670051"/>
 
 
 

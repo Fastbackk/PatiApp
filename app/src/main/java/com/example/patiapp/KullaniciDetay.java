@@ -1,6 +1,8 @@
 package com.example.patiapp;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -38,7 +40,7 @@ public class KullaniciDetay extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     String ID;
 
-    public String username, adsoyad, ad, soyad;
+    public String username, adsoyad, ad, soyad,telno;
 
 
     @Override
@@ -53,6 +55,14 @@ public class KullaniciDetay extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        binding.wp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessageViaWhatsApp();
+            }
+        });
+
 
         ilanArrayList2 = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -110,7 +120,34 @@ public class KullaniciDetay extends AppCompatActivity {
                 });
 
     }
+    private boolean appInstalledOrNot(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
 
+    private void sendMessageViaWhatsApp() {
+        if (telno != null && !telno.isEmpty()) {
+            boolean installed = appInstalledOrNot("com.whatsapp");
+
+            if (installed) {
+                String formattedNumber = telno.startsWith("+") ? telno : "+90" + telno;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + formattedNumber));
+                startActivity(intent);
+            } else {
+                Toast.makeText(KullaniciDetay.this, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(KullaniciDetay.this, "Telefon numarası bulunamadı", Toast.LENGTH_SHORT).show();
+        }
+    }
     public void getData() {
         intent = getIntent();
 
