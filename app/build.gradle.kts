@@ -58,7 +58,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.8")
     implementation ("com.google.firebase:firebase-messaging:22.0.0")
     implementation ("com.github.siyamed:android-shape-imageview:0.9.+@aar")
-
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 
 

@@ -32,10 +32,12 @@ import java.util.Locale;
 import java.util.Map;
 
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout; // Import the SwipeRefreshLayout
+
 public class GidenFragment extends Fragment {
     FragmentGidenBinding binding;
     ArrayList<Post2> messageArrayList;
-    Adapter2 adapter;
+    Adapter2Bucuk adapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     String kullaniciEposta, username, profil_picture;
@@ -46,16 +48,6 @@ public class GidenFragment extends Fragment {
         messageArrayList = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
-        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Activity'e erişim sağla ve geri dönüş fonksiyonunu çağır
-                if (getActivity() != null) {
-                    getActivity().onBackPressed();
-                }
-            }
-        });
-
 
         kullaniciEposta = firebaseAuth.getCurrentUser().getEmail(); // Kullanıcı e-postasını al
 
@@ -68,7 +60,6 @@ public class GidenFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kullaniciadi");
-//                                profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
@@ -85,7 +76,7 @@ public class GidenFragment extends Fragment {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
                                 username = (String) data.get("kurumisim");
-                               profil_picture = (String) data.get("profil_picture");
+                                profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
                                 Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
@@ -93,24 +84,28 @@ public class GidenFragment extends Fragment {
                         }
                     }
                 });
-
-
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGidenBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.recyclerView6.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new Adapter2(messageArrayList);
+        adapter = new Adapter2Bucuk(messageArrayList);
         binding.recyclerView6.setAdapter(adapter);
+
+        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(); // Verileri yenile
+            }
+        });
+
         binding.button10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,28 +114,33 @@ public class GidenFragment extends Fragment {
             }
         });
 
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Activity'e erişim sağla ve geri dönüş fonksiyonunu çağır
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+
         binding.gelen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FavFragment FavFragment = new FavFragment();
-
                 // FragmentTransaction başlatın
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
                 // GidenFragment'i ekleyin
                 transaction.replace(R.id.frame_layout, FavFragment);
-
                 // FragmentTransaction'ı gerçekleştirin
                 transaction.commit();
             }
         });
+
         binding.gidenKutusuTemizle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseFirestore = FirebaseFirestore.getInstance();
-
-
                 // İlgili belgeyi sorgula ve sil
                 firebaseFirestore.collection("Messages").whereEqualTo("username", username)
                         .get()
@@ -156,7 +156,6 @@ public class GidenFragment extends Fragment {
                                                     // Silme başarılı olduğunda yapılacak işlemler
                                                     Toast.makeText(getContext(), "Gelen Mesajlar başarıyla silindi", Toast.LENGTH_SHORT).show();
                                                     getData();
-                                                    // Silme işleminden sonra belki bir işlem yapmak istersiniz
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -210,21 +209,20 @@ public class GidenFragment extends Fragment {
                                 } else if (dateObj instanceof String) {
                                     date = (String) dateObj;
                                 }
-                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici, profil_picture, onClick,date);
+                                Post2 ilan = new Post2(mesajbaslik, username, mesaj, gonderenemail, alici, profil_picture, onClick, date);
                                 messageArrayList.add(ilan);
                             }
                             adapter.notifyDataSetChanged();
+                            binding.swipeRefreshLayout.setRefreshing(false); // Yenileme işlemini sonlandır
                         }
                     }
                 });
     }
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-
 }
+

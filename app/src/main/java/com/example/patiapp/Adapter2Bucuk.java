@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Adapter2 extends RecyclerView.Adapter<Adapter2.PostHolder> {
+public class Adapter2Bucuk extends RecyclerView.Adapter<Adapter2Bucuk.PostHolder> {
 
 
     private ArrayList<Post2> arrayList;
 
-    public Adapter2(ArrayList<Post2> arrayList) {
+    public Adapter2Bucuk(ArrayList<Post2> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -35,7 +35,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.PostHolder> {
     public void onBindViewHolder(@NonNull PostHolder holder, @SuppressLint("RecyclerView") int position) {
         Picasso.get().load(arrayList.get(position).profil_picture).into(holder.binding.imageView14);
         if (arrayList.get(position).onClick != null && arrayList.get(position).onClick.equals("false")) {
-            holder.binding.background.setBackgroundColor(Color.CYAN);
+            holder.binding.background.setBackgroundColor(Color.BLACK);
             holder.binding.textView17.setTextColor(Color.WHITE);
             holder.binding.textView18.setTextColor(Color.WHITE);
         }

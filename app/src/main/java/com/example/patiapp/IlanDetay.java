@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -41,10 +43,10 @@ public class IlanDetay extends AppCompatActivity {
     String ID;
     String kullaniciadii;
 
-    public String username,foto,foto2;
+    public String username, foto, telno,foto2;
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
-    String kullaniciemail;
+    String date , kullaniciemail, dowloandurl,  ilanturu, sehir ,ilanbaslik;
 
 
     private FirebaseAuth mAuth;
@@ -53,42 +55,80 @@ public class IlanDetay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ilan_detay);
         binding = ActivityIlanDetayBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
         firebaseFirestore = FirebaseFirestore.getInstance();
-        Intent intent=getIntent();
-       binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+        Intent intent = getIntent();
+
+
+
+
+        binding.wp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessageViaWhatsApp();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-        String ilanbaslik= intent.getStringExtra("ilanbaslik");
-        String ilanturu= intent.getStringExtra("ilanturu");
-        String sehir= intent.getStringExtra("sehir");
-        String date= intent.getStringExtra("date");
-        //link olarak alıyor resmi
-        String dowloandurl= intent.getStringExtra("dowloandurl");
+        ilanbaslik = intent.getStringExtra("ilanbaslik");
+        ilanturu = intent.getStringExtra("ilanturu");
+        sehir = intent.getStringExtra("sehir");
+        date = intent.getStringExtra("date");
+        dowloandurl = intent.getStringExtra("dowloandurl");
         hesapturu = intent.getStringExtra("hesapturu");
+        kullaniciemail = mAuth.getCurrentUser().getEmail();
+        firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                    if (snapshot.exists()) {
+                        Map<String, Object> data = snapshot.getData();
+                        kullaniciadii = (String) data.get("kurumisim");
 
-       kullaniciemail= mAuth.getCurrentUser().getEmail();
-       firebaseFirestore.collection("Barinak").whereEqualTo("eposta",kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-           @Override
-           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-               for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-                   if (snapshot.exists()) {
-                       Map<String, Object> data = snapshot.getData();
-                       kullaniciadii = (String) data.get("kurumisim");
-                       kayitlimi();
-                   }
-               }
-           }
-       });
-        firebaseFirestore.collection("users").whereEqualTo("eposta",kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    }
+                }
+            }
+        });
+        firebaseFirestore.collection("users").whereEqualTo("eposta", kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
@@ -102,15 +142,6 @@ public class IlanDetay extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
-
         //Tıklanın ilanın tüm bilgilerine erişiliyor.
         firebaseFirestore.collection("Ilanlar").whereEqualTo("ilanbaslik", ilanbaslik)
                 .get()
@@ -120,24 +151,23 @@ public class IlanDetay extends AppCompatActivity {
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
                             if (snapshot.exists()) {
                                 Map<String, Object> data = snapshot.getData();
-                                ID= snapshot.getId();
+                                ID = snapshot.getId();
                                 System.out.println(ID);
+                                kayitlimi();
                                 String baslik = (String) data.get("ilanbaslik");
-                                String dowloandurl = (String) data.get("dowloandurl");
+
                                 String userpp = (String) data.get("userpp");
-                                String sehir = (String) data.get("sehir");
-                                String ilanturu = (String) data.get("ilanturu");
                                 kullaniciemail = (String) data.get("eposta");
                                 String aciklamatext = (String) data.get("aciklama");
-                                String telno = (String) data.get("telno");
+                                telno = (String) data.get("telno");
                                 String ilce = (String) data.get("ilce");
                                 String cinsiyet = (String) data.get("cinsiyet");
                                 String yas = (String) data.get("yas");
-                                String hayvankategori=(String) data.get("hayvankategori");
-                                String hayvancinsi=(String) data.get("hayvancinsi");
-                                String saglik=(String) data.get("saglik");
-                                username=(String) data.get("kullaniciadi");
-                                foto=(String) data.get("profil_foto");
+                                String hayvankategori = (String) data.get("hayvankategori");
+                                String hayvancinsi = (String) data.get("hayvancinsi");
+                                String saglik = (String) data.get("saglik");
+                                username = (String) data.get("kullaniciadi");
+                                foto = (String) data.get("profil_foto");
 
                                 // Verileri kullanarak UI güncelleyin
                                 Picasso.get().load(dowloandurl).into(binding.profileHeaderImage);
@@ -171,8 +201,29 @@ public class IlanDetay extends AppCompatActivity {
 
 
     }
-    public void kayitlimi(){
-        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi",kullaniciadii).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+    public void profilegit(View view) {
+        if (hesapturu.equals("kisisel")) {
+            Intent intent = new Intent(IlanDetay.this, KullaniciDetay.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(IlanDetay.this, BarinakKullaniciDetay.class);
+            intent.putExtra("eposta", kullaniciemail);
+            startActivity(intent);
+        }
+
+    }
+
+    public void mesajgonder(View view) {
+        Intent intent = new Intent(IlanDetay.this, MesajEkle.class);
+        // Verileri intent ile MesajEkle aktivitesine gönder
+        intent.putExtra("gidenveri", username);
+        startActivity(intent);
+    }
+
+    public void kayitlimi() {
+        firebaseFirestore.collection("Kaydedilenler").whereEqualTo("kaydedenkisi", kullaniciadii).whereEqualTo("kaydedilenilanID",ID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
@@ -192,30 +243,11 @@ public class IlanDetay extends AppCompatActivity {
             }
         });
     }
-    public void profilegit(View view){
-        if (hesapturu.equals("kisisel")){
-            Intent intent=new Intent(IlanDetay.this, KullaniciDetay.class);
-            intent.putExtra("username",username);
-            startActivity(intent);
-        }
-        else{
-            Intent intent=new Intent(IlanDetay.this, BarinakKullaniciDetay.class);
-            intent.putExtra("eposta",kullaniciemail);
-            startActivity(intent);
-        }
 
-    }
-    public void mesajgonder(View view){
-        Intent intent = new Intent(IlanDetay.this, MesajEkle.class);
-        // Verileri intent ile MesajEkle aktivitesine gönder
-        intent.putExtra("gidenveri", username);
-        startActivity(intent);
-    }
     public void kaydet(View view) {
-        if (kullaniciadii==null){
+        if (kullaniciadii == null) {
             System.out.println("NULL LA VERİ");
-        }
-        else{
+        } else {
             String kaydedilmisID;// kaydedilenler tablomdaki document'in ID'si
 
             String ilanID = ID; // İlan ID'sini al
@@ -268,7 +300,34 @@ public class IlanDetay extends AppCompatActivity {
 
 
     }
+    private boolean appInstalledOrNot(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
 
+    private void sendMessageViaWhatsApp() {
+        if (telno != null && !telno.isEmpty()) {
+            boolean installed = appInstalledOrNot("com.whatsapp");
+
+            if (installed) {
+                String formattedNumber = telno.startsWith("+") ? telno : "+90" + telno;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + formattedNumber));
+                startActivity(intent);
+            } else {
+                Toast.makeText(IlanDetay.this, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(IlanDetay.this, "Telefon numarası bulunamadı", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

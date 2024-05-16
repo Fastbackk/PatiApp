@@ -31,18 +31,28 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <ImageView
-                    android:id="@+id/userpp"
-                    android:layout_width="match_parent"
-                    android:layout_height="17dp"
-        />
-
-                <TextView
-                    android:id="@+id/textView31"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="username" />
+                    android:weightSum="3"
+                    android:orientation="horizontal">
+
+                    <com.github.siyamed.shapeimageview.CircularImageView
+                        android:id="@+id/userpp"
+                        android:layout_width="0dp"
+                        android:layout_height="17dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        android:id="@+id/textView31"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.5"
+                        android:gravity="fill"
+                        android:maxLines="1"
+                        android:text="username" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

@@ -49,7 +49,8 @@ public class HesapKayit extends AppCompatActivity {
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent=new Intent(HesapKayit.this,HesapKayitSorgu.class);
+                startActivity(intent);
             }
         });
     }
