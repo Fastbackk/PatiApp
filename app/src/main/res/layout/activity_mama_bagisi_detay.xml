@@ -305,19 +305,33 @@
             </TableLayout>
 
 
-            <Button
-                android:id="@+id/buttonWithIcon"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:backgroundTint="#28A745"
-                android:drawableLeft="@drawable/mesajsvgggg"
-                android:onClick="mesajgonder"
-                android:padding="15dp"
-                android:text="Mesaj Gönder"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/wp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/whatsapp_3670051"/>
+
+
+
+                <Button
+                    android:id="@+id/buttonWithIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#28A745"
+                    android:drawableLeft="@drawable/mesajsvgggg"
+                    android:padding="15dp"
+                    android:onClick="mesajgonder"
+                    android:text="Mesaj Gönder"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
 
 
         </LinearLayout>

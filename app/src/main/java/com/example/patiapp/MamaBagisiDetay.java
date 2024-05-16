@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -42,7 +44,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
     String ID;
     String kullaniciadii;
 
-    public String username, foto, foto2;
+    public String username, foto, foto2,telno;
 
     //cardview'de görünmeyen diğer verileri atadığım Stringleri tanımlama
     String date , kullaniciemail, dowloandurl,  ilanturu, sehir ,ilanbaslik;
@@ -66,6 +68,15 @@ public class MamaBagisiDetay extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        binding.wp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessageViaWhatsApp();
+            }
+        });
+
+
 
         ilanbaslik = intent.getStringExtra("ilanbaslik");
         ilanturu = intent.getStringExtra("ilanturu");
@@ -155,7 +166,34 @@ public class MamaBagisiDetay extends AppCompatActivity {
 
 
     }
+    private boolean appInstalledOrNot(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
 
+    private void sendMessageViaWhatsApp() {
+        if (telno != null && !telno.isEmpty()) {
+            boolean installed = appInstalledOrNot("com.whatsapp");
+
+            if (installed) {
+                String formattedNumber = telno.startsWith("+") ? telno : "+90" + telno;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + formattedNumber));
+                startActivity(intent);
+            } else {
+                Toast.makeText(MamaBagisiDetay.this, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(MamaBagisiDetay.this, "Telefon numarası bulunamadı", Toast.LENGTH_SHORT).show();
+        }
+    }
     public void profilegit(View view) {
         if (hesapturu.equals("kisisel")) {
             Intent intent = new Intent(MamaBagisiDetay.this, KullaniciDetay.class);
