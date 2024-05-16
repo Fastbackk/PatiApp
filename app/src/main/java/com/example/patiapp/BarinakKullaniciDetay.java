@@ -37,6 +37,7 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
     ArrayList<Post> ilanArrayList;
     AdapterYedek adapter;
     String username;
+
     public String date;
     String kurumisimi;
 

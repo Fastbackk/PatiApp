@@ -89,7 +89,6 @@ public class MesajEkle extends AppCompatActivity {
                                 username = (String) data.get("kullaniciadi");
                                 System.out.println(username);
                                 profil_picture = (String) data.get("profil_foto");
-                                Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MesajEkle.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
@@ -108,7 +107,6 @@ public class MesajEkle extends AppCompatActivity {
                                 username = (String) data.get("kurumisim");
                                 System.out.println(username);
                                 profil_picture = (String) data.get("profil_foto");
-                                Toast.makeText(MesajEkle.this, username, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MesajEkle.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
@@ -153,7 +151,6 @@ public class MesajEkle extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
 
-                Toast.makeText(MesajEkle.this, alici, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MesajEkle.this, MainActivity.class);
                 // Verileri intent ile MesajEkle aktivitesine gönder
                 startActivity(intent);

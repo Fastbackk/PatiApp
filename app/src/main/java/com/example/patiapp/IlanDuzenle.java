@@ -114,7 +114,6 @@ public class IlanDuzenle extends AppCompatActivity {
                                 // Diğer işlemler
                                 System.out.println("Veriler başarıyla yüklendi: " + kullaniciemail);
                             } else {
-                                Toast.makeText(IlanDuzenle.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

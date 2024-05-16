@@ -116,7 +116,6 @@ public class KaydedilenIlanlar extends AppCompatActivity {
 
 
                             } else {
-                                Toast.makeText(KaydedilenIlanlar.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

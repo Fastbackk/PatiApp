@@ -187,7 +187,6 @@ public class IlanDetay extends AppCompatActivity {
                                 binding.konum2.setText(sehir + " / " + ilce);
 
                             } else {
-                                Toast.makeText(IlanDetay.this, "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

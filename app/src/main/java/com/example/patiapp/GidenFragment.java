@@ -62,7 +62,6 @@ public class GidenFragment extends Fragment {
                                 username = (String) data.get("kullaniciadi");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
-                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -79,7 +78,6 @@ public class GidenFragment extends Fragment {
                                 profil_picture = (String) data.get("profil_picture");
                                 getData(); // Kullanıcı adı alındıktan sonra verileri getir
                             } else {
-                                Toast.makeText(getContext(), "Belirtilen kriterlere uygun ilan bulunamadı.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -114,15 +112,7 @@ public class GidenFragment extends Fragment {
             }
         });
 
-        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Activity'e erişim sağla ve geri dönüş fonksiyonunu çağır
-                if (getActivity() != null) {
-                    getActivity().onBackPressed();
-                }
-            }
-        });
+
 
         binding.gelen.setOnClickListener(new View.OnClickListener() {
             @Override

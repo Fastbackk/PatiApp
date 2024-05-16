@@ -170,7 +170,7 @@ public class MamaBagisiOlustur extends AppCompatActivity {
         String telno = binding.editTextNumber2.getText().toString().trim();
 
         if (ilanbaslik.isEmpty() || ilanturu.isEmpty() || hayvankategori.isEmpty() || mamamiktar.isEmpty() || telno.isEmpty() || sehir.isEmpty() || aciklama.isEmpty() || ilce.isEmpty() || selectedImageUri == null) {
-            Toast.makeText(this, "Tüm alanları doldurduğunuzdan ve bir profil fotoğrafı seçtiğinizden emin olun", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tüm alanları doldurduğunuzdan ve bir fotoğraf seçtiğinizden emin olun", Toast.LENGTH_SHORT).show();
         } else {
             uploadImageToFirebaseStorage(selectedImageUri);
             Intent intent = new Intent(MamaBagisiOlustur.this, MainActivity.class);

@@ -211,7 +211,6 @@ public class MessagesFragment extends Fragment {
                                     String ad = (String) data.get("ad");
                                     String profilfotoURI = (String) data.get("profil_foto");
                                     String soyad = (String) data.get("soyad");
-                                    Toast.makeText(getContext(), "Kullanıcı adı: " + kendikullaniciadi, Toast.LENGTH_SHORT).show();
                                     binding.textView6.setText(kendikullaniciadi);
                                     binding.textView2.setText(ad +" " + soyad);
                                     binding.bio.setText(bio);
@@ -240,7 +239,6 @@ public class MessagesFragment extends Fragment {
                                         kendikullaniciadi = (String) data.get("kurumisim");
                                         String bio = (String) data.get("biyografi");
                                         String profilfotoURI = (String) data.get("profil_foto");
-                                        Toast.makeText(getContext(), "Kullanıcı adı: " + kendikullaniciadi, Toast.LENGTH_SHORT).show();
                                         binding.textView6.setText(kendikullaniciadi);
                                         binding.textView2.setText(" ");
                                         binding.bio.setText(bio);
