@@ -60,6 +60,13 @@ public class IlanDetay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
         firebaseFirestore = FirebaseFirestore.getInstance();
         Intent intent=getIntent();
+       binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         String ilanbaslik= intent.getStringExtra("ilanbaslik");
         String ilanturu= intent.getStringExtra("ilanturu");
         String sehir= intent.getStringExtra("sehir");

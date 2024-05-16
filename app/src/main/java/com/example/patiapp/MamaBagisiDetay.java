@@ -49,7 +49,12 @@ public class MamaBagisiDetay extends AppCompatActivity {
         setContentView(view);
         mAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //verileri alma
         Intent intent=getIntent();

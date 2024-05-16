@@ -50,6 +50,12 @@ public class HesapDetay extends AppCompatActivity {
         binding = ActivityHesapDetayBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Firebase Authentication ve Firestore'u başlatın
 

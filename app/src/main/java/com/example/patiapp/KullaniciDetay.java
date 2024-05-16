@@ -47,6 +47,12 @@ public class KullaniciDetay extends AppCompatActivity {
         binding = ActivityKullaniciDetayBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         ilanArrayList2 = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();

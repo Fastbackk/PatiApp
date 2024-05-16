@@ -40,7 +40,12 @@ public class FiltrelenmisSonuclar extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(FiltrelenmisSonuclar.this));
         adapter = new Adapter(ilanArrayList);
         binding.recyclerView.setAdapter(adapter);
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Intent intent = getIntent();
         String sehir = intent.getStringExtra("secilenSehir");
         String hayvan = intent.getStringExtra("secilenHayvan");

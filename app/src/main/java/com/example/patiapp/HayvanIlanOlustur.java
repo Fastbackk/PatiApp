@@ -58,7 +58,12 @@ public class HayvanIlanOlustur extends AppCompatActivity {
         binding = com.example.patiapp.databinding.ActivityHayvanIlanOlusturBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Intent intent=getIntent();
         String tur=intent.getStringExtra("tur");
         if (tur.equals("normal")){

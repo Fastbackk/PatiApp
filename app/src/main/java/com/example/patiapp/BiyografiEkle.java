@@ -52,6 +52,12 @@ public class BiyografiEkle extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
         firebaseAuth = FirebaseAuth.getInstance(); // FirebaseAuth nesnesini oluştur
         firebaseFirestore = FirebaseFirestore.getInstance();
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         FirebaseUser user = mAuth.getCurrentUser();
         String useremail = user.getEmail();
@@ -65,16 +71,15 @@ public class BiyografiEkle extends AppCompatActivity {
                             if (documentSnapshot.exists()) {
                                 Map<String, Object> data = documentSnapshot.getData();
 
-                                String bio= (String) data.get("biyografi");
+                                String bio = (String) data.get("biyografi");
 
 
-                                if (bio!=null){
+                                if (bio != null) {
                                     binding.ediText.setText(bio);
                                     Toast.makeText(BiyografiEkle.this, bio, Toast.LENGTH_SHORT).show();
 
 
-                                }
-                                else{
+                                } else {
                                     binding.atla2.setVisibility(View.GONE);
                                 }
 
@@ -106,7 +111,7 @@ public class BiyografiEkle extends AppCompatActivity {
                                 String soyad = documentSnapshot.getString("soyad");
                                 String kullaniciadi = documentSnapshot.getString("kullaniciadi");
                                 String eposta = documentSnapshot.getString("eposta");
-                                String profil_foto =  documentSnapshot.getString("profil_foto");
+                                String profil_foto = documentSnapshot.getString("profil_foto");
 
                                 // Profil fotoğrafı güncellemesi
                                 Map<String, Object> userProfile = new HashMap<>();
@@ -125,7 +130,7 @@ public class BiyografiEkle extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(BiyografiEkle.this, "Biyofrafi başarıyla Silindi", Toast.LENGTH_SHORT).show();
-                                                Intent intent=new Intent(BiyografiEkle.this, MainActivity.class);
+                                                Intent intent = new Intent(BiyografiEkle.this, MainActivity.class);
 
                                                 startActivity(intent);
                                                 finish();
@@ -167,7 +172,7 @@ public class BiyografiEkle extends AppCompatActivity {
                                 String soyad = documentSnapshot.getString("soyad");
                                 String kullaniciadi = documentSnapshot.getString("kullaniciadi");
                                 String eposta = documentSnapshot.getString("eposta");
-                                String profil_foto =  documentSnapshot.getString("profil_foto");
+                                String profil_foto = documentSnapshot.getString("profil_foto");
 
                                 // Profil fotoğrafı güncellemesi
                                 Map<String, Object> userProfile = new HashMap<>();
@@ -186,7 +191,7 @@ public class BiyografiEkle extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(BiyografiEkle.this, "Biyofrafi başarıyla güncellendi", Toast.LENGTH_SHORT).show();
-                                                Intent intent=new Intent(BiyografiEkle.this, MainActivity.class);
+                                                Intent intent = new Intent(BiyografiEkle.this, MainActivity.class);
 
                                                 startActivity(intent);
                                                 finish();

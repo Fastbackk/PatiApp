@@ -66,8 +66,15 @@ public class BarinakHesapOlustur extends AppCompatActivity {
 
             }
         });
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
+
 
     private String getTodaysDate() {
         Calendar calendar=Calendar.getInstance();

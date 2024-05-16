@@ -73,6 +73,12 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
         Picasso.get().load(profil_foto).into(binding.profileHeaderImage);
 
 
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 
@@ -126,6 +132,7 @@ public class BarinakKullaniciDetay extends AppCompatActivity {
                     }
                 });
     }
+
     public void mesajgonder(View view){
         Intent intent = new Intent(BarinakKullaniciDetay.this, MesajEkle.class);
         // Verileri intent ile MesajEkle aktivitesine gönder

@@ -43,7 +43,12 @@ public class SifreDegis extends AppCompatActivity {
         binding = ActivitySifreDegisBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
