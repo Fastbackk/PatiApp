@@ -80,7 +80,6 @@ public class Ilanlar extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(error!=null){
-                            Toast.makeText(getContext(), error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             return; // Hata olduğunda işlemi durdur.
                         }
                         if(value!=null){
