@@ -61,47 +61,13 @@ public class IlanDetay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); // FirebaseAuth instance'ını başlatma
         firebaseFirestore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
-
-
-
-
         binding.wp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 sendMessageViaWhatsApp();
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +81,15 @@ public class IlanDetay extends AppCompatActivity {
         date = intent.getStringExtra("date");
         dowloandurl = intent.getStringExtra("dowloandurl");
         hesapturu = intent.getStringExtra("hesapturu");
+        binding.ilanturu.setText(hesapturu);
+      if(  hesapturu.equals("Çiftleştirme İlanı")){
+            binding.ilanturu.setBackgroundColor(Color.parseColor("#f59e42"));
+
+        }
+      else{
+          binding.ilanturu.setBackgroundColor(Color.parseColor("#00699f"));
+
+      }
         kullaniciemail = mAuth.getCurrentUser().getEmail();
         firebaseFirestore.collection("Barinak").whereEqualTo("eposta", kullaniciemail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

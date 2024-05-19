@@ -96,7 +96,7 @@ public class KullaniciDetay extends AppCompatActivity {
                                 String foto = (String) data.get("profil_foto");
                                 String biyografi = (String) data.get("biyografi");
                                 String eposta = (String) data.get("eposta");
-                                String telefon = (String) data.get("telno");
+                                telno = (String) data.get("telno");
 
                                 if (foto != null) {
                                     Picasso.get().load(foto).into(binding.profileHeaderImage);
@@ -105,7 +105,7 @@ public class KullaniciDetay extends AppCompatActivity {
                                 // Verileri kullanarak UI güncelleme
                                 adsoyad = ad + " " + soyad;
                                 binding.kurumisim.setText(adsoyad);
-                                binding.telefon.setText(telefon);
+                                binding.telefon.setText(telno);
                                 binding.epostatext.setText(eposta);
                             } else {
                             }

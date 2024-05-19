@@ -69,12 +69,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
             }
         });
 
-        binding.wp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessageViaWhatsApp();
-            }
-        });
+
 
 
 
@@ -128,7 +123,7 @@ public class MamaBagisiDetay extends AppCompatActivity {
                                 String userpp = (String) data.get("userpp");
                                 kullaniciemail = (String) data.get("eposta");
                                 String aciklamatext = (String) data.get("aciklama");
-                                String telno = (String) data.get("telno");
+                                telno = (String) data.get("telno");
                                 String ilce = (String) data.get("ilce");
                                 String yas = (String) data.get("yas");
                                 String mamamiktar = (String) data.get("mamamiktar");
@@ -163,36 +158,14 @@ public class MamaBagisiDetay extends AppCompatActivity {
                         Toast.makeText(MamaBagisiDetay.this, "Veri yükleme sırasında bir hata oluştu: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-    }
-    private boolean appInstalledOrNot(String url) {
-        PackageManager packageManager = getPackageManager();
-        boolean app_installed;
-        try {
-            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
-            app_installed = true;
-        } catch (PackageManager.NameNotFoundException e) {
-            app_installed = false;
-        }
-        return app_installed;
-    }
-
-    private void sendMessageViaWhatsApp() {
-        if (telno != null && !telno.isEmpty()) {
-            boolean installed = appInstalledOrNot("com.whatsapp");
-
-            if (installed) {
-                String formattedNumber = telno.startsWith("+") ? telno : "+90" + telno;
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + formattedNumber));
-                startActivity(intent);
-            } else {
-                Toast.makeText(MamaBagisiDetay.this, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show();
+        binding.wp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessageViaWhatsApp();
             }
-        } else {
-            Toast.makeText(MamaBagisiDetay.this, "Telefon numarası bulunamadı", Toast.LENGTH_SHORT).show();
-        }
+        });
+
+
     }
     public void profilegit(View view) {
         if (hesapturu.equals("kisisel")) {
@@ -291,6 +264,34 @@ public class MamaBagisiDetay extends AppCompatActivity {
         }
 
 
+    }
+    private boolean appInstalledOrNot(String url) {
+        PackageManager packageManager = getPackageManager();
+        boolean app_installed;
+        try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
+    private void sendMessageViaWhatsApp() {
+        if (telno != null && !telno.isEmpty()) {
+            boolean installed = appInstalledOrNot("com.whatsapp");
+
+            if (installed) {
+                String formattedNumber = telno.startsWith("+") ? telno : "+90" + telno;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=" + formattedNumber));
+                startActivity(intent);
+            } else {
+                Toast.makeText(MamaBagisiDetay.this, "WhatsApp yüklü değil", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(MamaBagisiDetay.this, "Telefon numarası bulunamadı", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
