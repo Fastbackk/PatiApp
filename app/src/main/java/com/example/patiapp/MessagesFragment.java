@@ -49,6 +49,9 @@ public class MessagesFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         ilanArrayList2 = new ArrayList<>();
+
+
+
     }
 
     @Override
@@ -62,6 +65,7 @@ public class MessagesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupRecyclerView();
         fetchUserData();
+        ilanlarim();
         setupButtonListeners();
 
 
