@@ -25,5 +25,5 @@ Uygulama, sürdürülebilir ve çevreci bir yaklaşımla evcil hayvan sahiplendi
    ```bash
  git clone https://github.com/Fastbackk/PatiApp.git
 
- Uygulamanın tanıtım slayt'ı dosyalar arasında bulunmaktadır.
+**Uygulamanın tanıtım slaytı dosyalar arasında bulunmaktadır.
  
